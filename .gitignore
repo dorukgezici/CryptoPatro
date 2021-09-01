@@ -3,4 +3,6 @@
 .idea/
 
 # Python
+__pycache__/
+.pyc
 db.sqlite3
