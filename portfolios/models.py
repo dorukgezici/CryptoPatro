@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -9,7 +11,10 @@ class Asset(models.Model):
 
     ticker = models.CharField(max_length=16, verbose_name=_("ticker"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
-    icon = models.ImageField(verbose_name=_("icon"))
+    icon = models.ImageField(
+        upload_to=lambda obj, file: f'icons/{obj.ticker}{os.path.splitext(file)[1]}',
+        verbose_name=_("icon"),
+    )
 
     def __str__(self) -> str:
         return self.name
