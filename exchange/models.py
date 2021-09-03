@@ -11,8 +11,12 @@ class Asset(models.Model):
 
     ticker = models.CharField(max_length=16, verbose_name=_("ticker"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
+
+    def get_icon_upload_to(self: 'Asset', file: str) -> str:
+        return f'icons/{self.ticker}{os.path.splitext(file)[1]}'
+
     icon = models.ImageField(
-        upload_to=lambda obj, file: f'icons/{obj.ticker}{os.path.splitext(file)[1]}',
+        upload_to=get_icon_upload_to,
         verbose_name=_("icon"),
     )
 

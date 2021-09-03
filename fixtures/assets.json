@@ -1,6 +1,6 @@
 [
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 1,
     "fields": {
       "created_at": "2021-09-03T16:24:08.264Z",
@@ -11,7 +11,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 2,
     "fields": {
       "created_at": "2021-09-03T16:25:42.451Z",
@@ -22,7 +22,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 3,
     "fields": {
       "created_at": "2021-09-03T16:28:32.547Z",
@@ -33,7 +33,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 4,
     "fields": {
       "created_at": "2021-09-03T16:30:46.097Z",
@@ -44,7 +44,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 5,
     "fields": {
       "created_at": "2021-09-03T16:32:05.282Z",
@@ -55,7 +55,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 6,
     "fields": {
       "created_at": "2021-09-03T16:36:52.397Z",
@@ -66,7 +66,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 7,
     "fields": {
       "created_at": "2021-09-03T16:38:41.383Z",
@@ -77,7 +77,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 8,
     "fields": {
       "created_at": "2021-09-03T16:39:25.998Z",
@@ -88,7 +88,7 @@
     }
   },
   {
-    "model": "portfolios.asset",
+    "model": "exchange.asset",
     "pk": 9,
     "fields": {
       "created_at": "2021-09-03T16:40:01.817Z",
