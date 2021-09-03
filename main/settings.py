@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'portfolio.apps.PortfolioConfig',
+    'portfolios.apps.PortfoliosConfig',
     'users.apps.UsersConfig',
 ]
 
