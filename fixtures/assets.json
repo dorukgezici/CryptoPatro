@@ -7,7 +7,7 @@
       "updated_at": "2021-09-03T16:24:08.264Z",
       "ticker": "BTC",
       "name": "Bitcoin",
-      "icon": "BTC.png"
+      "icon": "icons/BTC.png"
     }
   },
   {
@@ -18,7 +18,7 @@
       "updated_at": "2021-09-03T16:25:42.451Z",
       "ticker": "ETH",
       "name": "Ethereum",
-      "icon": "ETH.png"
+      "icon": "icons/ETH.png"
     }
   },
   {
@@ -29,7 +29,7 @@
       "updated_at": "2021-09-03T16:28:32.547Z",
       "ticker": "USDT",
       "name": "Tether",
-      "icon": "USDT.png"
+      "icon": "icons/USDT.png"
     }
   },
   {
@@ -40,7 +40,7 @@
       "updated_at": "2021-09-03T16:30:46.097Z",
       "ticker": "ADA",
       "name": "Cardano",
-      "icon": "ADA.png"
+      "icon": "icons/ADA.png"
     }
   },
   {
@@ -51,7 +51,7 @@
       "updated_at": "2021-09-03T16:32:05.282Z",
       "ticker": "SOL",
       "name": "Solana",
-      "icon": "SOL.png"
+      "icon": "icons/SOL.png"
     }
   },
   {
@@ -62,7 +62,7 @@
       "updated_at": "2021-09-03T16:36:52.397Z",
       "ticker": "DOGE",
       "name": "Dogecoin",
-      "icon": "DOGE.png"
+      "icon": "icons/DOGE.png"
     }
   },
   {
@@ -73,7 +73,7 @@
       "updated_at": "2021-09-03T16:38:41.383Z",
       "ticker": "BNB",
       "name": "Binance Coin",
-      "icon": "BNB.png"
+      "icon": "icons/BNB.png"
     }
   },
   {
@@ -84,7 +84,7 @@
       "updated_at": "2021-09-03T16:39:25.998Z",
       "ticker": "BUSD",
       "name": "Binance USD",
-      "icon": "BUSD.png"
+      "icon": "icons/BUSD.png"
     }
   },
   {
@@ -95,7 +95,7 @@
       "updated_at": "2021-09-03T16:40:01.817Z",
       "ticker": "XRP",
       "name": "XRP",
-      "icon": "XRP.png"
+      "icon": "icons/XRP.png"
     }
   }
 ]
