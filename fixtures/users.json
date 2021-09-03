@@ -1,0 +1,20 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$46hbwubLER28nXTwCu0iop$LQkQyNW4GU5O+7PyYS4i8rAmDnTgSIXIXb65ul/YAwM=",
+      "last_login": "2021-09-03T13:53:48Z",
+      "is_superuser": true,
+      "username": "dorukgezici",
+      "first_name": "Doruk",
+      "last_name": "Gezici",
+      "email": "doruk@gezici.me",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-09-03T13:53:24Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
