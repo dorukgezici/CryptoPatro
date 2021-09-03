@@ -11,6 +11,9 @@ class Asset(models.Model):
     name = models.CharField(max_length=32, verbose_name=_("name"))
     icon = models.ImageField(verbose_name=_("icon"))
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Portfolio(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
@@ -18,6 +21,9 @@ class Portfolio(models.Model):
 
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("user"))
     name = models.CharField(max_length=64, verbose_name=_("name"))
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class PortfolioAsset(models.Model):
@@ -29,3 +35,6 @@ class PortfolioAsset(models.Model):
 
     amount = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("amount"))
     avg_cost = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("average cost"))
+
+    def __str__(self) -> str:
+        return self.asset.name

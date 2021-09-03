@@ -9,10 +9,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Python
+# Python & Django
 __pycache__/
 .pyc
 db.sqlite3
+/static/
 
 # JavaScript
 node_modules/
