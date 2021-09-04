@@ -6,7 +6,12 @@ from .models import Asset, Portfolio
 class AssetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asset
-        fields = '__all__'
+        fields = [
+            'id',
+            'ticker',
+            'name',
+            'icon',
+        ]
 
 
 class PortfolioSerializer(serializers.ModelSerializer):

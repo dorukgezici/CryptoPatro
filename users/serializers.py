@@ -60,3 +60,14 @@ class MeSerializer(serializers.ModelSerializer):
             attrs.pop('password2')
 
         return attrs
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+        ]

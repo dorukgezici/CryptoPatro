@@ -32,7 +32,19 @@ class PortfolioDetailView(generics.RetrieveAPIView):
     serializer_class = PortfolioSerializer
 
 
-class PortfolioAPIView(APIView):
+class AccountAPIView(APIView):
     def get(self, request: Request) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
         return Response(client.account())
+
+
+class OrderBookAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.depth(symbol=pair))
+
+
+class RecentTradesAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.trades(symbol=pair))

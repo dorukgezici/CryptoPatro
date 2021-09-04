@@ -27,80 +27,15 @@
           <thead>
             <tr>
               <th>Time</th>
-              <th>Price(BTC)</th>
-              <th>Amount(ETH)</th>
+              <th>Price (USDT)</th>
+              <th>Amount (BTC)</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="trade in recentTrades" :key="trade">
               <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="green">0.020191</td>
-              <td>0.2155045</td>
-            </tr>
-            <tr>
-              <td>13:03:53</td>
-              <td class="red">0.020191</td>
-              <td>0.2155045</td>
+              <td :class="{red: trade.isBuyerMaker, green: !trade.isBuyerMaker}">{{ trade.price }}</td>
+              <td>{{ trade.qty }}</td>
             </tr>
           </tbody>
         </table>
@@ -108,3 +43,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.$store.dispatch("getRecentTrades");
+  },
+  computed: {
+    recentTrades() {
+      return this.$store.getters.recentTrades;
+    },
+  },
+};
+</script>

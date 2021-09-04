@@ -87,7 +87,6 @@
                   <table class="table star-active">
                     <thead>
                       <tr>
-                        <th>Pairs</th>
                         <th>Coin</th>
                         <th>Last Price</th>
                         <th>Change (24H)</th>
@@ -97,96 +96,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> ETH/BTC</td>
-                        <td><img src="img/icon/1.png" alt="eth" /> ETH</td>
-                        <td>7394.06</td>
-                        <td class="green">+0.78%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.77</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> EOS/BTC</td>
-                        <td><img src="img/icon/2.png" alt="vid" /> EOS</td>
-                        <td>6984.06</td>
-                        <td class="red">-1.65%</td>
-                        <td>6554.91</td>
-                        <td>6548.06</td>
-                        <td>431,684,298.45</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> LTC/BTC</td>
-                        <td><img src="img/icon/3.png" alt="bitcoin" /> LTC</td>
-                        <td>4582.06</td>
-                        <td class="green">+2.62%</td>
-                        <td>7444.91</td>
-                        <td>4646.06</td>
-                        <td>431,687,258.23</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> KCS/BTC</td>
-                        <td><img src="img/icon/4.png" alt="bitcoin" /> KCS</td>
-                        <td>7394.06</td>
-                        <td class="red">-0.94%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.33</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> COTI/BTC</td>
-                        <td><img src="img/icon/5.png" alt="bitcoin" /> COTI</td>
-                        <td>7394.06</td>
-                        <td class="green">+0.78%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.53</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> TRX/BTC</td>
-                        <td><img src="img/icon/6.png" alt="bitcoin" /> TRX</td>
-                        <td>7394.06</td>
-                        <td class="green">+0.71%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.53</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> XMR/BTC</td>
-                        <td><img src="img/icon/7.png" alt="bitcoin" /> XMR</td>
-                        <td>7394.06</td>
-                        <td class="red">-0.73%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.77</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> ADA/BTC</td>
-                        <td><img src="img/icon/8.png" alt="bitcoin" /> ADA</td>
-                        <td>7394.06</td>
-                        <td class="red">-1.20%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.35</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> BNB/BTC</td>
-                        <td><img src="img/icon/9.png" alt="bitcoin" /> BNB</td>
-                        <td>7394.06</td>
-                        <td class="green">+0.74%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.23</td>
-                      </tr>
-                      <tr>
-                        <td><i class="icon ion-md-star"></i> NEO/BTC</td>
-                        <td><img src="img/icon/10.png" alt="bitcoin" /> NEO</td>
-                        <td>7394.06</td>
-                        <td class="red">-0.78%</td>
-                        <td>7444.91</td>
-                        <td>7267.06</td>
-                        <td>431,687,258.77</td>
-                      </tr>
+                    <tr v-for="asset in assets" :key="asset">
+                      <td><i class="icon ion-md-star"></i> <img :src="asset.icon" :alt="asset.ticker"> {{ asset.name }} ({{ asset.ticker }})</td>
+                      <td>50000</td>
+                      <td class="green">+0.78%</td>
+                      <td>7444.91</td>
+                      <td>7267.06</td>
+                      <td>431,687,258.77</td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -1125,6 +1042,18 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.dispatch("getAssets");
+    this.$store.dispatch("getBalances");
+  },
+  computed: {
+    assets() {
+      return this.$store.getters.assets;
+    },
+    balances() {
+      return this.$store.getters.balances;
+    },
+  },
   methods: {
     loadMore: function () {
       let loadMore = document.querySelector(".load-more");
