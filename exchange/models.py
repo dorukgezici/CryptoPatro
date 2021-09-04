@@ -15,10 +15,7 @@ class Asset(models.Model):
     def get_icon_upload_to(self: 'Asset', file: str) -> str:
         return f'icons/{self.ticker}{os.path.splitext(file)[1]}'
 
-    icon = models.ImageField(
-        upload_to=get_icon_upload_to,
-        verbose_name=_("icon"),
-    )
+    icon = models.ImageField(upload_to=get_icon_upload_to, verbose_name=_("icon"))
 
     def __str__(self) -> str:
         return self.name

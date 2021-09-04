@@ -2,17 +2,17 @@
   <header class="light-bb">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link class="navbar-brand" to="/">
-        <img v-if="$store.state.theme" src="img/logo-dark.svg" alt="" />
-        <img v-else src="img/logo-light.svg" alt="" />
+        <img v-if="$store.state.theme" src="img/logo-dark.svg" alt=""/>
+        <img v-else src="img/logo-light.svg" alt=""/>
       </router-link>
       <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#headerNav"
-        aria-controls="headerNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#headerNav"
+          aria-controls="headerNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,7 +20,8 @@
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
             <router-link class="nav-link active" aria-current="page" to="/"
-              >Exchange</router-link
+            >Exchange
+            </router-link
             >
           </li>
           <li class="nav-item">
@@ -28,59 +29,64 @@
           </li>
           <li class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown1"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown1"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
             >
               Dashboard
             </a>
             <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown1"
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown1"
             >
               <li>
                 <router-link class="dropdown-item" to="profile"
-                  >Profile</router-link
+                >Profile
+                </router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="wallet"
-                  >Wallet</router-link
+                >Wallet
+                </router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="settings"
-                  >Settings</router-link
+                >Settings
+                </router-link
                 >
               </li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown2"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown2"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
             >
               Pages
             </a>
             <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown2"
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown2"
             >
               <li>
                 <router-link class="dropdown-item" to="login"
-                  >Login</router-link
+                >Login
+                </router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="sign-up"
-                  >Sign up</router-link
+                >Sign up
+                </router-link
                 >
               </li>
               <li>
@@ -88,17 +94,20 @@
               </li>
               <li>
                 <router-link class="dropdown-item" to="otp-number"
-                  >OTP Number</router-link
+                >OTP Number
+                </router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="otp-verify"
-                  >OTP Verify</router-link
+                >OTP Verify
+                </router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="reset"
-                  >Reset</router-link
+                >Reset
+                </router-link
                 >
               </li>
               <li>
@@ -116,22 +125,22 @@
           </li>
           <li class="nav-item dropdown header-custom-icon">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown4"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown4"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
             >
               <i class="icon ion-md-notifications"></i>
               <span class="circle-pulse"></span>
             </a>
             <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown4"
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown4"
             >
               <div
-                class="
+                  class="
                   dropdown-header
                   d-flex
                   align-items-center
@@ -189,7 +198,7 @@
                 </a>
               </div>
               <div
-                class="
+                  class="
                   dropdown-footer
                   d-flex
                   align-items-center
@@ -202,33 +211,33 @@
           </li>
           <li class="nav-item dropdown header-img-icon">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown5"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown5"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
             >
               <img
-                src="img/avatar.svg"
-                class="header-avatar-image"
-                alt="avatar"
+                  src="img/avatar.svg"
+                  class="header-avatar-image"
+                  alt="avatar"
               />
             </a>
             <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown5"
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown5"
             >
               <router-link to="profile">
                 <div
-                  class="dropdown-header d-flex flex-column align-items-center"
+                    class="dropdown-header d-flex flex-column align-items-center"
                 >
                   <div class="figure mb-3">
-                    <img src="img/avatar.svg" alt="" />
+                    <img src="img/avatar.svg" alt=""/>
                   </div>
                   <div class="info text-center">
-                    <p class="name font-weight-bold mb-0">Tony Stark</p>
-                    <p class="email text-muted mb-3">tonystark@gmail.com</p>
+                    <p class="name font-weight-bold mb-0">{{ me.username }}</p>
+                    <p class="email text-muted mb-3">{{ me.email }}</p>
                   </div>
                 </div>
               </router-link>
@@ -270,6 +279,14 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.dispatch("getMe");
+  },
+  computed: {
+    me() {
+      return this.$store.getters.me;
+    },
+  },
   methods: {
     toggleDark: function () {
       this.$store.commit("changeTheme");
