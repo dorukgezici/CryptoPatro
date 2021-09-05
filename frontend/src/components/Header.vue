@@ -2,7 +2,7 @@
   <header class="light-bb">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link class="navbar-brand" to="/">
-        <img v-if="$store.state.theme" src="img/logo-dark.svg" alt=""/>
+        <img v-if="$store.state.auth.theme" src="img/logo-dark.svg" alt=""/>
         <img v-else src="img/logo-light.svg" alt=""/>
       </router-link>
       <button
@@ -119,7 +119,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item header-custom-icon">
             <a href="#" class="nav-link" @click="toggleDark">
-              <i v-if="$store.state.theme" class="icon ion-md-moon"></i>
+              <i v-if="$store.state.auth.theme" class="icon ion-md-moon"></i>
               <i v-else class="icon ion-md-sunny"></i>
             </a>
           </li>
@@ -278,20 +278,25 @@
 </template>
 
 <script>
+import {mapState, mapGetters} from "vuex"
+
 export default {
   mounted() {
-    this.$store.dispatch("getMe");
+    this.$store.dispatch("auth/getMe")
   },
   computed: {
-    me() {
-      return this.$store.getters.me;
-    },
+    ...mapState('auth', [
+      'me',
+    ]),
+    ...mapGetters('auth', [
+      'me',
+    ]),
   },
   methods: {
     toggleDark: function () {
-      this.$store.commit("changeTheme");
-      document.body.classList.toggle("dark");
+      this.$store.commit("auth/changeTheme")
+      document.body.classList.toggle("dark")
     },
   },
-};
+}
 </script>

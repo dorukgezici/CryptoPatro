@@ -5,7 +5,7 @@
         <MarketPairs />
       </div>
       <div class="col-sm-12 col-md-6">
-        <TradingChart v-if="$store.state.theme" />
+        <TradingChart v-if="$store.state.auth.theme" />
         <TradingChartDark v-else />
         <MarketTrade />
       </div>

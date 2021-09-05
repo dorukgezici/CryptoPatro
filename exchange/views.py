@@ -6,8 +6,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Asset, Portfolio
-from .serializers import AssetSerializer, PortfolioSerializer
+from .models import Asset, Portfolio, PortfolioAsset
+from .serializers import AssetSerializer, PortfolioSerializer, PortfolioAssetSerializer
 
 
 class AssetListView(generics.ListAPIView):
@@ -32,6 +32,18 @@ class PortfolioDetailView(generics.RetrieveAPIView):
     serializer_class = PortfolioSerializer
 
 
+class PortfolioAssetListView(generics.ListAPIView):
+    serializer_class = PortfolioAssetSerializer
+
+    def get_queryset(self) -> QuerySet[PortfolioAsset]:
+        return PortfolioAsset.objects.filter(portfolio__user=self.request.user)
+
+
+class PortfolioAssetDetailView(generics.RetrieveAPIView):
+    queryset = PortfolioAsset.objects.all()
+    serializer_class = PortfolioAssetSerializer
+
+
 class AccountAPIView(APIView):
     def get(self, request: Request) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
@@ -48,3 +60,9 @@ class RecentTradesAPIView(APIView):
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
         return Response(client.trades(symbol=pair))
+
+
+class CurrentAvgPriceAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.avg_price(symbol=pair))
