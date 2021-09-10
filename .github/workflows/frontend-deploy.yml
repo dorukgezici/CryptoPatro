@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Build Vue
         run: |
+          pwd
+          ls
           cd frontend
           npm ci
           npm run build
