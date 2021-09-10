@@ -1,14 +1,13 @@
 name: Build & Deploy VueJS to GitHub Pages
-on: [ push ]
+on: push
 jobs:
-  build_vue:
+  deploy:
     runs-on: ubuntu-latest
-    name: Build & Deploy Vue
+    name: Build & Deploy VueJS
     steps:
-      - name: Build Vue
+      - uses: actions/checkout@master
+      - name: Build & Deploy
         run: |
-          pwd
-          ls
           cd frontend
           npm ci
           npm run build
