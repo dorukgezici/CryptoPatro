@@ -2,7 +2,7 @@
   <header class="light-bb">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link class="navbar-brand" to="/">
-        <img v-if="$store.state.auth.theme" src="img/logo-dark.svg" alt=""/>
+        <img v-if="$store.state.theme" src="img/logo-dark.svg" alt=""/>
         <img v-else src="img/logo-light.svg" alt=""/>
       </router-link>
       <button
@@ -18,12 +18,6 @@
       </button>
       <div class="collapse navbar-collapse" id="headerNav">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <router-link class="nav-link active" aria-current="page" to="/"
-            >Exchange
-            </router-link
-            >
-          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="markets">Markets</router-link>
           </li>
@@ -118,8 +112,8 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item header-custom-icon">
-            <a href="#" class="nav-link" @click="toggleDark">
-              <i v-if="$store.state.auth.theme" class="icon ion-md-moon"></i>
+            <a href="#" class="nav-link" @click="toggleTheme">
+              <i v-if="$store.state.theme" class="icon ion-md-moon"></i>
               <i v-else class="icon ion-md-sunny"></i>
             </a>
           </li>
@@ -262,10 +256,10 @@
                     </router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link to="/" class="nav-link red">
+                    <a @click="signOut" class="nav-link red">
                       <i class="icon ion-md-power"></i>
                       <span>Log Out</span>
-                    </router-link>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -278,23 +272,20 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from "vuex"
+import {mapActions, mapState} from "vuex"
 
 export default {
-  mounted() {
-    this.$store.dispatch("auth/getMe")
-  },
   computed: {
     ...mapState('auth', [
       'me',
     ]),
-    ...mapGetters('auth', [
-      'me',
-    ]),
+    ...mapActions('auth', [
+      'signOut',
+    ])
   },
   methods: {
-    toggleDark: function () {
-      this.$store.commit("auth/changeTheme")
+    toggleTheme() {
+      this.$store.commit("toggleTheme")
       document.body.classList.toggle("dark")
     },
   },

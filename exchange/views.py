@@ -44,12 +44,6 @@ class PortfolioAssetDetailView(generics.RetrieveAPIView):
     serializer_class = PortfolioAssetSerializer
 
 
-class AccountAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
-        return Response(client.account())
-
-
 class OrderBookAPIView(APIView):
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
@@ -66,3 +60,33 @@ class CurrentAvgPriceAPIView(APIView):
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
         return Response(client.avg_price(symbol=pair))
+
+
+class TickerPriceChangeAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.ticker_24hr(symbol=pair))
+
+
+class AllOrderListAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.get_orders(symbol=pair))
+
+
+class OpenOrderListAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.get_open_orders())
+
+
+class AccountAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.account())
+
+
+class MyTradesAPIView(APIView):
+    def get(self, request: Request, pair: str) -> Response:
+        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        return Response(client.my_trades(symbol=pair))

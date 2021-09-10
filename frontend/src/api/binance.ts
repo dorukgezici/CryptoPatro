@@ -1,13 +1,7 @@
 import axios from "axios"
 
-axios.defaults.headers.common['Authorization'] = 'Token c73ad7196b0bbdd860b0a184535ba60c5d14d991'
-
 export default {
-    getAccount(cb: any) {
-        axios.get('http://127.0.0.1:8000/account/').then(response => {
-            cb(response.data)
-        })
-    },
+    // market
     getOrderBook(cb: any) {
         axios.get('http://127.0.0.1:8000/order_book/BTCUSDT/').then(response => {
             cb(response.data)
@@ -20,6 +14,32 @@ export default {
     },
     getCurrentAvgPrice(cb: any) {
         axios.get('http://127.0.0.1:8000/current_avg_price/BTCUSDT/').then(response => {
+            cb(response.data)
+        })
+    },
+    getTickerPriceChange(cb: any) {
+        axios.get('http://127.0.0.1:8000/ticker_price_change/BTCUSDT/').then(response => {
+            cb(response.data)
+        })
+    },
+    // spot
+    getAllOrderList(cb: any) {
+        axios.get('http://127.0.0.1:8000/all_order_list/BTCUSDT/').then(response => {
+            cb(response.data)
+        })
+    },
+    getOpenOrderList(cb: any) {
+        axios.get('http://127.0.0.1:8000/open_order_list/').then(response => {
+            cb(response.data)
+        })
+    },
+    getAccount(cb: any) {
+        axios.get('http://127.0.0.1:8000/account/').then(response => {
+            cb(response.data)
+        })
+    },
+    getMyTrades(cb: any) {
+        axios.get('http://127.0.0.1:8000/my_trades/BTCUSDT/').then(response => {
             cb(response.data)
         })
     },

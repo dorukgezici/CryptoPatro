@@ -8,7 +8,7 @@ from rest_framework import serializers
 from .models import User
 
 
-class MeSerializer(serializers.ModelSerializer):
+class AuthUserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(required=False)
 
     class Meta:

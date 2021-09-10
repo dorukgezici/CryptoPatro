@@ -4,48 +4,48 @@
       <div class="row">
         <div class="col-lg-3">
           <ul
-            class="nav nav-tabs nav-pills settings-nav"
-            id="myTab"
-            role="tablist"
+              class="nav nav-tabs nav-pills settings-nav"
+              id="myTab"
+              role="tablist"
           >
             <li class="nav-item" role="presentation">
               <button
-                class="nav-link active"
-                id="Profile-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Profile"
-                type="button"
-                role="tab"
-                aria-controls="Profile"
-                aria-selected="true"
+                  class="nav-link active"
+                  id="Profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="Profile"
+                  aria-selected="true"
               >
                 Profile
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button
-                class="nav-link"
-                id="Wallet-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Wallet"
-                type="button"
-                role="tab"
-                aria-controls="Wallet"
-                aria-selected="false"
+                  class="nav-link"
+                  id="Wallet-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Wallet"
+                  type="button"
+                  role="tab"
+                  aria-controls="Wallet"
+                  aria-selected="false"
               >
                 Wallet
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button
-                class="nav-link"
-                id="Settings-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Settings"
-                type="button"
-                role="tab"
-                aria-controls="Settings"
-                aria-selected="false"
+                  class="nav-link"
+                  id="Settings-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Settings"
+                  type="button"
+                  role="tab"
+                  aria-controls="Settings"
+                  aria-selected="false"
               >
                 Settings
               </button>
@@ -55,56 +55,59 @@
         <div class="col-lg-9">
           <div class="tab-content" id="myTabContent">
             <div
-              class="tab-pane fade show active"
-              id="Profile"
-              role="tabpanel"
-              aria-labelledby="Profile-tab"
+                class="tab-pane fade show active"
+                id="Profile"
+                role="tabpanel"
+                aria-labelledby="Profile-tab"
             >
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">General Information</h5>
                   <div class="settings-profile">
                     <form>
-                      <img src="img/avatar.svg" alt="avatar" />
+                      <img src="img/avatar.svg" alt="avatar"/>
                       <div class="custom-file">
-                        <input type="file" class="form-control" />
+                        <input type="file" class="form-control"/>
                       </div>
 
                       <div class="row mt-4">
                         <div class="col-md-6">
                           <label htmlFor="formFirst">First name</label>
                           <input
-                            id="formFirst"
-                            type="text"
-                            class="form-control"
-                            placeholder="First name"
+                              v-model="me.firstName"
+                              id="formFirst"
+                              type="text"
+                              class="form-control"
+                              placeholder="First name"
                           />
                         </div>
                         <div class="col-md-6">
                           <label htmlFor="formLast">Last name</label>
                           <input
-                            id="formLast"
-                            type="text"
-                            class="form-control"
-                            placeholder="Last name"
+                              v-model="me.lastName"
+                              id="formLast"
+                              type="text"
+                              class="form-control"
+                              placeholder="Last name"
                           />
                         </div>
                         <div class="col-md-6">
                           <label htmlFor="emailAddress">Email</label>
                           <input
-                            id="emailAddress"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter your email"
+                              v-model="me.email"
+                              id="emailAddress"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your email"
                           />
                         </div>
                         <div class="col-md-6">
                           <label htmlFor="phoneNumber">Phone</label>
                           <input
-                            id="phoneNumber"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter phone number"
+                              id="phoneNumber"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter phone number"
                           />
                         </div>
                         <div class="col-md-6">
@@ -127,7 +130,7 @@
                           </select>
                         </div>
                         <div class="col-md-12">
-                          <input type="submit" value="Update" />
+                          <input type="submit" value="Update"/>
                         </div>
                       </div>
                     </form>
@@ -145,19 +148,19 @@
                             Current password
                           </label>
                           <input
-                            id="currentPass"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter your password"
+                              id="currentPass"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your password"
                           />
                         </div>
                         <div class="col-md-6">
                           <label htmlFor="newPass">New password</label>
                           <input
-                            id="newPass"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter new password"
+                              id="newPass"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter new password"
                           />
                         </div>
                         <div class="col-md-6">
@@ -180,10 +183,10 @@
                         <div class="col-md-6">
                           <label htmlFor="securityAnsOne">Answer</label>
                           <input
-                            id="securityAnsOne"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter your answer"
+                              id="securityAnsOne"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your answer"
                           />
                         </div>
                         <div class="col-md-6">
@@ -207,10 +210,10 @@
                         <div class="col-md-6">
                           <label htmlFor="securityAnsTwo">Answer</label>
                           <input
-                            id="securityAnsTwo"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter your answer"
+                              id="securityAnsTwo"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your answer"
                           />
                         </div>
                         <div class="col-md-6">
@@ -234,14 +237,14 @@
                         <div class="col-md-6">
                           <label htmlFor="securityFore">Answer</label>
                           <input
-                            id="securityFore"
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter your answer"
+                              id="securityFore"
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your answer"
                           />
                         </div>
                         <div class="col-md-12">
-                          <input type="submit" value="Update" />
+                          <input type="submit" value="Update"/>
                         </div>
                       </div>
                     </form>
@@ -250,10 +253,10 @@
               </div>
             </div>
             <div
-              class="tab-pane fade"
-              id="Wallet"
-              role="tabpanel"
-              aria-labelledby="Wallet-tab"
+                class="tab-pane fade"
+                id="Wallet"
+                role="tabpanel"
+                aria-labelledby="Wallet-tab"
             >
               <div class="wallet">
                 <div class="row">
@@ -261,23 +264,23 @@
                     <ul class="settings-nav nav nav-pills nav-tabs">
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                             active
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinBTC"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinBTC"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinBTC"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinBTC"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/18.png" alt="btc" />
+                            <img src="img/icon/18.png" alt="btc"/>
                             <div>
                               <h2>BTC</h2>
                               <p>Bitcoin</p>
@@ -293,22 +296,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinETH"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinETH"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinETH"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinETH"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/1.png" alt="btc" />
+                            <img src="img/icon/1.png" alt="btc"/>
                             <div>
                               <h2>ETH</h2>
                               <p>Ethereum</p>
@@ -324,22 +327,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinBNB"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinBNB"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinBNB"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinBNB"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/9.png" alt="btc" />
+                            <img src="img/icon/9.png" alt="btc"/>
                             <div>
                               <h2>BNB</h2>
                               <p>Binance</p>
@@ -355,22 +358,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinTRX"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinTRX"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinTRX"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinTRX"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/6.png" alt="btc" />
+                            <img src="img/icon/6.png" alt="btc"/>
                             <div>
                               <h2>TRX</h2>
                               <p>Tron</p>
@@ -386,22 +389,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinEOS"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinEOS"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinEOS"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinEOS"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/2.png" alt="btc" />
+                            <img src="img/icon/2.png" alt="btc"/>
                             <div>
                               <h2>EOS</h2>
                               <p>Eosio</p>
@@ -417,22 +420,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinXMR"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinXMR"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinXMR"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinXMR"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/7.png" alt="btc" />
+                            <img src="img/icon/7.png" alt="btc"/>
                             <div>
                               <h2>XMR</h2>
                               <p>Monero</p>
@@ -448,22 +451,22 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="#"
-                          class="
+                            href="#"
+                            class="
                             nav-link
                             d-flex
                             justify-content-between
                             align-items-center
                           "
-                          data-bs-toggle="tab"
-                          data-bs-target="#coinKCS"
-                          type="button"
-                          role="tab"
-                          aria-controls="coinKCS"
-                          aria-selected="true"
+                            data-bs-toggle="tab"
+                            data-bs-target="#coinKCS"
+                            type="button"
+                            role="tab"
+                            aria-controls="coinKCS"
+                            aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/4.png" alt="btc" />
+                            <img src="img/icon/4.png" alt="btc"/>
                             <div>
                               <h2>KCS</h2>
                               <p>Kstarcoin</p>
@@ -483,16 +486,16 @@
                   <div class="col-lg-8">
                     <div class="tab-content">
                       <div
-                        class="tab-pane fade show active"
-                        id="coinBTC"
-                        role="tabpanel"
+                          class="tab-pane fade show active"
+                          id="coinBTC"
+                          role="tabpanel"
                       >
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -507,7 +510,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -539,9 +542,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -552,14 +555,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -571,84 +574,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -661,7 +664,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -676,7 +679,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -708,9 +711,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -721,14 +724,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -740,84 +743,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -830,7 +833,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -845,7 +848,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -877,9 +880,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -890,14 +893,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -909,84 +912,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -999,7 +1002,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1014,7 +1017,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1046,9 +1049,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -1059,14 +1062,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -1078,84 +1081,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -1168,7 +1171,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1183,7 +1186,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1215,9 +1218,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -1228,14 +1231,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -1247,84 +1250,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -1337,7 +1340,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1352,7 +1355,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1384,9 +1387,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -1397,14 +1400,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -1416,84 +1419,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -1506,7 +1509,7 @@
                             <h5 class="card-title">Balances</h5>
                             <ul>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1521,7 +1524,7 @@
                                 </div>
                               </li>
                               <li
-                                class="
+                                  class="
                                   d-flex
                                   justify-content-between
                                   align-items-center
@@ -1553,9 +1556,9 @@
                                 </p>
                                 <div class="input-group">
                                   <input
-                                    type="text"
-                                    class="form-control"
-                                    value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
+                                      type="text"
+                                      class="form-control"
+                                      value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e"
                                   />
                                   <div class="input-group-prepend">
                                     <button class="btn btn-primary">
@@ -1566,14 +1569,14 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
-                                  src="img/qr-code-dark.svg"
-                                  alt="qr-code"
+                                    v-if="$store.state.theme"
+                                    src="img/qr-code-dark.svg"
+                                    alt="qr-code"
                                 />
                                 <img
-                                  v-else
-                                  src="img/qr-code-light.svg"
-                                  alt="qr-code"
+                                    v-else
+                                    src="img/qr-code-light.svg"
+                                    alt="qr-code"
                                 />
                               </div>
                             </div>
@@ -1585,84 +1588,84 @@
                             <div class="wallet-history">
                               <table class="table">
                                 <thead>
-                                  <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                  </tr>
+                                <tr>
+                                  <th>No.</th>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>25-04-2019</td>
-                                    <td>
-                                      <i
+                                <tr>
+                                  <td>1</td>
+                                  <td>25-04-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>4.5454334</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>25-05-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>4.5454334</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td>25-05-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>0.5484468</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-06-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>0.5484468</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-06-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
-                                  <tr>
-                                    <td>4</td>
-                                    <td>25-07-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td>25-07-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-checkmark-circle-outline
                                           green
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>1.45894147</td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>25-08-2019</td>
-                                    <td>
-                                      <i
+                                    ></i>
+                                  </td>
+                                  <td>1.45894147</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td>25-08-2019</td>
+                                  <td>
+                                    <i
                                         class="
                                           icon
                                           ion-md-close-circle-outline
                                           red
                                         "
-                                      ></i>
-                                    </td>
-                                    <td>2.5454545</td>
-                                  </tr>
+                                    ></i>
+                                  </td>
+                                  <td>2.5454545</td>
+                                </tr>
                                 </tbody>
                               </table>
                             </div>
@@ -1675,10 +1678,10 @@
               </div>
             </div>
             <div
-              class="tab-pane fade"
-              id="Settings"
-              role="tabpanel"
-              aria-labelledby="Settings-tab"
+                class="tab-pane fade"
+                id="Settings"
+                role="tabpanel"
+                aria-labelledby="Settings-tab"
             >
               <div class="card">
                 <div class="card-body">
@@ -1692,13 +1695,13 @@
                         </div>
                         <div class="custom-control form-check">
                           <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="notification1"
+                              type="checkbox"
+                              class="form-check-input"
+                              id="notification1"
                           />
                           <label
-                            class="form-check-label"
-                            htmlFor="notification1"
+                              class="form-check-label"
+                              htmlFor="notification1"
                           ></label>
                         </div>
                       </li>
@@ -1711,14 +1714,14 @@
                         </div>
                         <div class="custom-control form-check">
                           <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="notification2"
-                            checked
+                              type="checkbox"
+                              class="form-check-input"
+                              id="notification2"
+                              checked
                           />
                           <label
-                            class="form-check-label"
-                            htmlFor="notification2"
+                              class="form-check-label"
+                              htmlFor="notification2"
                           ></label>
                         </div>
                       </li>
@@ -1729,13 +1732,13 @@
                         </div>
                         <div class="custom-control form-check">
                           <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="notification3"
+                              type="checkbox"
+                              class="form-check-input"
+                              id="notification3"
                           />
                           <label
-                            class="form-check-label"
-                            htmlFor="notification3"
+                              class="form-check-label"
+                              htmlFor="notification3"
                           ></label>
                         </div>
                       </li>
@@ -1746,14 +1749,14 @@
                         </div>
                         <div class="custom-control form-check">
                           <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="notification4"
-                            checked
+                              type="checkbox"
+                              class="form-check-input"
+                              id="notification4"
+                              checked
                           />
                           <label
-                            class="form-check-label"
-                            htmlFor="notification4"
+                              class="form-check-label"
+                              htmlFor="notification4"
                           ></label>
                         </div>
                       </li>
@@ -1766,14 +1769,14 @@
                         </div>
                         <div class="custom-control form-check">
                           <input
-                            type="checkbox"
-                            class="form-check-input"
-                            id="notification5"
-                            checked
+                              type="checkbox"
+                              class="form-check-input"
+                              id="notification5"
+                              checked
                           />
                           <label
-                            class="form-check-label"
-                            htmlFor="notification5"
+                              class="form-check-label"
+                              htmlFor="notification5"
                           ></label>
                         </div>
                       </li>
@@ -1788,10 +1791,10 @@
                     <div class="col-md-6">
                       <label htmlFor="generateKey"> Generate key name </label>
                       <input
-                        id="generateKey"
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your key name"
+                          id="generateKey"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter your key name"
                       />
                     </div>
                     <div class="col-md-6">
@@ -1799,14 +1802,14 @@
                         Confirm password
                       </label>
                       <input
-                        id="rewritePassword"
-                        type="password"
-                        class="form-control"
-                        placeholder="Confirm your password"
+                          id="rewritePassword"
+                          type="password"
+                          class="form-control"
+                          placeholder="Confirm your password"
                       />
                     </div>
                     <div class="col-md-12">
-                      <input type="submit" value="Create API key" />
+                      <input type="submit" value="Create API key"/>
                     </div>
                   </div>
                 </div>
@@ -1817,95 +1820,95 @@
                   <div class="wallet-history">
                     <table class="table">
                       <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Key</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
+                      <tr>
+                        <th>No.</th>
+                        <th>Key</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>zRmWVcrAZ1C0RZkFMu7K5v0KWC9jUJLt</td>
-                          <td>
-                            <div class="custom-control form-check">
-                              <input
+                      <tr>
+                        <td>1</td>
+                        <td>zRmWVcrAZ1C0RZkFMu7K5v0KWC9jUJLt</td>
+                        <td>
+                          <div class="custom-control form-check">
+                            <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="apiStatus1"
                                 checked
-                              />
-                              <label
+                            />
+                            <label
                                 class="form-check-label"
                                 htmlFor="apiStatus1"
-                              ></label>
-                            </div>
-                          </td>
-                          <td>
-                            <i class="icon ion-md-trash"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Rv5dgnKdmVPyHwxeExBYz8uFwYQz3Jvg</td>
-                          <td>
-                            <div class="custom-control form-check">
-                              <input
+                            ></label>
+                          </div>
+                        </td>
+                        <td>
+                          <i class="icon ion-md-trash"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Rv5dgnKdmVPyHwxeExBYz8uFwYQz3Jvg</td>
+                        <td>
+                          <div class="custom-control form-check">
+                            <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="apiStatus2"
-                              />
-                              <label
+                            />
+                            <label
                                 class="form-check-label"
                                 htmlFor="apiStatus2"
-                              ></label>
-                            </div>
-                          </td>
-                          <td>
-                            <i class="icon ion-md-trash"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>VxEYIs1HwgmtKTUMA4aknjSEjjePZIWu</td>
-                          <td>
-                            <div class="custom-control form-check">
-                              <input
+                            ></label>
+                          </div>
+                        </td>
+                        <td>
+                          <i class="icon ion-md-trash"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>VxEYIs1HwgmtKTUMA4aknjSEjjePZIWu</td>
+                        <td>
+                          <div class="custom-control form-check">
+                            <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="apiStatus3"
-                              />
-                              <label
+                            />
+                            <label
                                 class="form-check-label"
                                 htmlFor="apiStatus3"
-                              ></label>
-                            </div>
-                          </td>
-                          <td>
-                            <i class="icon ion-md-trash"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>M01DueJ4x3awI1SSLGT3CP1EeLSnqt8o</td>
-                          <td>
-                            <div class="custom-control form-check">
-                              <input
+                            ></label>
+                          </div>
+                        </td>
+                        <td>
+                          <i class="icon ion-md-trash"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>M01DueJ4x3awI1SSLGT3CP1EeLSnqt8o</td>
+                        <td>
+                          <div class="custom-control form-check">
+                            <input
                                 type="checkbox"
                                 class="form-check-input"
                                 id="apiStatus4"
-                              />
-                              <label
+                            />
+                            <label
                                 class="form-check-label"
                                 htmlFor="apiStatus4"
-                              ></label>
-                            </div>
-                          </td>
-                          <td>
-                            <i class="icon ion-md-trash"></i>
-                          </td>
-                        </tr>
+                            ></label>
+                          </div>
+                        </td>
+                        <td>
+                          <i class="icon ion-md-trash"></i>
+                        </td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1918,3 +1921,18 @@
     </div>
   </div>
 </template>
+
+<script>
+import {mapGetters, mapState} from "vuex"
+
+export default {
+  computed: {
+    ...mapState('auth', [
+      'me',
+    ]),
+    ...mapGetters('auth', [
+      'me',
+    ]),
+  },
+}
+</script>

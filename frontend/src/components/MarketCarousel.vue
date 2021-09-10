@@ -15,7 +15,7 @@ import { Carousel, Slide } from "vue3-carousel";
 export default {
   data: () => ({
     data: [
-      ' <div class="market-carousel-item"> <div class="market-carousel-item-name"> <img src="img/icon/1.png" alt="" /> <strong>Ethereum</strong> </div> <h2>237394.06 ETH</h2> <p>$12,000</p> <button class="btn buy">Deposit</button> <button class="btn sell">Withdraw</button> </div>',
+      ' <div class="market-carousel-item"> <div class="market-carousel-item-name"> <img :src="`https://cryptoicon-api.vercel.app/api/icon/ETH`" alt="" /> <strong>Ethereum</strong> </div> <h2>237394.06 ETH</h2> <p>$12,000</p> <button class="btn buy">Deposit</button> <button class="btn sell">Withdraw</button> </div>',
       '<div class="market-carousel-item"> <div class="market-carousel-item-name"> <img src="img/icon/16.png" alt="" /> <strong>MultiVAC</strong> </div> <h2>626984.06 MTV</h2> <p>$11,020</p> <button class="btn buy">Deposit</button> <button class="btn sell">Withdraw</button> </div>',
       ' <div class="market-carousel-item"> <div class="market-carousel-item-name"> <img src="img/icon/3.png" alt="" /> <strong>Litecoin</strong> </div> <h2>624582.06 LTC</h2> <p>$41,000</p> <button class="btn buy">Deposit</button> <button class="btn sell">Withdraw</button> </div>',
       ' <div class="market-carousel-item"> <div class="market-carousel-item-name"> <img src="img/icon/4.png" alt="" /> <strong>KuCoin Token</strong> </div> <h2>223222.06 KCS</h2> <p>$5,000</p> <button class="btn buy">Deposit</button> <button class="btn sell">Withdraw</button> </div>',

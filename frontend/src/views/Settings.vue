@@ -552,7 +552,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -721,7 +721,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -890,7 +890,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -1059,7 +1059,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -1228,7 +1228,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -1397,7 +1397,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />
@@ -1566,7 +1566,7 @@
                               </div>
                               <div class="col-md-4">
                                 <img
-                                  v-if="$store.state.auth.theme"
+                                  v-if="$store.state.theme"
                                   src="img/qr-code-dark.svg"
                                   alt="qr-code"
                                 />

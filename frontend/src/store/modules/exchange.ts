@@ -6,11 +6,14 @@ const state = () => ({
     assets: {},
     portfolios: {},
     portfolioAssets: {},
-    // Binance API
-    account: {},
+    // Binance APIs
     orderBook: {},
     recentTrades: [],
     currentAvgPrice: {},
+    allOrderList: [],
+    openOrderList: [],
+    account: {},
+    myTrades: [],
 })
 
 // getters
@@ -25,9 +28,6 @@ const getters = {
         return state.portfolioAssets
     },
     // Binance API
-    account: (state: any) => {
-        return state.account
-    },
     orderBook: (state: any) => {
         return state.orderBook
     },
@@ -36,6 +36,18 @@ const getters = {
     },
     currentAvgPrice: (state: any) => {
         return state.currentAvgPrice
+    },
+    allOrderList: (state: any) => {
+        return state.allOrderList
+    },
+    openOrderList: (state: any) => {
+        return state.openOrderList
+    },
+    account: (state: any) => {
+        return state.account
+    },
+    myTrades: (state: any) => {
+        return state.myTrades
     },
 }
 
@@ -57,11 +69,6 @@ const actions = {
         })
     },
     // Binance APIs
-    getAccount({commit}: { commit: any }) {
-        binance.getAccount((response: any) => {
-            commit('setAccount', response)
-        })
-    },
     getOrderBook({commit}: { commit: any }) {
         binance.getOrderBook((response: any) => {
             commit('setOrderBook', response)
@@ -77,6 +84,31 @@ const actions = {
             commit('setCurrentAvgPrice', response)
         })
     },
+    getTickerPriceChange({commit}: { commit: any }) {
+        binance.getTickerPriceChange((response: any) => {
+            commit('setTickerPriceChange', response)
+        })
+    },
+    getAllOrderList({commit}: { commit: any }) {
+        binance.getAllOrderList((response: any) => {
+            commit('setAllOrderList', response)
+        })
+    },
+    getOpenOrderList({commit}: { commit: any }) {
+        binance.getOpenOrderList((response: any) => {
+            commit('setOpenOrderList', response)
+        })
+    },
+    getAccount({commit}: { commit: any }) {
+        binance.getAccount((response: any) => {
+            commit('setAccount', response)
+        })
+    },
+    getMyTrades({commit}: { commit: any }) {
+        binance.getMyTrades((response: any) => {
+            commit('setMyTrades', response)
+        })
+    },
 }
 
 // mutations
@@ -90,10 +122,7 @@ const mutations = {
     setPortfolioAssets(state: any, payload: JSON) {
         state.portfolioAssets = payload
     },
-    // Binance API
-    setAccount(state: any, payload: JSON) {
-        state.account = payload
-    },
+    // Binance APIs
     setOrderBook(state: any, payload: JSON) {
         state.orderBook = payload
     },
@@ -102,6 +131,21 @@ const mutations = {
     },
     setCurrentAvgPrice(state: any, payload: JSON) {
         state.currentAvgPrice = payload
+    },
+    setAllOrderList(state: any, payload: JSON) {
+        state.allOrderList = payload
+    },
+    setOpenOrderList(state: any, payload: JSON) {
+        state.openOrderList = payload
+    },
+    setAccount(state: any, payload: any) {
+        state.account = {
+            ...payload,
+            balances: payload.balances.filter((balance: any) => balance.free > 0 || balance.locked > 0),
+        }
+    },
+    setMyTrades(state: any, payload: JSON) {
+        state.myTrades = payload
     },
 }
 

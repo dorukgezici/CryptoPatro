@@ -1,5 +1,3 @@
-import os
-
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -12,10 +10,9 @@ class Asset(models.Model):
     ticker = models.CharField(max_length=16, verbose_name=_("ticker"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
 
-    def get_icon_upload_to(self: 'Asset', file: str) -> str:
-        return f'icons/{self.ticker}{os.path.splitext(file)[1]}'
-
-    icon = models.ImageField(upload_to=get_icon_upload_to, verbose_name=_("icon"))
+    @property
+    def icon(self) -> str:
+        return f'https://cryptoicons.org/api/icon/{self.ticker.lower()}/200'
 
     def __str__(self) -> str:
         return self.name

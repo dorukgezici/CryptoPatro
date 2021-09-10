@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="asset in assets" :key="asset">
-                      <td><i class="icon ion-md-star"></i> <img :src="asset.icon" :alt="asset.ticker"> {{ asset.name }}
+                      <td><i class="icon ion-md-star"></i> <img :src="`https://cryptoicon-api.vercel.app/api/icon/${asset.ticker}`" :alt="asset.ticker"> {{ asset.name }}
                         ({{ asset.ticker }})
                       </td>
                       <td>50000</td>
@@ -1058,7 +1058,7 @@ export default {
     ]),
   },
   methods: {
-    loadMore: function () {
+    loadMore() {
       let loadMore = document.querySelector(".load-more")
       let newData = document.getElementsByClassName("more-market-data")
       for (let i = 0; i < newData.length; i++) {
