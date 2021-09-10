@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default {
     signIn(cb: any, username: string, password: string) {
-        axios.post('http://127.0.0.1:8000/users/sign-in/', {
+        axios.post(`${process.env.VUE_APP_BACKEND_URL}/users/sign-in/`, {
             'username': username,
             'password': password,
         }).then(response => {
@@ -10,7 +10,7 @@ export default {
         })
     },
     signUp(cb: any, email: string, username: string, firstName: string, lastName: string, password: string, password2: string) {
-        axios.post('http://127.0.0.1:8000/users/sign-up/', {
+        axios.post(`${process.env.VUE_APP_BACKEND_URL}/users/sign-up/`, {
             'email': email,
             'username': username,
             'firstName': firstName,
@@ -22,12 +22,12 @@ export default {
         })
     },
     signOut(cb: any) {
-        axios.get('http://127.0.0.1:8000/users/sign-out/').then(response => {
+        axios.get(`${process.env.VUE_APP_BACKEND_URL}/users/sign-out/`).then(response => {
             cb(response.data)
         })
     },
     getMe(cb: any) {
-        axios.get('http://127.0.0.1:8000/users/me/').then(response => {
+        axios.get(`${process.env.VUE_APP_BACKEND_URL}/users/me/`).then(response => {
             cb(response.data)
         })
     },
