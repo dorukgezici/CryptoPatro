@@ -1,0 +1,22 @@
+name: Build & Deploy VueJS to GitHub Pages
+on: [ push ]
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build & Deploy Vue
+    steps:
+      - name: Build Vue
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+          cd dist
+          ln -s index.html 404.html
+          echo 'doruk.gezici.me' > CNAME
+          git config --global user.email "doruk@gezici.me"
+          git config --global user.name "dorukgezici"
+          git init
+          git add -A
+          git commit -m 'Deploy to GitHub Pages'
+          git push -f https://dorukgezici:${{ secrets.GITHUB_TOKEN }}@github.com/dorukgezici/crypto-adiutor.git master:gh-pages
+        shell: bash
