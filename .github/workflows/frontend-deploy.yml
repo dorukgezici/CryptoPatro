@@ -13,7 +13,7 @@ jobs:
           npm run build
           cd dist
           ln -s index.html 404.html
-          echo 'doruk.gezici.me' > CNAME
+          echo 'crypto.gezici.me' > CNAME
           git config --global user.email "doruk@gezici.me"
           git config --global user.name "dorukgezici"
           git init
