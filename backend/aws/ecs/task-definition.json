@@ -19,7 +19,7 @@
       "environment": [
         {
           "name": "ADIUTOR_POSTGRESQL_PORT",
-          "value": 5432
+          "value": "5432"
         },
         {
           "name": "ADIUTOR_AWS_REGION",
