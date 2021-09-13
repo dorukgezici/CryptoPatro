@@ -1,3 +1,4 @@
+import requests
 from binance.spot import Spot
 from django.conf import settings
 from django.db.models import QuerySet
@@ -90,3 +91,15 @@ class MyTradesAPIView(APIView):
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
         return Response(client.my_trades(symbol=pair))
+
+
+class NewsAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(
+            url='https://cryptopanic.com/api/v1/posts/',
+            params={
+                'auth_token': settings.CRYPTOPANIC['auth_token'],
+                'public': 'true',
+            }
+        )
+        return Response(r.json())

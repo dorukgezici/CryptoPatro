@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class UsersConfig(AppConfig):
+class ExchangeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'users'
-    verbose_name = _("Users")
+    name = 'crypto-adiutor.exchange'
+    verbose_name = _("Exchange")

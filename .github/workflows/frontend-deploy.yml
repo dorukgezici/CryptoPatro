@@ -1,23 +1,28 @@
 name: Build & Deploy VueJS to GitHub Pages
 on: push
+env:
+  DOMAIN: crypto.gezici.me
+  GITHUB_EMAIL: doruk@gezici.me
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     name: Build & Deploy VueJS
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Build & Deploy
+        shell: bash
         run: |
           cd frontend
           npm ci
           npm run build
           cd dist
           ln -s index.html 404.html
-          echo 'crypto.gezici.me' > CNAME
-          git config --global user.email "doruk@gezici.me"
-          git config --global user.name "dorukgezici"
+          echo $DOMAIN > CNAME
+          git config --global user.email $GITHUB_EMAIL
+          git config --global user.name $GITHUB_ACTOR
           git init
           git add -A
           git commit -m 'Deploy to GitHub Pages'
-          git push -f https://dorukgezici:${{ secrets.GITHUB_TOKEN }}@github.com/dorukgezici/crypto-adiutor.git master:gh-pages
-        shell: bash
+          git push -f https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git master:gh-pages

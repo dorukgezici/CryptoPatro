@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'notsosecretkey')
+SECRET_KEY = os.environ.get('ADIUTOR_SECRET_KEY', 'notsosecretkey')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -18,8 +18,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'exchange.apps.ExchangeConfig',
+    'crypto-adiutor.users.apps.UsersConfig',
+    'crypto-adiutor.exchange.apps.ExchangeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +43,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'main.urls'
+ROOT_URLCONF = 'crypto-adiutor.urls'
 
 TEMPLATES = [
     {
@@ -61,16 +61,20 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'main.wsgi.application'
+WSGI_APPLICATION = 'crypto-adiutor.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ.get('ADIUTOR_POSTGRESQL_HOST'),
+        'PORT': os.environ.get('ADIUTOR_POSTGRESQL_PORT'),
+        'NAME': os.environ.get('ADIUTOR_POSTGRESQL_DATABASE'),
+        'USER': os.environ.get('ADIUTOR_POSTGRESQL_USER'),
+        'PASSWORD': os.environ.get('ADIUTOR_POSTGRESQL_PASSWORD'),
+    },
 }
 
 # Password validation
@@ -143,7 +147,20 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # Configurations
 
+AWS = {
+    'region': os.environ.get('ADIUTOR_AWS_REGION'),
+    'access_key_id': os.environ.get('ADIUTOR_AWS_ACCESS_KEY_ID'),
+    'secret_access_key': os.environ.get('ADIUTOR_AWS_SECRET_ACCESS_KEY'),
+}
+AWS_REGION = AWS['region']
+AWS_ACCESS_KEY_ID = AWS['access_key_id']
+AWS_SECRET_ACCESS_KEY = AWS['secret_access_key']
+
 BINANCE = {
-    'api_key': os.environ.get('BINANCE_API_KEY'),
-    'api_secret': os.environ.get('BINANCE_API_SECRET'),
+    'api_key': os.environ.get('ADIUTOR_BINANCE_API_KEY'),
+    'api_secret': os.environ.get('ADIUTOR_BINANCE_API_SECRET'),
+}
+
+CRYPTOPANIC = {
+    'auth_token': os.environ.get('ADIUTOR_CRYPTOPANIC_AUTH_TOKEN'),
 }

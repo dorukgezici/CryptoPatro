@@ -16,4 +16,9 @@ export default {
             cb(response.data)
         })
     },
+    getNews(cb: any) {
+        axios.get(`${process.env.VUE_APP_BACKEND_URL}/news/`).then(response => {
+            cb(response.data)
+        })
+    },
 }

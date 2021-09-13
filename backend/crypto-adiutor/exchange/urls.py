@@ -18,4 +18,6 @@ urlpatterns = [
     path('open_order_list/', views.OpenOrderListAPIView.as_view()),
     path('account/', views.AccountAPIView.as_view()),
     path('my_trades/<str:pair>/', views.MyTradesAPIView.as_view()),
+    # external APIs
+    path('news/', views.NewsAPIView.as_view()),
 ]

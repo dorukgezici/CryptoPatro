@@ -1,0 +1,90 @@
+{
+  "family": "crypto-adiutor",
+  "executionRoleArn": "arn:aws:iam::919766826262:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "919766826262.dkr.ecr.eu-west-1.amazonaws.com/crypto-adiutor",
+      "cpu": 512,
+      "memoryReservation": 1024,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "ADIUTOR_POSTGRESQL_PORT",
+          "value": 5432
+        },
+        {
+          "name": "ADIUTOR_AWS_REGION",
+          "value": "eu-west-1"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "ADIUTOR_SECRET_KEY",
+          "valueFrom": "/crypto-adiutor/SECRET_KEY"
+        },
+        {
+          "name": "ADIUTOR_POSTGRESQL_HOST",
+          "valueFrom": "/crypto-adiutor/POSTGRESQL_HOST"
+        },
+        {
+          "name": "ADIUTOR_POSTGRESQL_DATABASE",
+          "valueFrom": "/crypto-adiutor/POSTGRESQL_DATABASE"
+        },
+        {
+          "name": "ADIUTOR_POSTGRESQL_USER",
+          "valueFrom": "/crypto-adiutor/POSTGRESQL_USER"
+        },
+        {
+          "name": "ADIUTOR_POSTGRESQL_PASSWORD",
+          "valueFrom": "/crypto-adiutor/POSTGRESQL_PASSWORD"
+        },
+        {
+          "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
+          "valueFrom": "/crypto-adiutor/AWS_ACCESS_KEY_ID"
+        },
+        {
+          "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
+        },
+        {
+          "name": "ADIUTOR_BINANCE_API_KEY",
+          "valueFrom": "/crypto-adiutor/BINANCE_API_KEY"
+        },
+        {
+          "name": "ADIUTOR_BINANCE_API_SECRET",
+          "valueFrom": "/crypto-adiutor/BINANCE_API_SECRET"
+        },
+        {
+          "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
+          "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/crypto-adiutor",
+          "awslogs-region": "eu-west-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024"
+}

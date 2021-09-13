@@ -12,7 +12,7 @@ class Asset(models.Model):
 
     @property
     def icon(self) -> str:
-        return f'https://cryptoicons.org/api/icon/{self.ticker.lower()}/200'
+        return f'https://cryptoicon-api.vercel.app/api/icon/{self.ticker.lower()}'
 
     def __str__(self) -> str:
         return self.name
