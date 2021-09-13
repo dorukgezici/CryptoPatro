@@ -43,6 +43,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def-web.outputs.task-definition }}
-          service: $REPOSITORY
-          cluster: $REPOSITORY
+          service: ${{ env.REPOSITORY }}
+          cluster: ${{ env.REPOSITORY }}
           wait-for-service-stability: false
