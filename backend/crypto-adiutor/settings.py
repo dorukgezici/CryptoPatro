@@ -10,10 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('ADIUTOR_SECRET_KEY', 'notsosecretkey')
 
+GAMERARENA = {
+    'stage': os.environ.get('ADIUTOR_STAGE'),
+    'backend_url': os.environ.get('ADIUTOR_BACKEND_URL'),
+    'frontend_url': os.environ.get('ADIUTOR_FRONTEND_URL'),
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

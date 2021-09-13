@@ -18,6 +18,18 @@
       "essential": true,
       "environment": [
         {
+          "name": "ADIUTOR_STAGE",
+          "value": "5432"
+        },
+        {
+          "name": "ADIUTOR_BACKEND_URL",
+          "value": "http://crypto-adiutor-400774069.eu-west-1.elb.amazonaws.com"
+        },
+        {
+          "name": "ADIUTOR_FRONTEND_URL",
+          "value": "https://crypto.gezici.me"
+        },
+        {
           "name": "ADIUTOR_POSTGRESQL_PORT",
           "value": "5432"
         },
