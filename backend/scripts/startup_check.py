@@ -12,6 +12,9 @@ required_environment_variables = [
     for name in [
         # Django
         'SECRET_KEY',
+        'STAGE',
+        'BACKEND_URL',
+        'FRONTEND_URL',
         # Database
         'POSTGRESQL_HOST',
         'POSTGRESQL_PORT',
