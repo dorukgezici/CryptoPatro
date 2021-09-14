@@ -23,7 +23,7 @@
         },
         {
           "name": "ADIUTOR_BACKEND_URL",
-          "value": "http://crypto-adiutor-400774069.eu-west-1.elb.amazonaws.com"
+          "value": "https://api.gezici.me"
         },
         {
           "name": "ADIUTOR_FRONTEND_URL",
