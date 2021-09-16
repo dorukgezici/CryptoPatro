@@ -19,7 +19,7 @@ class SignUpView(APIView):
         user: User = serializer.save()
 
         return Response(
-            data={'token': user.create_token().key, 'user': serializer.validated_data},
+            data={'token': user.create_token().key, 'user': AuthUserSerializer(instance=user).data},
             status=status.HTTP_201_CREATED,
         )
 
