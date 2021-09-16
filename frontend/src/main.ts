@@ -8,6 +8,21 @@ import "./assets/scss/style.scss"
 import router from "./router"
 import store from "./store"
 import moment from "moment"
+import axios from "axios"
+
+const token = localStorage.getItem('token')
+if (token !== null) {
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+}
+
+axios.interceptors.response.use((response) => {
+    return response
+}, (error) => {
+    if (error.response.status === 401) {
+        store.dispatch('auth/signOut', false).then(() => router.push('/login'))
+    }
+    return Promise.reject(error)
+})
 
 const app = createApp(App)
 

@@ -1,8 +1,9 @@
-import binance from '../../api/binance'
-import exchange from '../../api/exchange'
+import binance from "../../api/binance"
+import exchange from "../../api/exchange"
 
 // initial state
 const state = () => ({
+    symbol: 'BTCUSDT',
     assets: {},
     portfolios: {},
     portfolioAssets: {},
@@ -10,6 +11,7 @@ const state = () => ({
     orderBook: {},
     recentTrades: [],
     currentAvgPrice: {},
+    tickerPriceChange: {},
     allOrderList: [],
     openOrderList: [],
     account: {},
@@ -18,6 +20,9 @@ const state = () => ({
 
 // getters
 const getters = {
+    symbol: (state: any) => {
+        return state.symbol
+    },
     assets: (state: any) => {
         return state.assets
     },
@@ -37,6 +42,9 @@ const getters = {
     currentAvgPrice: (state: any) => {
         return state.currentAvgPrice
     },
+    tickerPriceChange: (state: any) => {
+        return state.tickerPriceChange
+    },
     allOrderList: (state: any) => {
         return state.allOrderList
     },
@@ -53,98 +61,93 @@ const getters = {
 
 // actions
 const actions = {
-    getAssets({commit}: { commit: any }) {
-        exchange.getAssets((response: any) => {
-            commit('setAssets', response)
-        })
+    async getAssets({commit}: { commit: any }) {
+        const response = await exchange.getAssets()
+        commit('SET_ASSETS', response.data)
     },
-    getPortfolios({commit}: { commit: any }) {
-        exchange.getPortfolios((response: any) => {
-            commit('setPortfolios', response)
-        })
+    async getPortfolios({commit}: { commit: any }) {
+        const response = await exchange.getPortfolios()
+        commit('SET_PORTFOLIOS', response.data)
     },
-    getPortfolioAssets({commit}: { commit: any }) {
-        exchange.getPortfolioAssets((response: any) => {
-            commit('setPortfolioAssets', response)
-        })
+    async getPortfolioAssets({commit}: { commit: any }) {
+        const response = await exchange.getPortfolioAssets()
+        commit('SET_PORTFOLIO_ASSETS', response.data)
     },
     // Binance APIs
-    getOrderBook({commit}: { commit: any }) {
-        binance.getOrderBook((response: any) => {
-            commit('setOrderBook', response)
-        })
+    async getOrderBook({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getOrderBook(state.symbol)
+        commit('SET_ORDER_BOOK', response.data)
     },
-    getRecentTrades({commit}: { commit: any }) {
-        binance.getRecentTrades((response: any) => {
-            commit('setRecentTrades', response)
-        })
+    async getRecentTrades({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getRecentTrades(state.symbol)
+        commit('SET_RECENT_TRADES', response.data)
     },
-    getCurrentAvgPrice({commit}: { commit: any }) {
-        binance.getCurrentAvgPrice((response: any) => {
-            commit('setCurrentAvgPrice', response)
-        })
+    async getCurrentAvgPrice({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getCurrentAvgPrice(state.symbol)
+        commit('SET_CURRENT_AVG_PRICE', response.data)
     },
-    getTickerPriceChange({commit}: { commit: any }) {
-        binance.getTickerPriceChange((response: any) => {
-            commit('setTickerPriceChange', response)
-        })
+    async getTickerPriceChange({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getTickerPriceChange(state.symbol)
+        commit('SET_TICKER_PRICE_CHANGE', response.data)
     },
-    getAllOrderList({commit}: { commit: any }) {
-        binance.getAllOrderList((response: any) => {
-            commit('setAllOrderList', response)
-        })
+    async getAllOrderList({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getAllOrderList(state.symbol)
+        commit('SET_ALL_ORDER_LIST', response.data)
     },
-    getOpenOrderList({commit}: { commit: any }) {
-        binance.getOpenOrderList((response: any) => {
-            commit('setOpenOrderList', response)
-        })
+    async getOpenOrderList({commit}: { commit: any }) {
+        const response = await binance.getOpenOrderList()
+        commit('SET_OPEN_ORDER_LIST', response.data)
     },
-    getAccount({commit}: { commit: any }) {
-        binance.getAccount((response: any) => {
-            commit('setAccount', response)
-        })
+    async getAccount({commit}: { commit: any }) {
+        const response = await binance.getAccount()
+        commit('SET_ACCOUNT', response.data)
     },
-    getMyTrades({commit}: { commit: any }) {
-        binance.getMyTrades((response: any) => {
-            commit('setMyTrades', response)
-        })
+    async getMyTrades({state, commit}: { state: any, commit: any }) {
+        const response = await binance.getMyTrades(state.symbol)
+        commit('SET_MY_TRADES', response.data)
     },
 }
 
 // mutations
 const mutations = {
-    setAssets(state: any, payload: JSON) {
+    SET_SYMBOL(state: any, symbol: string) {
+        state.symbol = symbol
+    },
+    SET_ASSETS(state: any, payload: JSON) {
         state.assets = payload
     },
-    setPortfolios(state: any, payload: JSON) {
+    SET_PORTFOLIOS(state: any, payload: JSON) {
         state.portfolios = payload
     },
-    setPortfolioAssets(state: any, payload: JSON) {
+    SET_PORTFOLIO_ASSETS(state: any, payload: JSON) {
         state.portfolioAssets = payload
     },
     // Binance APIs
-    setOrderBook(state: any, payload: JSON) {
+    SET_ORDER_BOOK(state: any, payload: JSON) {
         state.orderBook = payload
     },
-    setRecentTrades(state: any, payload: JSON) {
+    SET_RECENT_TRADES(state: any, payload: JSON) {
         state.recentTrades = payload
     },
-    setCurrentAvgPrice(state: any, payload: JSON) {
+    SET_CURRENT_AVG_PRICE(state: any, payload: JSON) {
         state.currentAvgPrice = payload
     },
-    setAllOrderList(state: any, payload: JSON) {
+    SET_TICKER_PRICE_CHANGE(state: any, payload: JSON) {
+        state.tickerPriceChange = payload
+    },
+    SET_ALL_ORDER_LIST(state: any, payload: JSON) {
         state.allOrderList = payload
     },
-    setOpenOrderList(state: any, payload: JSON) {
+    SET_OPEN_ORDER_LIST(state: any, payload: JSON) {
         state.openOrderList = payload
     },
-    setAccount(state: any, payload: any) {
+    SET_ACCOUNT(state: any, payload: any) {
         state.account = {
             ...payload,
             balances: payload.balances.filter((balance: any) => balance.free > 0 || balance.locked > 0),
         }
     },
-    setMyTrades(state: any, payload: JSON) {
+    SET_MY_TRADES(state: any, payload: JSON) {
         state.myTrades = payload
     },
 }

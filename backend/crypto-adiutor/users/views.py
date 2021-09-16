@@ -17,7 +17,11 @@ class SignUpView(APIView):
         serializer = AuthUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user: User = serializer.save()
-        return Response(data={'token': user.create_token()}, status=status.HTTP_201_CREATED)
+
+        return Response(
+            data={'token': user.create_token().key, 'user': serializer.validated_data},
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class SignOutView(APIView):

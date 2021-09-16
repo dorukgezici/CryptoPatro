@@ -9,7 +9,7 @@ from .models import User
 
 
 class AuthUserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(required=False)
+    password_2 = serializers.CharField(required=False)
 
     class Meta:
         model = User
@@ -20,7 +20,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'password',
-            'password2',
+            'password_2',
         ]
 
         extra_kwargs = {
@@ -43,13 +43,13 @@ class AuthUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs: dict) -> dict:
         password = attrs.get('password')
-        password2 = attrs.get('password2')
+        password_2 = attrs.get('password_2')
 
         if password is not None:
-            if password2 is None:
-                raise serializers.ValidationError({'password2': [_("You must confirm your password.")]})
+            if password_2 is None:
+                raise serializers.ValidationError({'password_2': [_("You must confirm your password.")]})
 
-            if password != password2:
+            if password != password_2:
                 raise serializers.ValidationError({'password': [_("Your passwords do not match.")]})
 
             try:
@@ -57,7 +57,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
             except DjangoValidationError as e:
                 raise serializers.ValidationError({'password': e.messages})
 
-            attrs.pop('password2')
+            attrs.pop('password_2')
 
         return attrs
 

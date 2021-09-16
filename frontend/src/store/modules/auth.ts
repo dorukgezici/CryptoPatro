@@ -1,16 +1,16 @@
-import users from '../../api/users'
-import router from '../../router'
+import users from "../../api/users"
+import axios from "axios"
 
 // initial state
 const state = () => ({
-    isAuthenticated: !!localStorage.getItem('token'),
+    token: localStorage.getItem('token') || null,
     me: {},
 })
 
 // getters
 const getters = {
     isAuthenticated: (state: any) => {
-        return state.isAuthenticated
+        return !!state.token
     },
     me: (state: any) => {
         return state.me
@@ -19,44 +19,44 @@ const getters = {
 
 // actions
 const actions = {
-    signUp({commit}: { commit: any }, {form}: { form: any }) {
-        users.signUp((response: any) => {
-            commit('setToken', response)
-        }, form.email, form.username, form.firstName, form.lastName, form.password, form.password2)
+    async signUp({commit}: { commit: any }, form: any) {
+        const response = await users.signUp(form.email, form.username, form.firstName, form.lastName, form.password, form.password2)
+        commit('SET_TOKEN', response.data.token)
+        commit('SET_ME', response.data.user)
     },
-    signIn({dispatch, commit}: { dispatch: any, commit: any }, {username, password}: { username: string, password: string }) {
-        users.signIn((response: any) => {
-            commit('setToken', response)
-            dispatch('auth/getMe')
-        }, username, password)
+    async signIn({commit}: { commit: any }, {username, password}: { username: string, password: string }) {
+        const response = await users.signIn(username, password)
+        commit('SET_TOKEN', response.data.token)
     },
-    signOut({commit}: { commit: any }) {
-        users.signOut(() => {
-            commit('removeToken')
-        })
+    async signOut({commit}: { commit: any }, deleteToken = true) {
+        if (deleteToken) await users.signOut()
+        commit('REMOVE_TOKEN')
+        commit('REMOVE_ME')
     },
-    getMe({commit}: { commit: any }) {
-        users.getMe((response: any) => {
-            commit('setMe', response)
-        })
+    async getMe({commit}: { commit: any }) {
+        const response = await users.getMe()
+        commit('SET_ME', response.data)
     },
 }
 
 // mutations
 const mutations = {
-    setToken(state: any, payload: any) {
-        localStorage.setItem('token', payload.token)
-        state.isAuthenticated = !!localStorage.getItem('token')
-        router.push('/')
+    SET_TOKEN(state: any, token: string) {
+        localStorage.setItem('token', token)
+        axios.defaults.headers.common['Authorization'] = `Token ${token}`
+        state.token = token
     },
-    removeToken(state: any) {
+    REMOVE_TOKEN(state: any) {
         localStorage.removeItem('token')
-        state.isAuthenticated = !!localStorage.getItem('token')
-        router.push('/login')
+        delete axios.defaults.headers.common['Authorization']
+        state.token = null
     },
-    setMe(state: any, payload: any) {
-        state.me = payload
+    SET_ME(state: any, user: any) {
+        state.me = user
     },
+    REMOVE_ME(state: any) {
+        state.me = {}
+    }
 }
 
 export default {

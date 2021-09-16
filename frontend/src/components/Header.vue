@@ -272,21 +272,20 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex"
+import {mapState, mapActions} from "vuex"
 
 export default {
   computed: {
     ...mapState('auth', [
       'me',
     ]),
-    ...mapActions('auth', [
-      'signOut',
-    ])
+    ...mapActions([
+      'toggleTheme',
+    ]),
   },
   methods: {
-    toggleTheme() {
-      this.$store.commit("toggleTheme")
-      document.body.classList.toggle("dark")
+    signOut() {
+      this.$store.dispatch("auth/signOut").then(() => this.$router.push('/login'))
     },
   },
 }

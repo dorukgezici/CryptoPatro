@@ -1,24 +1,16 @@
 import axios from "axios"
 
 export default {
-    getAssets(cb: any) {
-        axios.get(`${process.env.VUE_APP_BACKEND_URL}/assets/`).then(response => {
-            cb(response.data)
-        })
+    getAssets() {
+        return axios.get(`${process.env.VUE_APP_BACKEND_URL}/assets/`)
     },
-    getPortfolios(cb: any) {
-        axios.get(`${process.env.VUE_APP_BACKEND_URL}/portfolios/`).then(response => {
-            cb(response.data)
-        })
+    getPortfolios() {
+        return axios.get(`${process.env.VUE_APP_BACKEND_URL}/portfolios/`)
     },
-    getPortfolioAssets(cb: any) {
-        axios.get(`${process.env.VUE_APP_BACKEND_URL}/portfolio_assets/`).then(response => {
-            cb(response.data)
-        })
+    getPortfolioAssets() {
+        return axios.get(`${process.env.VUE_APP_BACKEND_URL}/portfolio_assets/`)
     },
-    getNews(cb: any) {
-        axios.get(`${process.env.VUE_APP_BACKEND_URL}/news/`).then(response => {
-            cb(response.data)
-        })
+    getNews() {
+        return axios.get(`${process.env.VUE_APP_BACKEND_URL}/news/`)
     },
 }

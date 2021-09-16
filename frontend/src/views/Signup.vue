@@ -110,7 +110,7 @@ export default {
         lastName: this.lastName,
         password: this.password,
         password2: this.password2,
-      })
+      }).then(() => this.$router.push('/'))
     }
   }
 }
