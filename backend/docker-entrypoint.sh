@@ -6,12 +6,12 @@ PROJECT=adiutor
 # run validation script
 python3 scripts/startup_check.py
 
-# migrate database
-python3 manage.py migrate
-
-# run server
+# which container kind
 case "$ADIUTOR_CONTAINER_KIND" in
 api)
+  # migrate database
+  python3 manage.py migrate
+
   if [[ "$ADIUTOR_STAGE" == "development" ]]; then
     exec python3 manage.py runserver 0.0.0.0:80
   else
