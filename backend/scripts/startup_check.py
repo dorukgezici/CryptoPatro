@@ -33,9 +33,6 @@ required_environment_variables = [
         'AWS_REGION',
         'AWS_ACCESS_KEY_ID',
         'AWS_SECRET_ACCESS_KEY',
-        # Binance
-        'BINANCE_API_KEY',
-        'BINANCE_API_SECRET',
         # Cryptopanic
         'CRYPTOPANIC_AUTH_TOKEN',
     ]

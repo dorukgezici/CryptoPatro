@@ -186,11 +186,6 @@ AWS_REGION = AWS['region']
 AWS_ACCESS_KEY_ID = AWS['access_key_id']
 AWS_SECRET_ACCESS_KEY = AWS['secret_access_key']
 
-BINANCE = {
-    'api_key': os.environ.get('ADIUTOR_BINANCE_API_KEY'),
-    'api_secret': os.environ.get('ADIUTOR_BINANCE_API_SECRET'),
-}
-
 CRYPTOPANIC = {
     'auth_token': os.environ.get('ADIUTOR_CRYPTOPANIC_AUTH_TOKEN'),
 }

@@ -96,14 +96,6 @@
           "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
         },
         {
-          "name": "ADIUTOR_BINANCE_API_KEY",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_KEY"
-        },
-        {
-          "name": "ADIUTOR_BINANCE_API_SECRET",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_SECRET"
-        },
-        {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
           "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
         }
@@ -206,14 +198,6 @@
           "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
         },
         {
-          "name": "ADIUTOR_BINANCE_API_KEY",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_KEY"
-        },
-        {
-          "name": "ADIUTOR_BINANCE_API_SECRET",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_SECRET"
-        },
-        {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
           "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
         }
@@ -314,14 +298,6 @@
         {
           "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
           "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "ADIUTOR_BINANCE_API_KEY",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_KEY"
-        },
-        {
-          "name": "ADIUTOR_BINANCE_API_SECRET",
-          "valueFrom": "/crypto-adiutor/BINANCE_API_SECRET"
         },
         {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",

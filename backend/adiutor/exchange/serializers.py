@@ -1,7 +1,9 @@
+from typing import Optional
+
 from binance.error import ClientError
 from binance.spot import Spot
-from django.conf import settings
 from rest_framework import serializers
+from rest_framework.request import Request
 
 from .models import Asset, Portfolio, PortfolioAsset
 
@@ -20,7 +22,11 @@ class AssetSerializer(serializers.ModelSerializer):
         ]
 
     def get_price_change(self, obj: Asset) -> str:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        request: Optional[Request] = self.context.get('request')
+        if request is None or not hasattr(request.user, 'binance'):
+            return ''
+
+        client = Spot(key=request.user.binance.api_key, secret=request.user.binance.api_secret)
 
         try:
             return client.ticker_24hr(f'{obj.ticker}USDT')
