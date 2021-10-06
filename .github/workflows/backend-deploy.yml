@@ -39,10 +39,26 @@ jobs:
           container-name: api
           image: ${{ steps.build-image.outputs.image }}
 
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-scheduler
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-api.outputs.task-definition }}
+          container-name: scheduler
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-worker
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-scheduler.outputs.task-definition }}
+          container-name: worker
+          image: ${{ steps.build-image.outputs.image }}
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def-api.outputs.task-definition }}
+          task-definition: ${{ steps.task-def-worker.outputs.task-definition }}
           service: ${{ env.REPOSITORY }}
           cluster: ${{ env.REPOSITORY }}
           wait-for-service-stability: false

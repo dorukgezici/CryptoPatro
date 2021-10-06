@@ -1,0 +1,30 @@
+{
+  "cluster": "crypto-adiutor",
+  "serviceName": "rabbitmq",
+  "taskDefinition": "rabbitmq",
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:919766826262:targetgroup/ecs-rabbitmq/e3a65e6f10660445",
+      "containerName": "rabbitmq",
+      "containerPort": 5672
+    },
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:919766826262:targetgroup/ecs-rabbitmq-admin/05c9d27a50661fb1",
+      "containerName": "rabbitmq",
+      "containerPort": 15672
+    }
+  ],
+  "desiredCount": 1,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-356b0b6f",
+        "subnet-2edbfc48"
+      ],
+      "securityGroups": [
+        "sg-aa91f0e5"
+      ],
+      "assignPublicIp": "ENABLED"
+    }
+  }
+}
