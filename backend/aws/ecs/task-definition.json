@@ -69,23 +69,23 @@
         },
         {
           "name": "ADIUTOR_RABBITMQ_HOST",
-          "value": "/crypto-adiutor/RABBITMQ_HOST"
+          "valueFrom": "/crypto-adiutor/RABBITMQ_HOST"
         },
         {
           "name": "ADIUTOR_RABBITMQ_VHOST",
-          "value": "/crypto-adiutor/RABBITMQ_VHOST"
+          "valueFrom": "/crypto-adiutor/RABBITMQ_VHOST"
         },
         {
           "name": "ADIUTOR_RABBITMQ_USER",
-          "value": "/crypto-adiutor/RABBITMQ_USER"
+          "valueFrom": "/crypto-adiutor/RABBITMQ_USER"
         },
         {
           "name": "ADIUTOR_RABBITMQ_PASSWORD",
-          "value": "/crypto-adiutor/RABBITMQ_PASSWORD"
+          "valueFrom": "/crypto-adiutor/RABBITMQ_PASSWORD"
         },
         {
           "name": "ADIUTOR_SENTRY_DSN",
-          "value": "/crypto-adiutor/SENTRY_DSN"
+          "valueFrom": "/crypto-adiutor/SENTRY_DSN"
         },
         {
           "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
