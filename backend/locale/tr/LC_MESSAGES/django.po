@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-06 19:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: crypto-adiutor/exchange/apps.py:8
+msgid "Exchange"
+msgstr "Borsa"
+
+#: crypto-adiutor/exchange/models.py:7 crypto-adiutor/exchange/models.py:22
+#: crypto-adiutor/exchange/models.py:33
+msgid "created at"
+msgstr "oluşturulma zamanı"
+
+#: crypto-adiutor/exchange/models.py:8 crypto-adiutor/exchange/models.py:23
+#: crypto-adiutor/exchange/models.py:34
+msgid "updated at"
+msgstr "güncellenme zamanı"
+
+#: crypto-adiutor/exchange/models.py:10
+msgid "ticker"
+msgstr "sembol"
+
+#: crypto-adiutor/exchange/models.py:11 crypto-adiutor/exchange/models.py:26
+msgid "name"
+msgstr "isim"
+
+#: crypto-adiutor/exchange/models.py:25 crypto-adiutor/users/models.py:13
+msgid "user"
+msgstr "kullanıcı"
+
+#: crypto-adiutor/exchange/models.py:36
+msgid "portfolio"
+msgstr "portföy"
+
+#: crypto-adiutor/exchange/models.py:37
+msgid "asset"
+msgstr "varlık"
+
+#: crypto-adiutor/exchange/models.py:39
+msgid "amount"
+msgstr "miktar"
+
+#: crypto-adiutor/exchange/models.py:40
+msgid "average cost"
+msgstr "ortalama maliyet"
+
+#: crypto-adiutor/users/apps.py:8
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: crypto-adiutor/users/models.py:14
+msgid "api key"
+msgstr "api key"
+
+#: crypto-adiutor/users/models.py:15
+msgid "api secret"
+msgstr "api secret"
+
+#: crypto-adiutor/users/serializers.py:50
+msgid "You must confirm your password."
+msgstr "Parolanı doğrulamalısın."
+
+#: crypto-adiutor/users/serializers.py:53
+msgid "Your passwords do not match."
+msgstr "Parolaların eşleşmiyor."

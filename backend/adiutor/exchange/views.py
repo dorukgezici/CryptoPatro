@@ -3,12 +3,14 @@ from binance.spot import Spot
 from django.conf import settings
 from django.db.models import QuerySet
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Asset, Portfolio, PortfolioAsset
-from .serializers import AssetSerializer, PortfolioSerializer, PortfolioAssetSerializer
+from .serializers import AssetSerializer, PortfolioAssetSerializer, PortfolioSerializer
+from ..users.permissions import HasBinanceAuth
 
 
 class AssetListView(generics.ListAPIView):
@@ -45,53 +47,108 @@ class PortfolioAssetDetailView(generics.RetrieveAPIView):
     serializer_class = PortfolioAssetSerializer
 
 
+# Binance API
+
+class ExchangeInfoAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
+    def get(self, request: Request, pair: str = None) -> Response:
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
+        return Response(client.exchange_info(symbol=pair))
+
+
 class OrderBookAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.depth(symbol=pair))
 
 
 class RecentTradesAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.trades(symbol=pair))
 
 
 class CurrentAvgPriceAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.avg_price(symbol=pair))
 
 
 class TickerPriceChangeAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.ticker_24hr(symbol=pair))
 
 
 class AllOrderListAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.get_orders(symbol=pair))
 
 
 class OpenOrderListAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.get_open_orders())
 
 
 class AccountAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.account())
 
 
 class MyTradesAPIView(APIView):
+    permission_classes = [IsAuthenticated, HasBinanceAuth]
+
     def get(self, request: Request, pair: str) -> Response:
-        client = Spot(key=settings.BINANCE['api_key'], secret=settings.BINANCE['api_secret'])
+        client = Spot(
+            key=request.user.binance.api_key,
+            secret=request.user.binance.api_secret,
+        )
         return Response(client.my_trades(symbol=pair))
 
+
+# CryptoPanic API
 
 class NewsAPIView(APIView):
     def get(self, request: Request) -> Response:

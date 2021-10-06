@@ -1,40 +1,49 @@
 import os
 from pathlib import Path
 
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('ADIUTOR_SECRET_KEY', 'notsosecretkey')
-
 ADIUTOR = {
-    'stage': os.environ.get('ADIUTOR_STAGE'),
-    'backend_url': os.environ.get('ADIUTOR_BACKEND_URL'),
-    'frontend_url': os.environ.get('ADIUTOR_FRONTEND_URL'),
+    'secret_key': os.environ.get('ADIUTOR_SECRET_KEY', 'notsosecretkey'),
+    'stage': os.environ.get('ADIUTOR_STAGE', 'development'),
+    'backend_url': os.environ.get('ADIUTOR_BACKEND_URL', '127.0.0.1:8000'),
+    'frontend_url': os.environ.get('ADIUTOR_FRONTEND_URL', '127.0.0.1:8080'),
 }
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ADIUTOR['secret_key']
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = ADIUTOR['stage'] == 'dev'
+DEBUG = ADIUTOR['stage'] == 'development'
 
 ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'crypto-adiutor.users.apps.UsersConfig',
-    'crypto-adiutor.exchange.apps.ExchangeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # libraries
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_celery_results',
+    'django_celery_beat',
+    # apps
+    'adiutor.users',
+    'adiutor.exchange',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'crypto-adiutor.urls'
+ROOT_URLCONF = 'adiutor.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crypto-adiutor.wsgi.application'
+WSGI_APPLICATION = 'adiutor.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -75,11 +84,11 @@ WSGI_APPLICATION = 'crypto-adiutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get('ADIUTOR_POSTGRESQL_HOST'),
-        'PORT': os.environ.get('ADIUTOR_POSTGRESQL_PORT'),
-        'NAME': os.environ.get('ADIUTOR_POSTGRESQL_DATABASE'),
-        'USER': os.environ.get('ADIUTOR_POSTGRESQL_USER'),
-        'PASSWORD': os.environ.get('ADIUTOR_POSTGRESQL_PASSWORD'),
+        'HOST': os.environ.get('ADIUTOR_POSTGRESQL_HOST', 'localhost'),
+        'NAME': os.environ.get('ADIUTOR_POSTGRESQL_DATABASE', 'crypto-adiutor'),
+        'PORT': os.environ.get('ADIUTOR_POSTGRESQL_PORT', '5432'),
+        'USER': os.environ.get('ADIUTOR_POSTGRESQL_USER', 'crypto-adiutor'),
+        'PASSWORD': os.environ.get('ADIUTOR_POSTGRESQL_PASSWORD', 'crypto-adiutor'),
     },
 }
 
@@ -150,6 +159,21 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Sentry
+sentry_sdk.init(
+    dsn=os.environ.get('ADIUTOR_SENTRY_DSN'),
+    environment=ADIUTOR['stage'],
+    integrations=[DjangoIntegration(), CeleryIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100% of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 # Configurations
 

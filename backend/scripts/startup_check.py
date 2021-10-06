@@ -17,10 +17,18 @@ required_environment_variables = [
         'FRONTEND_URL',
         # Database
         'POSTGRESQL_HOST',
-        'POSTGRESQL_PORT',
         'POSTGRESQL_DATABASE',
+        'POSTGRESQL_PORT',
         'POSTGRESQL_USER',
         'POSTGRESQL_PASSWORD',
+        # RabbitMQ
+        'RABBITMQ_HOST',
+        'RABBITMQ_VHOST',
+        'RABBITMQ_PORT',
+        'RABBITMQ_USER',
+        'RABBITMQ_PASSWORD',
+        # Sentry
+        'SENTRY_DSN',
         # AWS
         'AWS_REGION',
         'AWS_ACCESS_KEY_ID',

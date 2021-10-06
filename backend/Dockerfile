@@ -2,13 +2,14 @@ FROM python:3.8
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /crypto-adiutor
+WORKDIR /adiutor
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY crypto-adiutor crypto-adiutor
+COPY adiutor adiutor
 COPY fixtures fixtures
+COPY locale locale
 COPY scripts scripts
 COPY manage.py manage.py
 
