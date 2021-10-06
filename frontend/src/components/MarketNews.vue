@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-import exchange from '../api/exchange'
+import exchange from "../api/exchange"
 
 export default {
   data() {
@@ -22,9 +22,7 @@ export default {
     }
   },
   mounted() {
-    exchange.getNews(response => {
-      this.$data.news = response.results
-    })
+    exchange.getNews().then((response) => this.$data.news = response.data.results)
   },
 }
 </script>

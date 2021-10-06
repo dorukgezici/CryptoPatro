@@ -4,9 +4,9 @@ import exchange from "../../api/exchange"
 // initial state
 const state = () => ({
     symbol: 'BTCUSDT',
-    assets: {},
-    portfolios: {},
-    portfolioAssets: {},
+    assets: [],
+    portfolios: [],
+    portfolioAssets: [],
     // Binance APIs
     orderBook: {},
     recentTrades: [],
@@ -61,6 +61,9 @@ const getters = {
 
 // actions
 const actions = {
+    setSymbol({commit}: {commit: any}, symbol: string) {
+        commit('SET_SYMBOL', symbol)
+    },
     async getAssets({commit}: { commit: any }) {
         const response = await exchange.getAssets()
         commit('SET_ASSETS', response.data)

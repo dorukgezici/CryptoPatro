@@ -26,7 +26,7 @@
             aria-controls="order-history"
             aria-selected="false"
         >
-          Order History
+          Order History ({{ $store.state.exchange.symbol }})
         </button>
       </li>
     </ul>
@@ -103,25 +103,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>2:40 PM</td>
-              <td>ETH/BTC</td>
-              <td class="green">BUY</td>
-              <td>$444</td>
-              <td>41</td>
+            <tr v-for="order in allOrderList" :key="order">
+              <td>{{ $filters.getHumanDate(order.time) }}</td>
+              <td>{{ order.symbol }}</td>
+              <td v-if="order.side === 'BUY'" class="green">BUY</td>
+              <td v-else-if="order.side === 'SELL'" class="red">SELL</td>
+              <td>{{ order.price }}</td>
+              <td>{{ order.origQty }}</td>
               <td>
                 <i class="icon ion-md-checkmark-circle-outline green"></i>
-              </td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>2:40 PM</td>
-              <td>ETH/BTC</td>
-              <td class="green">BUY</td>
-              <td>$444</td>
-              <td>41</td>
-              <td>
-                <i class="icon ion-md-close-circle-outline red"></i>
               </td>
               <td>-</td>
             </tr>
@@ -139,10 +129,12 @@ import {mapState} from "vuex"
 export default {
   mounted() {
     this.$store.dispatch('exchange/getOpenOrderList')
+    this.$store.dispatch('exchange/getAllOrderList')
   },
   computed: {
     ...mapState('exchange', [
       'openOrderList',
+      'allOrderList',
     ]),
   },
 }

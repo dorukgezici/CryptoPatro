@@ -9,6 +9,8 @@ import router from "./router"
 import store from "./store"
 import moment from "moment"
 import axios from "axios"
+import * as Sentry from "@sentry/vue"
+import {Integrations} from "@sentry/tracing"
 
 const token = localStorage.getItem('token')
 if (token !== null) {
@@ -25,6 +27,21 @@ axios.interceptors.response.use((response) => {
 })
 
 const app = createApp(App)
+
+Sentry.init({
+    app,
+    dsn: "https://4dcbe683fe8b433cb3b696669e053f48@o1025312.ingest.sentry.io/5991900",
+    integrations: [
+        new Integrations.BrowserTracing({
+            routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+            tracingOrigins: ["localhost", "crypto.gezici.me", /^\//],
+        }),
+    ],
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+});
 
 app.config.globalProperties.$filters = {
     getHumanDate: function (date: Date) {

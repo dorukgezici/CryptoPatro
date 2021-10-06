@@ -2,8 +2,8 @@
   <header class="light-bb">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link class="navbar-brand" to="/">
-        <img v-if="$store.state.theme" src="img/logo-dark.svg" alt=""/>
-        <img v-else src="img/logo-light.svg" alt=""/>
+        <img v-if="$store.state.darkTheme" src="img/logo-light.svg" alt=""/>
+        <img v-else src="img/logo-dark.svg" alt=""/>
       </router-link>
       <button
           class="navbar-toggler"
@@ -25,6 +25,26 @@
             <a
                 class="nav-link dropdown-toggle"
                 href="#"
+                id="navbarCoins"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+              Assets / {{ $store.state.exchange.symbol }}
+            </a>
+            <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarCoins"
+            >
+              <li v-for="asset in assets" :key="asset">
+                <router-link @click="setSymbol(asset.ticker)" to="/" class="dropdown-item">{{ asset.ticker }}</router-link>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+                class="nav-link dropdown-toggle"
+                href="#"
                 id="navbarDropdown1"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -37,22 +57,13 @@
                 aria-labelledby="navbarDropdown1"
             >
               <li>
-                <router-link class="dropdown-item" to="profile"
-                >Profile
-                </router-link
-                >
+                <router-link class="dropdown-item" to="profile">Profile</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="wallet"
-                >Wallet
-                </router-link
-                >
+                <router-link class="dropdown-item" to="wallet">Wallet</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="settings"
-                >Settings
-                </router-link
-                >
+                <router-link class="dropdown-item" to="settings">Settings</router-link>
               </li>
             </ul>
           </li>
@@ -72,37 +83,22 @@
                 aria-labelledby="navbarDropdown2"
             >
               <li>
-                <router-link class="dropdown-item" to="login"
-                >Login
-                </router-link
-                >
+                <router-link class="dropdown-item" to="login">Login</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="sign-up"
-                >Sign up
-                </router-link
-                >
+                <router-link class="dropdown-item" to="sign-up">Sign up</router-link>
               </li>
               <li>
                 <router-link class="dropdown-item" to="lock">Lock</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="otp-number"
-                >OTP Number
-                </router-link
-                >
+                <router-link class="dropdown-item" to="otp-number">OTP Number</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="otp-verify"
-                >OTP Verify
-                </router-link
-                >
+                <router-link class="dropdown-item" to="otp-verify">OTP Verify</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="reset"
-                >Reset
-                </router-link
-                >
+                <router-link class="dropdown-item" to="reset">Reset</router-link>
               </li>
               <li>
                 <router-link class="dropdown-item" to="404">404</router-link>
@@ -112,9 +108,9 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item header-custom-icon">
-            <a href="#" class="nav-link" @click="toggleTheme">
-              <i v-if="$store.state.theme" class="icon ion-md-moon"></i>
-              <i v-else class="icon ion-md-sunny"></i>
+            <a href="#" class="nav-link" @click.prevent="toggleDarkTheme">
+              <i v-if="$store.state.darkTheme" class="icon ion-md-sunny"></i>
+              <i v-else class="icon ion-md-moon"></i>
             </a>
           </li>
           <li class="nav-item dropdown header-custom-icon">
@@ -279,11 +275,17 @@ export default {
     ...mapState('auth', [
       'me',
     ]),
-    ...mapActions([
-      'toggleTheme',
+    ...mapState('exchange', [
+      'assets',
     ]),
   },
   methods: {
+    ...mapActions([
+      'toggleDarkTheme',
+    ]),
+    ...mapActions('exchange', [
+      'setSymbol',
+    ]),
     signOut() {
       this.$store.dispatch("auth/signOut").then(() => this.$router.push('/login'))
     },

@@ -4,17 +4,17 @@ import exchange from "./modules/exchange"
 
 export default createStore({
     state: () => ({
-        theme: false,
+        darkTheme: true,
     }),
     actions: {
-        toggleTheme({commit}: { commit: any }) {
+        toggleDarkTheme({commit}: { commit: any }) {
             document.body.classList.toggle("dark")
-            commit("TOGGLE_THEME")
+            commit("TOGGLE_DARK_THEME")
         },
     },
     mutations: {
-        TOGGLE_THEME(state: any) {
-            state.theme = !state.theme
+        TOGGLE_DARK_THEME(state: any) {
+            state.darkTheme = !state.darkTheme
         },
     },
     modules: {
