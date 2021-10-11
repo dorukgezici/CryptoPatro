@@ -35,6 +35,8 @@ required_environment_variables = [
         'AWS_SECRET_ACCESS_KEY',
         # Cryptopanic
         'CRYPTOPANIC_AUTH_TOKEN',
+        # Telegram
+        'TELEGRAM_BOT_TOKEN',
     ]
 ]
 

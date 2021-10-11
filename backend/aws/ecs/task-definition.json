@@ -98,6 +98,10 @@
         {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
           "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
+        },
+        {
+          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
+          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
         }
       ],
       "mountPoints": [],
@@ -200,6 +204,10 @@
         {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
           "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
+        },
+        {
+          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
+          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
         }
       ],
       "mountPoints": [],
@@ -302,6 +310,10 @@
         {
           "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
           "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
+        },
+        {
+          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
+          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
         }
       ],
       "mountPoints": [],

@@ -5,14 +5,17 @@ from . import models
 
 @admin.register(models.Asset)
 class AssetAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['ticker', 'name']
+    list_filter = ['created_at', 'updated_at']
 
 
 @admin.register(models.Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['user', 'name']
+    list_filter = ['created_at', 'updated_at']
 
 
 @admin.register(models.PortfolioAsset)
 class PortfolioAssetAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['asset', 'portfolio', 'amount', 'avg_cost']
+    list_filter = ['created_at', 'updated_at']

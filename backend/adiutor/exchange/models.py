@@ -26,18 +26,27 @@ class Portfolio(models.Model):
     name = models.CharField(max_length=64, verbose_name=_("name"))
 
     def __str__(self) -> str:
-        return self.name
+        return f'{self.user} | {self.name}'
 
 
 class PortfolioAsset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    portfolio = models.ForeignKey(to=Portfolio, on_delete=models.CASCADE, verbose_name=_("portfolio"))
     asset = models.ForeignKey(to=Asset, on_delete=models.CASCADE, verbose_name=_("asset"))
+    portfolio = models.ForeignKey(to=Portfolio, on_delete=models.CASCADE, verbose_name=_("portfolio"))
 
-    amount = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("amount"))
+    amount = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("amount (quantity)"))
+    value = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("value (USD)"))
+
     avg_cost = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("average cost"))
+    buy_amount = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("buy amount"))
+
+    avg_charge = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("average charge"))
+    sell_amount = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("sell amount"))
+
+    realized_pnl = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("realized pnl"))
+    unrealized_pnl = models.DecimalField(max_digits=64, decimal_places=8, verbose_name=_("unrealized pnl"))
 
     def __str__(self) -> str:
         return self.asset.name

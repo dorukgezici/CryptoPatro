@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 import sentry_sdk
+from corsheaders.defaults import default_headers
+from django.utils.translation import gettext_lazy as _
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -47,9 +49,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,14 +118,16 @@ AUTH_USER_MODEL = 'users.User'
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+
+LANGUAGES = [
+    ('en', _("English")),
+    ('tr', _("Turkish")),
+]
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -158,7 +162,9 @@ REST_FRAMEWORK = {
     ),
 }
 
+# CORS
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = list(default_headers) + ['sentry-trace']
 
 # Sentry
 sentry_sdk.init(
@@ -188,4 +194,8 @@ AWS_SECRET_ACCESS_KEY = AWS['secret_access_key']
 
 CRYPTOPANIC = {
     'auth_token': os.environ.get('ADIUTOR_CRYPTOPANIC_AUTH_TOKEN'),
+}
+
+TELEGRAM = {
+    'bot_token': os.environ.get('ADIUTOR_TELEGRAM_BOT_TOKEN'),
 }
