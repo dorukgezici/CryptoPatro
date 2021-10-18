@@ -4,22 +4,20 @@ import binance.error
 from binance.spot import Spot
 from django.db.models import Sum
 
-from .models import Portfolio, PortfolioAsset
+from adiutor.users.models import BinanceAuth, User
+from adiutor.users.utils import send_message
+from .models import Asset, Portfolio, PortfolioAsset
 from ..celery_app import app
-from ..telegram.utils import _send_message
-from ..users.models import BinanceAuth, User
 
 
 @app.task
-def get_current_prices() -> dict:
+def synchronize_prices() -> None:
     binance_auth = BinanceAuth.objects.first()
     client = Spot(key=binance_auth.api_key, secret=binance_auth.api_secret)
 
-    prices = {}
     for ticker_price_data in client.ticker_price():
-        prices[ticker_price_data['symbol']] = ticker_price_data['price']
-
-    return prices
+        symbol, price = ticker_price_data['symbol'], ticker_price_data['price']
+        Asset.objects.filter(symbol=symbol.removesuffix('USDT')).update(price=price)
 
 
 @app.task
@@ -35,16 +33,31 @@ def synchronize_balances() -> None:
             free = Decimal(data['free'])
             locked = Decimal(data['locked'])
 
-            assets[asset] = {
-                'free': free,
-                'locked': locked,
-            }
+            # Hack to combine ETH and BETH balances
+            if asset in ['ETH', 'BETH']:
+                try:
+                    eth = assets['ETH']
+                except KeyError:
+                    eth = {
+                        'free': 0,
+                        'locked': 0,
+                    }
+
+                assets['ETH'] = {
+                    'free': eth['free'] + free,
+                    'locked': eth['locked'] + locked,
+                }
+            else:
+                assets[asset] = {
+                    'free': free,
+                    'locked': locked,
+                }
 
         for portfolio_asset in PortfolioAsset.objects.filter(
-            asset__ticker__in=assets.keys(),
+            asset__symbol__in=assets.keys(),
             portfolio__user=user,
         ):
-            asset = assets[portfolio_asset.asset.ticker]
+            asset = assets[portfolio_asset.asset.symbol]
             portfolio_asset.amount = asset['free'] + asset['locked']
             portfolio_asset.save(update_fields=['amount'])
 
@@ -53,7 +66,7 @@ def synchronize_balances() -> None:
 def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
     for portfolio_asset in PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False):
         user = portfolio_asset.portfolio.user
-        ticker = portfolio_asset.asset.ticker
+        symbol = portfolio_asset.asset.symbol
         client = Spot(key=user.binance.api_key, secret=user.binance.api_secret)
 
         buy_quantity = Decimal(0)
@@ -62,7 +75,7 @@ def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
         sell_quantity = Decimal(0)
         charge = Decimal(0)
 
-        for symbol in [f'{ticker}USDT', f'{ticker}BUSD', f'{ticker}BTC']:
+        for symbol in [f'{symbol}USDT', f'{symbol}BUSD', f'{symbol}BTC']:
             try:
                 my_trades_data = client.my_trades(symbol=symbol, limit=1000)
             except binance.error.ClientError:
@@ -99,9 +112,9 @@ def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
         portfolio_asset.save(update_fields=['avg_cost', 'buy_amount', 'avg_charge', 'sell_amount'])
 
         if report:
-            _send_message(
+            send_message(
                 user.tg.id,
-                f'{ticker}:\n'
+                f'{symbol}:\n'
                 f'Avg. Cost = {portfolio_asset.avg_cost:.2f} USD\n'
                 f'Avg. Charge = {portfolio_asset.avg_charge:.2f} USD\n',
             )
@@ -109,42 +122,41 @@ def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
 
 @app.task
 def calculate_and_report_pnls(report: bool = True) -> None:
-    prices = get_current_prices()
+    portfolio_assets = PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False).exclude(asset__price=0)
 
-    for portfolio_asset in PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False):
+    for portfolio_asset in portfolio_assets:
         user = portfolio_asset.portfolio.user
-        ticker = portfolio_asset.asset.ticker
+        symbol = portfolio_asset.asset.symbol
+        price = portfolio_asset.asset.price
         avg_cost = portfolio_asset.avg_cost
         avg_charge = portfolio_asset.avg_charge
-        symbol = f'{ticker}USDT'
 
-        if symbol in prices:
-            current_price = Decimal(prices[symbol])
-            value = portfolio_asset.amount * current_price
-            realized_pnl = portfolio_asset.sell_amount * (avg_charge - avg_cost)
-            unrealized_pnl = portfolio_asset.amount * (current_price - avg_cost)
+        value = portfolio_asset.amount * price
+        realized_pnl = portfolio_asset.sell_amount * (avg_charge - avg_cost)
+        unrealized_pnl = portfolio_asset.amount * (price - avg_cost)
 
-            portfolio_asset.value = value
-            portfolio_asset.realized_pnl = realized_pnl
-            portfolio_asset.unrealized_pnl = unrealized_pnl
-            portfolio_asset.save(update_fields=['value', 'realized_pnl', 'unrealized_pnl'])
+        portfolio_asset.value = value
+        portfolio_asset.realized_pnl = realized_pnl
+        portfolio_asset.unrealized_pnl = unrealized_pnl
+        portfolio_asset.save(update_fields=['value', 'realized_pnl', 'unrealized_pnl'])
 
-            if report:
-                realized_percentage = ((avg_charge - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
-                unrealized_percentage = ((current_price - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
+        if report:
+            realized_percentage = ((avg_charge - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
+            unrealized_percentage = ((price - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
 
-                _send_message(
-                    user.tg.id,
-                    f'{ticker}:\n'
-                    f'Value = {value:.2f} USD\n'
-                    f'Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
-                    f'Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
-                )
+            send_message(
+                user.tg.id,
+                f'{symbol}:\n'
+                f'Value = {value:.2f} USD\n'
+                f'Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
+                f'Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
+            )
 
 
 @app.task
 def call_of_duty(report: bool = True) -> None:
     synchronize_balances()
+    synchronize_prices()
     calculate_and_report_average_costs_and_charges(report)
     calculate_and_report_pnls(report)
 
@@ -164,7 +176,7 @@ def report_portfolio_pnls() -> None:
         realized_percentage = realized_pnl / (value - unrealized_pnl) * 100
         unrealized_percentage = unrealized_pnl / (value - realized_pnl) * 100
 
-        _send_message(
+        send_message(
             portfolio.user.tg.id,
             f'{portfolio}:\n'
             f'Value = {value:.2f} USD\n'

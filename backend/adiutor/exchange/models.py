@@ -7,12 +7,13 @@ class Asset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    ticker = models.CharField(max_length=16, verbose_name=_("ticker"))
+    symbol = models.CharField(max_length=16, verbose_name=_("symbol"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
+    price = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("price (USD)"))
 
     @property
     def icon(self) -> str:
-        return f'https://cryptoicon-api.vercel.app/api/icon/{self.ticker.lower()}'
+        return f'https://cryptoicon-api.vercel.app/api/icon/{self.symbol.lower()}'
 
     def __str__(self) -> str:
         return self.name

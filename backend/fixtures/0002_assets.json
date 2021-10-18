@@ -5,7 +5,7 @@
     "fields": {
       "created_at": "2021-09-03T16:24:08.264Z",
       "updated_at": "2021-09-03T16:24:08.264Z",
-      "ticker": "BTC",
+      "symbol": "BTC",
       "name": "Bitcoin"
     }
   },
@@ -15,7 +15,7 @@
     "fields": {
       "created_at": "2021-09-03T16:25:42.451Z",
       "updated_at": "2021-09-03T16:25:42.451Z",
-      "ticker": "ETH",
+      "symbol": "ETH",
       "name": "Ethereum"
     }
   },
@@ -25,7 +25,7 @@
     "fields": {
       "created_at": "2021-09-03T16:28:32.547Z",
       "updated_at": "2021-09-03T16:28:32.547Z",
-      "ticker": "USDT",
+      "symbol": "USDT",
       "name": "Tether"
     }
   },
@@ -35,7 +35,7 @@
     "fields": {
       "created_at": "2021-09-03T16:30:46.097Z",
       "updated_at": "2021-09-03T16:30:46.097Z",
-      "ticker": "ADA",
+      "symbol": "ADA",
       "name": "Cardano"
     }
   },
@@ -45,7 +45,7 @@
     "fields": {
       "created_at": "2021-09-03T16:32:05.282Z",
       "updated_at": "2021-09-03T16:32:05.282Z",
-      "ticker": "SOL",
+      "symbol": "SOL",
       "name": "Solana"
     }
   },
@@ -55,7 +55,7 @@
     "fields": {
       "created_at": "2021-09-03T16:36:52.397Z",
       "updated_at": "2021-09-03T16:36:52.397Z",
-      "ticker": "DOGE",
+      "symbol": "DOGE",
       "name": "Dogecoin"
     }
   },
@@ -65,7 +65,7 @@
     "fields": {
       "created_at": "2021-09-03T16:38:41.383Z",
       "updated_at": "2021-09-03T16:38:41.383Z",
-      "ticker": "BNB",
+      "symbol": "BNB",
       "name": "Binance Coin"
     }
   },
@@ -75,7 +75,7 @@
     "fields": {
       "created_at": "2021-09-03T16:39:25.998Z",
       "updated_at": "2021-09-03T16:39:25.998Z",
-      "ticker": "BUSD",
+      "symbol": "BUSD",
       "name": "Binance USD"
     }
   },
@@ -85,7 +85,7 @@
     "fields": {
       "created_at": "2021-09-03T16:40:01.817Z",
       "updated_at": "2021-09-03T16:40:01.817Z",
-      "ticker": "XRP",
+      "symbol": "XRP",
       "name": "XRP"
     }
   }

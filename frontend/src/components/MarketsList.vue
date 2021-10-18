@@ -59,7 +59,7 @@
                   <table class="table star-active">
                     <thead>
                     <tr>
-                      <th>Ticker</th>
+                      <th>Symbol</th>
                       <th>Last Price ($)</th>
                       <th>Change (24H)</th>
                       <th>High (24H)</th>
@@ -71,10 +71,10 @@
                     <tr v-for="asset in assets" :key="asset">
                       <td>
                         <i class="icon ion-md-star"></i>
-                        <img :src="`https://cryptoicon-api.vercel.app/api/icon/${asset.ticker.toLowerCase()}`"
-                             :alt="asset.ticker">
+                        <img :src="`https://cryptoicon-api.vercel.app/api/icon/${asset.symbol.toLowerCase()}`"
+                             :alt="asset.symbol">
                         {{ asset.name }}
-                        ({{ asset.ticker }})
+                        ({{ asset.symbol }})
                       </td>
                       <td>{{ Number(asset.priceChange.lastPrice).toLocaleString() }}</td>
                       <td :class="{green: Number(asset.priceChange.priceChange) > 0, red: Number(asset.priceChange.priceChange) < 0}">

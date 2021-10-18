@@ -37,7 +37,7 @@
                 aria-labelledby="navbarCoins"
             >
               <li v-for="asset in assets" :key="asset">
-                <router-link @click="setSymbol(asset.ticker)" to="/" class="dropdown-item">{{ asset.ticker }}</router-link>
+                <router-link @click="setSymbol(asset.symbol)" to="/" class="dropdown-item">{{ asset.symbol }}</router-link>
               </li>
             </ul>
           </li>

@@ -33,7 +33,7 @@ msgid "updated at"
 msgstr "güncellenme zamanı"
 
 #: adiutor/exchange/models.py:10
-msgid "ticker"
+msgid "symbol"
 msgstr "sembol"
 
 #: adiutor/exchange/models.py:11 adiutor/exchange/models.py:26

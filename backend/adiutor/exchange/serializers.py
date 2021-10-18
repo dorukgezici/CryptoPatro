@@ -15,7 +15,7 @@ class AssetSerializer(serializers.ModelSerializer):
         model = Asset
         fields = [
             'id',
-            'ticker',
+            'symbol',
             'name',
             'icon',
             'price_change',
@@ -29,7 +29,7 @@ class AssetSerializer(serializers.ModelSerializer):
         client = Spot(key=request.user.binance.api_key, secret=request.user.binance.api_secret)
 
         try:
-            return client.ticker_24hr(f'{obj.ticker}USDT')
+            return client.ticker_24hr(f'{obj.symbol}USDT')
         except ClientError as e:
             return ''
 

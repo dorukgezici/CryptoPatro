@@ -5,7 +5,7 @@ from django.conf import settings
 from telegram import MessageEntity
 
 
-def _send_message(
+def send_message(
     user_id: Union[str, int],
     text: str,
     parse_mode: Optional[str] = telegram.ParseMode.HTML,
