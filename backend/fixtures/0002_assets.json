@@ -88,5 +88,185 @@
       "symbol": "XRP",
       "name": "XRP"
     }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 10,
+    "fields": {
+      "created_at": "2021-10-11T10:00:37.110Z",
+      "updated_at": "2021-10-19T19:55:28.987Z",
+      "symbol": "ONE",
+      "name": "Harmony"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 11,
+    "fields": {
+      "created_at": "2021-10-11T10:06:20.301Z",
+      "updated_at": "2021-10-19T19:55:35.805Z",
+      "symbol": "MATIC",
+      "name": "Polygon"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 12,
+    "fields": {
+      "created_at": "2021-10-11T10:06:27.470Z",
+      "updated_at": "2021-10-19T19:55:47.411Z",
+      "symbol": "DOT",
+      "name": "Polkadot"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 13,
+    "fields": {
+      "created_at": "2021-10-11T10:06:35.354Z",
+      "updated_at": "2021-10-19T19:55:41.754Z",
+      "symbol": "ATOM",
+      "name": "Cosmos"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 14,
+    "fields": {
+      "created_at": "2021-10-11T10:06:47.614Z",
+      "updated_at": "2021-10-19T19:56:57.752Z",
+      "symbol": "ENJ",
+      "name": "Enjin Coin"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 15,
+    "fields": {
+      "created_at": "2021-10-11T10:07:01.560Z",
+      "updated_at": "2021-10-19T19:56:51.752Z",
+      "symbol": "KAVA",
+      "name": "Kava"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 16,
+    "fields": {
+      "created_at": "2021-10-11T10:07:07.022Z",
+      "updated_at": "2021-10-19T19:56:46.572Z",
+      "symbol": "FLM",
+      "name": "Flamingo"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 17,
+    "fields": {
+      "created_at": "2021-10-11T10:07:16.211Z",
+      "updated_at": "2021-10-19T19:55:10.923Z",
+      "symbol": "XVS",
+      "name": "Venus"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 18,
+    "fields": {
+      "created_at": "2021-10-11T10:07:21.621Z",
+      "updated_at": "2021-10-19T19:55:56.413Z",
+      "symbol": "RAY",
+      "name": "Raydium"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 19,
+    "fields": {
+      "created_at": "2021-10-11T10:07:29.663Z",
+      "updated_at": "2021-10-19T19:55:21.976Z",
+      "symbol": "WAN",
+      "name": "Wanchain"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 20,
+    "fields": {
+      "created_at": "2021-10-11T10:07:54.243Z",
+      "updated_at": "2021-10-19T19:54:04.258Z",
+      "symbol": "GRT",
+      "name": "The Graph"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 21,
+    "fields": {
+      "created_at": "2021-10-11T10:08:14.544Z",
+      "updated_at": "2021-10-19T19:53:58.419Z",
+      "symbol": "AR",
+      "name": "Arweave"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 22,
+    "fields": {
+      "created_at": "2021-10-11T10:08:41.425Z",
+      "updated_at": "2021-10-19T19:56:15.938Z",
+      "symbol": "RUNE",
+      "name": "THORChain"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 23,
+    "fields": {
+      "created_at": "2021-10-11T10:08:55.875Z",
+      "updated_at": "2021-10-19T19:53:50.618Z",
+      "symbol": "RAMP",
+      "name": "RAMP"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 24,
+    "fields": {
+      "created_at": "2021-10-11T10:09:15.852Z",
+      "updated_at": "2021-10-19T19:56:37.254Z",
+      "symbol": "ICP",
+      "name": "Internet Computer"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 25,
+    "fields": {
+      "created_at": "2021-10-11T10:11:44.027Z",
+      "updated_at": "2021-10-19T19:53:44.518Z",
+      "symbol": "AVAX",
+      "name": "Avalanche"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 26,
+    "fields": {
+      "created_at": "2021-10-11T10:47:48.430Z",
+      "updated_at": "2021-10-19T19:53:39.299Z",
+      "symbol": "SRM",
+      "name": "Serum"
+    }
+  },
+  {
+    "model": "exchange.asset",
+    "pk": 27,
+    "fields": {
+      "created_at": "2021-10-11T20:54:47.082Z",
+      "updated_at": "2021-10-19T19:53:33.579Z",
+      "symbol": "NANO",
+      "name": "Nano"
+    }
   }
 ]

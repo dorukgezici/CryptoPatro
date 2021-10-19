@@ -7,7 +7,7 @@ class Asset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    symbol = models.CharField(max_length=16, verbose_name=_("symbol"))
+    symbol = models.CharField(unique=True, max_length=16, verbose_name=_("symbol"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
     price = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("price (USD)"))
 
