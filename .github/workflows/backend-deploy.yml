@@ -55,10 +55,18 @@ jobs:
           container-name: worker
           image: ${{ steps.build-image.outputs.image }}
 
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-bot
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-worker.outputs.task-definition }}
+          container-name: bot
+          image: ${{ steps.build-image.outputs.image }}
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def-worker.outputs.task-definition }}
+          task-definition: ${{ steps.task-def-bot.outputs.task-definition }}
           service: ${{ env.REPOSITORY }}
           cluster: ${{ env.REPOSITORY }}
           wait-for-service-stability: false
