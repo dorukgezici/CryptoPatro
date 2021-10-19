@@ -24,6 +24,9 @@ scheduler)
 worker)
   exec celery --app "$PROJECT" worker --concurrency 10 -l INFO
   ;;
+bot)
+  exec python3 manage.py bot
+  ;;
 *)
   echo >&2 "Invalid ADIUTOR_CONTAINER_KIND: $ADIUTOR_CONTAINER_KIND."
   exit 1

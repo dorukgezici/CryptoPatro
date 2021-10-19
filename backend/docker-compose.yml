@@ -91,3 +91,9 @@ services:
     environment:
       <<: *backend-common-environment
       ADIUTOR_CONTAINER_KIND: worker
+
+  bot:
+    <<: *backend-common
+    environment:
+      <<: *backend-common-environment
+      ADIUTOR_CONTAINER_KIND: bot
