@@ -18,7 +18,7 @@ def send_message(
     bot = telegram.Bot(tg_token)
 
     try:
-        m = bot.send_message(
+        bot.send_message(
             chat_id=user_id,
             text=text,
             parse_mode=parse_mode,
@@ -28,7 +28,6 @@ def send_message(
             entities=entities,
         )
     except telegram.error.Unauthorized:
-        print(f"Can't send message to {user_id}. Reason: Bot was stopped.")
         success = False
     else:
         success = True

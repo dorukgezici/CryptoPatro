@@ -6,7 +6,7 @@ from binance.spot import Spot
 from django.db.models import Sum
 
 from adiutor.users.models import BinanceAuth, User
-from adiutor.users.utils import send_message
+from adiutor.users.telegram.utils import send_message
 from .models import Asset, Portfolio, PortfolioAsset
 from ..celery_app import app
 
