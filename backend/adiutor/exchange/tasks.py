@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Optional
 
 import binance.error
 from binance.spot import Spot
@@ -11,19 +12,28 @@ from ..celery_app import app
 
 
 @app.task
-def synchronize_prices() -> None:
-    binance_auth = BinanceAuth.objects.first()
+def synchronize_prices(telegram_id: Optional[int] = None) -> None:
+    if telegram_id is not None:
+        binance_auth = BinanceAuth.objects.filter(user__tg__id=str(telegram_id)).first()
+    else:
+        binance_auth = BinanceAuth.objects.first()
+
     client = Spot(key=binance_auth.api_key, secret=binance_auth.api_secret)
 
     for ticker_price_data in client.ticker_price():
         symbol, price = ticker_price_data['symbol'], ticker_price_data['price']
-        Asset.objects.filter(symbol=symbol.removesuffix('USDT')).update(price=price)
+
+        if symbol.endswith('USDT'):
+            Asset.objects.filter(symbol=symbol.removesuffix('USDT')).update(price=price)
 
 
 @app.task
-def synchronize_balances() -> None:
+def synchronize_balances(telegram_id: Optional[int] = None) -> None:
     users = User.objects.filter(binance__isnull=False)
     assets = {}
+
+    if telegram_id is not None:
+        users = users.filter(tg__id=str(telegram_id))
 
     for user in users:
         client = Spot(key=user.binance.api_key, secret=user.binance.api_secret)
@@ -59,12 +69,24 @@ def synchronize_balances() -> None:
         ):
             asset = assets[portfolio_asset.asset.symbol]
             portfolio_asset.amount = asset['free'] + asset['locked']
-            portfolio_asset.save(update_fields=['amount'])
+            portfolio_asset.value = portfolio_asset.amount * portfolio_asset.asset.price
+            portfolio_asset.save(update_fields=['amount', 'value'])
 
 
 @app.task
-def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
-    for portfolio_asset in PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False):
+def sync(telegram_id: Optional[int] = None) -> None:
+    synchronize_balances(telegram_id)
+    synchronize_prices(telegram_id)
+
+
+@app.task
+def calculate_and_report_average_costs_and_charges(telegram_id: Optional[int] = None, report: bool = True) -> None:
+    portfolio_assets = PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False)
+
+    if telegram_id is not None:
+        portfolio_assets = portfolio_assets.filter(portfolio__user__tg__id=str(telegram_id))
+
+    for portfolio_asset in portfolio_assets:
         user = portfolio_asset.portfolio.user
         symbol = portfolio_asset.asset.symbol
         client = Spot(key=user.binance.api_key, secret=user.binance.api_secret)
@@ -86,6 +108,7 @@ def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
                 qty = Decimal(data['qty'])
                 quote_qty = Decimal(data['quoteQty'])
 
+                # Hack to calculate USD values of /BTC trades
                 if symbol.endswith('BTC'):
                     btc_price = Decimal(
                         client.agg_trades(
@@ -103,83 +126,104 @@ def calculate_and_report_average_costs_and_charges(report: bool = True) -> None:
                     sell_quantity += qty
                     charge += quote_qty
 
-        portfolio_asset.avg_cost = cost / buy_quantity if buy_quantity > 0 else 0
-        portfolio_asset.buy_amount = buy_quantity
+        if buy_quantity > 0:
+            portfolio_asset.avg_cost = cost / buy_quantity
+            portfolio_asset.buy_amount = buy_quantity
 
-        portfolio_asset.avg_charge = charge / sell_quantity if sell_quantity > 0 else 0
-        portfolio_asset.sell_amount = sell_quantity
+            portfolio_asset.save(update_fields=['avg_cost', 'buy_amount'])
 
-        portfolio_asset.save(update_fields=['avg_cost', 'buy_amount', 'avg_charge', 'sell_amount'])
+        if sell_quantity > 0:
+            portfolio_asset.avg_charge = charge / sell_quantity
+            portfolio_asset.sell_amount = sell_quantity
+
+            portfolio_asset.save(update_fields=['avg_charge', 'sell_amount'])
 
         if report:
             send_message(
                 user.tg.id,
-                f'{symbol}:\n'
+                f'{portfolio_asset.asset.symbol}:\n'
                 f'Avg. Cost = {portfolio_asset.avg_cost:.2f} USD\n'
                 f'Avg. Charge = {portfolio_asset.avg_charge:.2f} USD\n',
             )
 
 
 @app.task
-def calculate_and_report_pnls(report: bool = True) -> None:
+def calculate_and_report_pnls(telegram_id: Optional[int] = None, report: bool = True) -> None:
     portfolio_assets = PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False).exclude(asset__price=0)
 
+    if telegram_id is not None:
+        portfolio_assets = portfolio_assets.filter(portfolio__user__tg__id=str(telegram_id))
+        sync(telegram_id)
+        calculate_and_report_average_costs_and_charges(telegram_id, False)
+
     for portfolio_asset in portfolio_assets:
-        user = portfolio_asset.portfolio.user
-        symbol = portfolio_asset.asset.symbol
-        price = portfolio_asset.asset.price
-        avg_cost = portfolio_asset.avg_cost
-        avg_charge = portfolio_asset.avg_charge
+        amount, price = portfolio_asset.amount, portfolio_asset.asset.price
+        avg_cost, avg_charge = portfolio_asset.avg_cost, portfolio_asset.avg_charge
 
-        value = portfolio_asset.amount * price
-        realized_pnl = portfolio_asset.sell_amount * (avg_charge - avg_cost)
-        unrealized_pnl = portfolio_asset.amount * (price - avg_cost)
+        portfolio_asset.value = amount * price
+        portfolio_asset.save(update_fields=['value'])
 
-        portfolio_asset.value = value
-        portfolio_asset.realized_pnl = realized_pnl
-        portfolio_asset.unrealized_pnl = unrealized_pnl
-        portfolio_asset.save(update_fields=['value', 'realized_pnl', 'unrealized_pnl'])
+        if avg_cost > 0:
+            unrealized_pnl = amount * (price - avg_cost)
+            portfolio_asset.unrealized_pnl = unrealized_pnl
+            portfolio_asset.save(update_fields=['unrealized_pnl'])
+
+            if avg_charge > 0:
+                realized_pnl = portfolio_asset.sell_amount * avg_charge - portfolio_asset.buy_amount * avg_cost
+                portfolio_asset.realized_pnl = realized_pnl
+                portfolio_asset.save(update_fields=['realized_pnl'])
 
         if report:
-            realized_percentage = ((avg_charge - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
-            unrealized_percentage = ((price - avg_cost) / avg_cost * 100) if avg_cost > 0 else 0
+            unrealized_percentage = 0
+            realized_percentage = 0
+
+            if avg_cost > 0:
+                unrealized_percentage = (price - avg_cost) / avg_cost * 100
+
+                if avg_charge > 0:
+                    realized_percentage = (avg_charge - avg_cost) / avg_cost * 100
 
             send_message(
-                user.tg.id,
-                f'{symbol}:\n'
-                f'Value = {value:.2f} USD\n'
-                f'Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
-                f'Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
+                portfolio_asset.portfolio.user.tg.id,
+                f'{portfolio_asset.asset.symbol}:\n'
+                f'Amount = {amount:.2f}\n'
+                f'Value = {portfolio_asset.value:.2f} USD\n'
+                f'Real. P&L = {portfolio_asset.realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
+                f'Unr. P&L = {portfolio_asset.unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
             )
 
 
 @app.task
 def call_of_duty(report: bool = True) -> None:
-    synchronize_balances()
-    synchronize_prices()
-    calculate_and_report_average_costs_and_charges(report)
-    calculate_and_report_pnls(report)
+    sync()
+    calculate_and_report_average_costs_and_charges(report=report)
+    calculate_and_report_pnls(report=report)
 
 
 @app.task
-def report_portfolio_pnls() -> None:
-    call_of_duty(report=False)
+def report_portfolio_pnls(telegram_id: Optional[int] = None) -> None:
+    portfolios = Portfolio.objects.filter(user__binance__isnull=False)
 
-    for portfolio in Portfolio.objects.filter(user__binance__isnull=False):
-        portfolio_assets = portfolio.portfolioasset_set.all()
+    if telegram_id is not None:
+        portfolios = portfolios.filter(user__tg__id=str(telegram_id))
+        calculate_and_report_pnls(telegram_id, False)
+    else:
+        call_of_duty(report=False)
 
-        data = portfolio_assets.aggregate(Sum('value'), Sum('realized_pnl'), Sum('unrealized_pnl'))
-        value = data['value__sum']
-        realized_pnl = data['realized_pnl__sum']
-        unrealized_pnl = data['unrealized_pnl__sum']
+    for portfolio in portfolios:
+        if portfolio.portfolioasset_set.exists():
+            data = portfolio.portfolioasset_set.aggregate(Sum('value'), Sum('realized_pnl'), Sum('unrealized_pnl'))
+            value = data['value__sum']
+            realized_pnl = data['realized_pnl__sum']
+            unrealized_pnl = data['unrealized_pnl__sum']
 
-        realized_percentage = realized_pnl / (value - unrealized_pnl) * 100
-        unrealized_percentage = unrealized_pnl / (value - realized_pnl) * 100
+            realized_percentage = realized_pnl / (value - unrealized_pnl) * 100
+            unrealized_percentage = unrealized_pnl / (value - realized_pnl) * 100
 
-        send_message(
-            portfolio.user.tg.id,
-            f'{portfolio}:\n'
-            f'Value = {value:.2f} USD\n'
-            f'Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
-            f'Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
-        )
+            send_message(
+                portfolio.user.tg.id,
+                f'{portfolio}:\n'
+                f'Value = {value:.2f} USD\n'
+                f'Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n'
+                f'Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n'
+            )

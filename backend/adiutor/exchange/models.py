@@ -34,8 +34,8 @@ class PortfolioAsset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    asset = models.ForeignKey(to=Asset, on_delete=models.CASCADE, verbose_name=_("asset"))
     portfolio = models.ForeignKey(to=Portfolio, on_delete=models.CASCADE, verbose_name=_("portfolio"))
+    asset = models.ForeignKey(to=Asset, on_delete=models.CASCADE, verbose_name=_("asset"))
 
     amount = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("amount (quantity)"))
     value = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("value (USD)"))
