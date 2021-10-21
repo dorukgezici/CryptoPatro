@@ -75,8 +75,8 @@ def synchronize_balances(telegram_id: Optional[int] = None) -> None:
 
 @app.task
 def sync(telegram_id: Optional[int] = None) -> None:
-    synchronize_balances(telegram_id)
     synchronize_prices(telegram_id)
+    synchronize_balances(telegram_id)
 
 
 @app.task
@@ -169,7 +169,7 @@ def calculate_and_report_pnls(telegram_id: Optional[int] = None, report: bool = 
             portfolio_asset.save(update_fields=['unrealized_pnl'])
 
             if avg_charge > 0:
-                realized_pnl = portfolio_asset.sell_amount * avg_charge - portfolio_asset.buy_amount * avg_cost
+                realized_pnl = portfolio_asset.sell_amount * (avg_charge - avg_cost)
                 portfolio_asset.realized_pnl = realized_pnl
                 portfolio_asset.save(update_fields=['realized_pnl'])
 

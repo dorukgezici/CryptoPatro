@@ -13,9 +13,8 @@ def send_message(
     reply_to_message_id: Optional[int] = None,
     disable_web_page_preview: Optional[bool] = None,
     entities: Optional[List[MessageEntity]] = None,
-    tg_token: str = settings.TELEGRAM['bot_token'],
 ) -> bool:
-    bot = telegram.Bot(tg_token)
+    bot = telegram.Bot(settings.TELEGRAM['bot_token'])
 
     try:
         bot.send_message(
@@ -28,8 +27,6 @@ def send_message(
             entities=entities,
         )
     except telegram.error.Unauthorized:
-        success = False
+        return False
     else:
-        success = True
-
-    return success
+        return True

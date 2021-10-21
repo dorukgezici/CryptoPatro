@@ -6,7 +6,8 @@
       "created_at": "2021-09-03T16:24:08.264Z",
       "updated_at": "2021-09-03T16:24:08.264Z",
       "symbol": "BTC",
-      "name": "Bitcoin"
+      "name": "Bitcoin",
+      "price": "65674.12000000"
     }
   },
   {
@@ -16,7 +17,8 @@
       "created_at": "2021-09-03T16:25:42.451Z",
       "updated_at": "2021-09-03T16:25:42.451Z",
       "symbol": "ETH",
-      "name": "Ethereum"
+      "name": "Ethereum",
+      "price": "4184.56000000"
     }
   },
   {
@@ -24,9 +26,10 @@
     "pk": 3,
     "fields": {
       "created_at": "2021-09-03T16:28:32.547Z",
-      "updated_at": "2021-09-03T16:28:32.547Z",
+      "updated_at": "2021-10-20T00:45:07.102Z",
       "symbol": "USDT",
-      "name": "Tether"
+      "name": "Tether",
+      "price": "1.00000000"
     }
   },
   {
@@ -36,7 +39,8 @@
       "created_at": "2021-09-03T16:30:46.097Z",
       "updated_at": "2021-09-03T16:30:46.097Z",
       "symbol": "ADA",
-      "name": "Cardano"
+      "name": "Cardano",
+      "price": "2.23200000"
     }
   },
   {
@@ -46,7 +50,8 @@
       "created_at": "2021-09-03T16:32:05.282Z",
       "updated_at": "2021-09-03T16:32:05.282Z",
       "symbol": "SOL",
-      "name": "Solana"
+      "name": "Solana",
+      "price": "183.03000000"
     }
   },
   {
@@ -56,7 +61,8 @@
       "created_at": "2021-09-03T16:36:52.397Z",
       "updated_at": "2021-09-03T16:36:52.397Z",
       "symbol": "DOGE",
-      "name": "Dogecoin"
+      "name": "Dogecoin",
+      "price": "0.25460000"
     }
   },
   {
@@ -66,7 +72,8 @@
       "created_at": "2021-09-03T16:38:41.383Z",
       "updated_at": "2021-09-03T16:38:41.383Z",
       "symbol": "BNB",
-      "name": "Binance Coin"
+      "name": "Binance Coin",
+      "price": "501.00000000"
     }
   },
   {
@@ -76,7 +83,8 @@
       "created_at": "2021-09-03T16:39:25.998Z",
       "updated_at": "2021-09-03T16:39:25.998Z",
       "symbol": "BUSD",
-      "name": "Binance USD"
+      "name": "Binance USD",
+      "price": "0.99980000"
     }
   },
   {
@@ -86,7 +94,8 @@
       "created_at": "2021-09-03T16:40:01.817Z",
       "updated_at": "2021-09-03T16:40:01.817Z",
       "symbol": "XRP",
-      "name": "XRP"
+      "name": "XRP",
+      "price": "1.15220000"
     }
   },
   {
@@ -96,7 +105,8 @@
       "created_at": "2021-10-11T10:00:37.110Z",
       "updated_at": "2021-10-19T19:55:28.987Z",
       "symbol": "ONE",
-      "name": "Harmony"
+      "name": "Harmony",
+      "price": "0.25192000"
     }
   },
   {
@@ -106,7 +116,8 @@
       "created_at": "2021-10-11T10:06:20.301Z",
       "updated_at": "2021-10-19T19:55:35.805Z",
       "symbol": "MATIC",
-      "name": "Polygon"
+      "name": "Polygon",
+      "price": "1.55500000"
     }
   },
   {
@@ -116,7 +127,8 @@
       "created_at": "2021-10-11T10:06:27.470Z",
       "updated_at": "2021-10-19T19:55:47.411Z",
       "symbol": "DOT",
-      "name": "Polkadot"
+      "name": "Polkadot",
+      "price": "44.66000000"
     }
   },
   {
@@ -126,7 +138,8 @@
       "created_at": "2021-10-11T10:06:35.354Z",
       "updated_at": "2021-10-19T19:55:41.754Z",
       "symbol": "ATOM",
-      "name": "Cosmos"
+      "name": "Cosmos",
+      "price": "36.30000000"
     }
   },
   {
@@ -136,7 +149,8 @@
       "created_at": "2021-10-11T10:06:47.614Z",
       "updated_at": "2021-10-19T19:56:57.752Z",
       "symbol": "ENJ",
-      "name": "Enjin Coin"
+      "name": "Enjin Coin",
+      "price": "1.84200000"
     }
   },
   {
@@ -146,7 +160,8 @@
       "created_at": "2021-10-11T10:07:01.560Z",
       "updated_at": "2021-10-19T19:56:51.752Z",
       "symbol": "KAVA",
-      "name": "Kava"
+      "name": "Kava",
+      "price": "5.74100000"
     }
   },
   {
@@ -156,7 +171,8 @@
       "created_at": "2021-10-11T10:07:07.022Z",
       "updated_at": "2021-10-19T19:56:46.572Z",
       "symbol": "FLM",
-      "name": "Flamingo"
+      "name": "Flamingo",
+      "price": "0.52200000"
     }
   },
   {
@@ -166,7 +182,8 @@
       "created_at": "2021-10-11T10:07:16.211Z",
       "updated_at": "2021-10-19T19:55:10.923Z",
       "symbol": "XVS",
-      "name": "Venus"
+      "name": "Venus",
+      "price": "33.14000000"
     }
   },
   {
@@ -176,7 +193,8 @@
       "created_at": "2021-10-11T10:07:21.621Z",
       "updated_at": "2021-10-19T19:55:56.413Z",
       "symbol": "RAY",
-      "name": "Raydium"
+      "name": "Raydium",
+      "price": "10.47800000"
     }
   },
   {
@@ -186,7 +204,8 @@
       "created_at": "2021-10-11T10:07:29.663Z",
       "updated_at": "2021-10-19T19:55:21.976Z",
       "symbol": "WAN",
-      "name": "Wanchain"
+      "name": "Wanchain",
+      "price": "0.93670000"
     }
   },
   {
@@ -196,7 +215,8 @@
       "created_at": "2021-10-11T10:07:54.243Z",
       "updated_at": "2021-10-19T19:54:04.258Z",
       "symbol": "GRT",
-      "name": "The Graph"
+      "name": "The Graph",
+      "price": "0.86840000"
     }
   },
   {
@@ -206,7 +226,8 @@
       "created_at": "2021-10-11T10:08:14.544Z",
       "updated_at": "2021-10-19T19:53:58.419Z",
       "symbol": "AR",
-      "name": "Arweave"
+      "name": "Arweave",
+      "price": "56.91000000"
     }
   },
   {
@@ -216,7 +237,8 @@
       "created_at": "2021-10-11T10:08:41.425Z",
       "updated_at": "2021-10-19T19:56:15.938Z",
       "symbol": "RUNE",
-      "name": "THORChain"
+      "name": "THORChain",
+      "price": "8.14100000"
     }
   },
   {
@@ -226,7 +248,8 @@
       "created_at": "2021-10-11T10:08:55.875Z",
       "updated_at": "2021-10-19T19:53:50.618Z",
       "symbol": "RAMP",
-      "name": "RAMP"
+      "name": "RAMP",
+      "price": "0.31690000"
     }
   },
   {
@@ -236,7 +259,8 @@
       "created_at": "2021-10-11T10:09:15.852Z",
       "updated_at": "2021-10-19T19:56:37.254Z",
       "symbol": "ICP",
-      "name": "Internet Computer"
+      "name": "Internet Computer",
+      "price": "47.54000000"
     }
   },
   {
@@ -246,7 +270,8 @@
       "created_at": "2021-10-11T10:11:44.027Z",
       "updated_at": "2021-10-19T19:53:44.518Z",
       "symbol": "AVAX",
-      "name": "Avalanche"
+      "name": "Avalanche",
+      "price": "61.06000000"
     }
   },
   {
@@ -256,7 +281,8 @@
       "created_at": "2021-10-11T10:47:48.430Z",
       "updated_at": "2021-10-19T19:53:39.299Z",
       "symbol": "SRM",
-      "name": "Serum"
+      "name": "Serum",
+      "price": "7.72100000"
     }
   },
   {
@@ -266,7 +292,8 @@
       "created_at": "2021-10-11T20:54:47.082Z",
       "updated_at": "2021-10-19T19:53:33.579Z",
       "symbol": "NANO",
-      "name": "Nano"
+      "name": "Nano",
+      "price": "5.54200000"
     }
   }
 ]
