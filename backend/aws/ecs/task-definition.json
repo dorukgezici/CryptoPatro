@@ -27,11 +27,11 @@
         },
         {
           "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.gezici.me"
+          "value": "https://api.cryptopatro.net"
         },
         {
           "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://crypto.gezici.me"
+          "value": "https://cryptopatro.net"
         },
         {
           "name": "ADIUTOR_POSTGRESQL_PORT",
@@ -133,11 +133,11 @@
         },
         {
           "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.gezici.me"
+          "value": "https://api.cryptopatro.net"
         },
         {
           "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://crypto.gezici.me"
+          "value": "https://cryptopatro.net"
         },
         {
           "name": "ADIUTOR_POSTGRESQL_PORT",
@@ -239,11 +239,11 @@
         },
         {
           "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.gezici.me"
+          "value": "https://api.cryptopatro.net"
         },
         {
           "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://crypto.gezici.me"
+          "value": "https://cryptopatro.net"
         },
         {
           "name": "ADIUTOR_POSTGRESQL_PORT",
@@ -345,11 +345,11 @@
         },
         {
           "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.gezici.me"
+          "value": "https://api.cryptopatro.net"
         },
         {
           "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://crypto.gezici.me"
+          "value": "https://cryptopatro.net"
         },
         {
           "name": "ADIUTOR_POSTGRESQL_PORT",

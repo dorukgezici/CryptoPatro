@@ -34,7 +34,7 @@ Sentry.init({
     integrations: [
         new Integrations.BrowserTracing({
             routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-            tracingOrigins: ["localhost", "crypto.gezici.me", /^\//],
+            tracingOrigins: ["localhost", "cryptopatro.net", /^\//],
         }),
     ],
     // Set tracesSampleRate to 1.0 to capture 100%

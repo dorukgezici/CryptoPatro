@@ -1,4 +1,4 @@
-Django==3.2.8
+Django==3.2.9
 Pillow==8.4.0
 djangorestframework==3.12.4
 djangorestframework-camel-case==1.2.0

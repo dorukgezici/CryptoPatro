@@ -1,7 +1,7 @@
 name: Build & Deploy VueJS to GitHub Pages
 on: push
 env:
-  DOMAIN: crypto.gezici.me
+  DOMAIN: cryptopatro.net
   GITHUB_EMAIL: doruk@gezici.me
 jobs:
   deploy:
