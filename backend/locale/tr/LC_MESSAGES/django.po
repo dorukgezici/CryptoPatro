@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-06 22:55+0000\n"
+"POT-Creation-Date: 2021-11-03 00:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,17 @@ msgstr ""
 msgid "Exchange"
 msgstr "Borsa"
 
-#: adiutor/exchange/models.py:7 adiutor/exchange/models.py:22
-#: adiutor/exchange/models.py:33
+#: adiutor/exchange/models.py:7 adiutor/exchange/models.py:23
+#: adiutor/exchange/models.py:34 adiutor/users/models.py:8
+#: adiutor/users/models.py:19 adiutor/users/models.py:30
+#: adiutor/users/models.py:61
 msgid "created at"
 msgstr "oluşturulma zamanı"
 
-#: adiutor/exchange/models.py:8 adiutor/exchange/models.py:23
-#: adiutor/exchange/models.py:34
+#: adiutor/exchange/models.py:8 adiutor/exchange/models.py:24
+#: adiutor/exchange/models.py:35 adiutor/users/models.py:9
+#: adiutor/users/models.py:20 adiutor/users/models.py:31
+#: adiutor/users/models.py:62
 msgid "updated at"
 msgstr "güncellenme zamanı"
 
@@ -36,43 +40,80 @@ msgstr "güncellenme zamanı"
 msgid "symbol"
 msgstr "sembol"
 
-#: adiutor/exchange/models.py:11 adiutor/exchange/models.py:26
+#: adiutor/exchange/models.py:11 adiutor/exchange/models.py:27
 msgid "name"
 msgstr "isim"
 
-#: adiutor/exchange/models.py:25 adiutor/users/models.py:13
+#: adiutor/exchange/models.py:12
+msgid "price (USD)"
+msgstr "fiyat (USD)"
+
+#: adiutor/exchange/models.py:26 adiutor/users/models.py:23
+#: adiutor/users/models.py:33 adiutor/users/models.py:64
 msgid "user"
 msgstr "kullanıcı"
 
-#: adiutor/exchange/models.py:36
+#: adiutor/exchange/models.py:37
 msgid "portfolio"
 msgstr "portföy"
 
-#: adiutor/exchange/models.py:37
+#: adiutor/exchange/models.py:38
 msgid "asset"
 msgstr "varlık"
 
-#: adiutor/exchange/models.py:39
-msgid "amount"
-msgstr "miktar"
-
 #: adiutor/exchange/models.py:40
+msgid "amount (quantity)"
+msgstr "adet"
+
+#: adiutor/exchange/models.py:41
+msgid "value (USD)"
+msgstr "değer (USD)"
+
+#: adiutor/exchange/models.py:43
 msgid "average cost"
 msgstr "ortalama maliyet"
 
+#: adiutor/exchange/models.py:44
+msgid "buy amount"
+msgstr "alınan miktar"
+
+#: adiutor/exchange/models.py:46
+msgid "average charge"
+msgstr "ortalama ücret"
+
+#: adiutor/exchange/models.py:47
+msgid "sell amount"
+msgstr "satılan miktar"
+
+#: adiutor/exchange/models.py:49
+msgid "realized pnl"
+msgstr "sonuçlanan kar/zarar"
+
+#: adiutor/exchange/models.py:50
+msgid "unrealized pnl"
+msgstr "bekleyen kar/zarar"
+
+#: adiutor/settings.py:127
+msgid "English"
+msgstr "İngilizce"
+
+#: adiutor/settings.py:128
+msgid "Turkish"
+msgstr "Türkçe"
+
 #: adiutor/urls.py:6
-msgid "Crypto Adiutor"
-msgstr "Crypto Adiutor"
+msgid "CryptoPatro"
+msgstr "CryptoPatro"
 
 #: adiutor/users/apps.py:8
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: adiutor/users/models.py:14
+#: adiutor/users/models.py:34 adiutor/users/models.py:65
 msgid "api key"
 msgstr "api key"
 
-#: adiutor/users/models.py:15
+#: adiutor/users/models.py:35 adiutor/users/models.py:66
 msgid "api secret"
 msgstr "api secret"
 

@@ -1,4 +1,4 @@
-# Crypto Adiutor
+# CryptoPatro
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django)
 ![PyPI](https://img.shields.io/pypi/v/Django?label=Django)
 ___

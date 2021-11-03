@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-admin.site.site_title = admin.site.site_header = _("Crypto Adiutor")
+admin.site.site_title = admin.site.site_header = _("CryptoPatro")
 
 
 def health_check(request: HttpRequest) -> HttpResponse:

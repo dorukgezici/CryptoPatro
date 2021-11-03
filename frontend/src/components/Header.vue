@@ -2,8 +2,8 @@
   <header class="light-bb">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link class="navbar-brand" to="/">
-        <img v-if="$store.state.darkTheme" src="img/logo-light.svg" alt=""/>
-        <img v-else src="img/logo-dark.svg" alt=""/>
+        <img v-if="$store.state.darkTheme" src="img/logo.svg" alt=""/>
+        <img v-else src="img/logo.svg" alt=""/>
       </router-link>
       <button
           class="navbar-toggler"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="5000px" height="1024px" viewBox="0 0 5000 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#008DFF" offset="0%"></stop>
+            <stop stop-color="#00FFBA" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="56.0912786%" y1="91.8325699%" x2="43.9087214%" y2="8.16743012%" id="linearGradient-2">
+            <stop stop-color="#008DFF" offset="0%"></stop>
+            <stop stop-color="#00FFBA" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0000881%" y1="99.9999552%" x2="50.0000881%" y2="0%" id="linearGradient-3">
+            <stop stop-color="#008DFF" offset="0%"></stop>
+            <stop stop-color="#00FFBA" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9999119%" y1="4.47585188e-05%" x2="49.9999119%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#008DFF" offset="0%"></stop>
+            <stop stop-color="#00FFBA" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-5">
+            <stop stop-color="#008DFF" offset="0%"></stop>
+            <stop stop-color="#00FFBA" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(435.000000, 20.000000)" stroke-width="40">
+            <path d="M492,984 C763.724,984 984,763.724 984,492 C984,220.276 763.724,0 492,0 C220.276,0 0,220.276 0,492 C0,763.724 220.276,984 492,984 Z" id="Ellipse" stroke="url(#linearGradient-1)"></path>
+            <line x1="178.004" y1="792.004" x2="790.996" y2="178.996" id="Line" stroke="url(#linearGradient-2)"></line>
+            <path d="M810.469,261 C937.633,670.407 717.201,620.333 572.678,523.512" id="C" stroke="url(#linearGradient-3)"></path>
+            <path d="M173.727,697 C46.563,287.593 266.995,337.667 411.518,434.488" id="C-1" stroke="url(#linearGradient-4)"></path>
+        </g>
+        <text id="CryptoPatro" fill="url(#linearGradient-5)" fill-rule="nonzero" font-family="Menlo-Regular, Menlo" font-size="450" font-weight="normal">
+            <tspan x="1581" y="672">CryptoPatro</tspan>
+        </text>
+    </g>
+</svg>
