@@ -10,14 +10,11 @@ from sentry_sdk.integrations.django import DjangoIntegration
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 ADIUTOR = {
-    'secret_key': os.environ.get('ADIUTOR_SECRET_KEY', 'notsosecretkey'),
-    'stage': os.environ.get('ADIUTOR_STAGE', 'development'),
-    'backend_url': os.environ.get('ADIUTOR_BACKEND_URL', '127.0.0.1:8000'),
-    'frontend_url': os.environ.get('ADIUTOR_FRONTEND_URL', '127.0.0.1:8080'),
+    'secret_key': os.environ.get('CRYPTOPATRO_SECRET_KEY', 'notsosecretkey'),
+    'stage': os.environ.get('CRYPTOPATRO_STAGE', 'development'),
+    'backend_url': os.environ.get('CRYPTOPATRO_BACKEND_URL', 'localhost:8000'),
+    'frontend_url': os.environ.get('CRYPTOPATRO_FRONTEND_URL', 'localhost:8080'),
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -44,8 +41,8 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     # apps
-    'adiutor.users',
-    'adiutor.exchange',
+    'apps.users',
+    'apps.exchange',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'adiutor.urls'
+ROOT_URLCONF = 'apps.urls'
 
 TEMPLATES = [
     {
@@ -78,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'adiutor.wsgi.application'
+WSGI_APPLICATION = 'apps.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -86,11 +83,11 @@ WSGI_APPLICATION = 'adiutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get('ADIUTOR_POSTGRESQL_HOST', 'localhost'),
-        'NAME': os.environ.get('ADIUTOR_POSTGRESQL_DATABASE', 'crypto-adiutor'),
-        'PORT': os.environ.get('ADIUTOR_POSTGRESQL_PORT', '5432'),
-        'USER': os.environ.get('ADIUTOR_POSTGRESQL_USER', 'crypto-adiutor'),
-        'PASSWORD': os.environ.get('ADIUTOR_POSTGRESQL_PASSWORD', 'crypto-adiutor'),
+        'HOST': os.environ.get('CRYPTOPATRO_POSTGRESQL_HOST', 'localhost'),
+        'NAME': os.environ.get('CRYPTOPATRO_POSTGRESQL_DATABASE', 'cryptopatro'),
+        'PORT': os.environ.get('CRYPTOPATRO_POSTGRESQL_PORT', '5432'),
+        'USER': os.environ.get('CRYPTOPATRO_POSTGRESQL_USER', 'cryptopatro'),
+        'PASSWORD': os.environ.get('CRYPTOPATRO_POSTGRESQL_PASSWORD', 'cryptopatro'),
     },
 }
 
@@ -168,7 +165,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + ['sentry-trace']
 
 # Sentry
 sentry_sdk.init(
-    dsn=os.environ.get('ADIUTOR_SENTRY_DSN'),
+    dsn=os.environ.get('CRYPTOPATRO_SENTRY_DSN'),
     environment=ADIUTOR['stage'],
     integrations=[DjangoIntegration(), CeleryIntegration()],
 
@@ -184,18 +181,19 @@ sentry_sdk.init(
 # Configurations
 
 AWS = {
-    'region': os.environ.get('ADIUTOR_AWS_REGION'),
-    'access_key_id': os.environ.get('ADIUTOR_AWS_ACCESS_KEY_ID'),
-    'secret_access_key': os.environ.get('ADIUTOR_AWS_SECRET_ACCESS_KEY'),
+    'region': os.environ.get('CRYPTOPATRO_AWS_REGION'),
+    'access_key_id': os.environ.get('CRYPTOPATRO_AWS_ACCESS_KEY_ID'),
+    'secret_access_key': os.environ.get('CRYPTOPATRO_AWS_SECRET_ACCESS_KEY'),
+    'secrets_bucket': os.environ.get('CRYPTOPATRO_AWS_SECRETS_BUCKET'),
 }
 AWS_REGION = AWS['region']
 AWS_ACCESS_KEY_ID = AWS['access_key_id']
 AWS_SECRET_ACCESS_KEY = AWS['secret_access_key']
 
 CRYPTOPANIC = {
-    'auth_token': os.environ.get('ADIUTOR_CRYPTOPANIC_AUTH_TOKEN'),
+    'auth_token': os.environ.get('CRYPTOPATRO_CRYPTOPANIC_AUTH_TOKEN'),
 }
 
 TELEGRAM = {
-    'bot_token': os.environ.get('ADIUTOR_TELEGRAM_BOT_TOKEN'),
+    'bot_token': os.environ.get('CRYPTOPATRO_TELEGRAM_BOT_TOKEN'),
 }

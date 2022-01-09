@@ -1,8 +1,8 @@
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import CallbackContext, ConversationHandler
 
-from adiutor.exchange.models import Asset, Portfolio, PortfolioAsset
-from adiutor.exchange.tasks import (
+from apps.exchange.models import Asset, Portfolio, PortfolioAsset
+from apps.exchange.tasks import (
     calculate_and_report_average_costs_and_charges,
     calculate_and_report_pnls,
     report_portfolio_pnls,

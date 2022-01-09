@@ -1,32 +1,32 @@
 version: "3.9"
 
 x-env-variables:
-  - &PROJECT crypto-adiutor
+  - &PROJECT cryptopatro
 
 x-backend-common: &backend-common
-  image: crypto-adiutor
+  image: cryptopatro
   build: .
   volumes:
-    - ./adiutor:/adiutor/adiutor
-    - ./fixtures:/adiutor/fixtures
-    - ./locale:/adiutor/locale
-    - ./scripts:/adiutor/scripts
+    - ./apps:/cryptopatro/apps
+    - ./fixtures:/cryptopatro/fixtures
+    - ./locale:/cryptopatro/locale
+    - ./scripts:/cryptopatro/scripts
   env_file: .env
   environment: &backend-common-environment
-    ADIUTOR_STAGE: development
-    ADIUTOR_BACKEND_URL: http://127.0.0.1:8000
+    CRYPTOPATRO_STAGE: development
+    CRYPTOPATRO_BACKEND_URL: http://localhost:8000
     # PostgreSQL
-    ADIUTOR_POSTGRESQL_HOST: postgres
-    ADIUTOR_POSTGRESQL_DATABASE: *PROJECT
-    ADIUTOR_POSTGRESQL_PORT: 5432
-    ADIUTOR_POSTGRESQL_USER: *PROJECT
-    ADIUTOR_POSTGRESQL_PASSWORD: *PROJECT
+    CRYPTOPATRO_POSTGRESQL_HOST: postgres
+    CRYPTOPATRO_POSTGRESQL_DATABASE: *PROJECT
+    CRYPTOPATRO_POSTGRESQL_PORT: 5432
+    CRYPTOPATRO_POSTGRESQL_USER: *PROJECT
+    CRYPTOPATRO_POSTGRESQL_PASSWORD: *PROJECT
     # RabbitMQ
-    ADIUTOR_RABBITMQ_HOST: rabbitmq
-    ADIUTOR_RABBITMQ_VHOST: *PROJECT
-    ADIUTOR_RABBITMQ_PORT: 5672
-    ADIUTOR_RABBITMQ_USER: *PROJECT
-    ADIUTOR_RABBITMQ_PASSWORD: *PROJECT
+    CRYPTOPATRO_RABBITMQ_HOST: rabbitmq
+    CRYPTOPATRO_RABBITMQ_VHOST: *PROJECT
+    CRYPTOPATRO_RABBITMQ_PORT: 5672
+    CRYPTOPATRO_RABBITMQ_USER: *PROJECT
+    CRYPTOPATRO_RABBITMQ_PASSWORD: *PROJECT
   tty: true
 
 volumes:
@@ -38,7 +38,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
-      - 127.0.0.1:5432:5432
+      - "127.0.0.1:5432:5432"
     environment:
       POSTGRES_DB: *PROJECT
       POSTGRES_USER: *PROJECT
@@ -52,8 +52,8 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
-      - 127.0.0.1:5672:5672
-      - 127.0.0.1:15672:15672
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
     environment:
       RABBITMQ_DEFAULT_VHOST: *PROJECT
       RABBITMQ_DEFAULT_USER: *PROJECT
@@ -71,9 +71,9 @@ services:
       - rabbitmq
     environment:
       <<: *backend-common-environment
-      ADIUTOR_CONTAINER_KIND: api
+      CRYPTOPATRO_CONTAINER_KIND: api
     ports:
-      - 127.0.0.1:8000:80
+      - "127.0.0.1:8000:80"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://api" ]
       interval: 30s
@@ -84,16 +84,16 @@ services:
     <<: *backend-common
     environment:
       <<: *backend-common-environment
-      ADIUTOR_CONTAINER_KIND: scheduler
+      CRYPTOPATRO_CONTAINER_KIND: scheduler
 
   worker:
     <<: *backend-common
     environment:
       <<: *backend-common-environment
-      ADIUTOR_CONTAINER_KIND: worker
+      CRYPTOPATRO_CONTAINER_KIND: worker
 
   bot:
     <<: *backend-common
     environment:
       <<: *backend-common-environment
-      ADIUTOR_CONTAINER_KIND: bot
+      CRYPTOPATRO_CONTAINER_KIND: bot

@@ -16,94 +16,19 @@
         }
       ],
       "essential": true,
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::cryptopatro-secrets/backend-production.env",
+          "type": "s3"
+        }
+      ],
       "environment": [
         {
-          "name": "ADIUTOR_CONTAINER_KIND",
+          "name": "CRYPTOPATRO_CONTAINER_KIND",
           "value": "api"
-        },
-        {
-          "name": "ADIUTOR_STAGE",
-          "value": "production"
-        },
-        {
-          "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PORT",
-          "value": "5432"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PORT",
-          "value": "5672"
-        },
-        {
-          "name": "ADIUTOR_AWS_REGION",
-          "value": "eu-west-1"
         }
       ],
-      "secrets": [
-        {
-          "name": "ADIUTOR_SECRET_KEY",
-          "valueFrom": "/crypto-adiutor/SECRET_KEY"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_HOST",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_HOST"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_DATABASE",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_DATABASE"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_USER",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_USER"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PASSWORD",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_HOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_HOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_VHOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_VHOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_USER",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_USER"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PASSWORD",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_SENTRY_DSN",
-          "valueFrom": "/crypto-adiutor/SENTRY_DSN"
-        },
-        {
-          "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
-          "valueFrom": "/crypto-adiutor/AWS_ACCESS_KEY_ID"
-        },
-        {
-          "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
-          "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
-        },
-        {
-          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
-          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
-        }
-      ],
+      "secrets": [],
       "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {
@@ -122,94 +47,19 @@
       "memoryReservation": 128,
       "portMappings": [],
       "essential": true,
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::cryptopatro-secrets/backend-production.env",
+          "type": "s3"
+        }
+      ],
       "environment": [
         {
-          "name": "ADIUTOR_CONTAINER_KIND",
+          "name": "CRYPTOPATRO_CONTAINER_KIND",
           "value": "scheduler"
-        },
-        {
-          "name": "ADIUTOR_STAGE",
-          "value": "production"
-        },
-        {
-          "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PORT",
-          "value": "5432"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PORT",
-          "value": "5672"
-        },
-        {
-          "name": "ADIUTOR_AWS_REGION",
-          "value": "eu-west-1"
         }
       ],
-      "secrets": [
-        {
-          "name": "ADIUTOR_SECRET_KEY",
-          "valueFrom": "/crypto-adiutor/SECRET_KEY"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_HOST",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_HOST"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_DATABASE",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_DATABASE"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_USER",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_USER"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PASSWORD",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_HOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_HOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_VHOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_VHOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_USER",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_USER"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PASSWORD",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_SENTRY_DSN",
-          "valueFrom": "/crypto-adiutor/SENTRY_DSN"
-        },
-        {
-          "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
-          "valueFrom": "/crypto-adiutor/AWS_ACCESS_KEY_ID"
-        },
-        {
-          "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
-          "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
-        },
-        {
-          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
-          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
-        }
-      ],
+      "secrets": [],
       "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {
@@ -228,94 +78,19 @@
       "memoryReservation": 384,
       "portMappings": [],
       "essential": true,
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::cryptopatro-secrets/backend-production.env",
+          "type": "s3"
+        }
+      ],
       "environment": [
         {
-          "name": "ADIUTOR_CONTAINER_KIND",
+          "name": "CRYPTOPATRO_CONTAINER_KIND",
           "value": "worker"
-        },
-        {
-          "name": "ADIUTOR_STAGE",
-          "value": "production"
-        },
-        {
-          "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PORT",
-          "value": "5432"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PORT",
-          "value": "5672"
-        },
-        {
-          "name": "ADIUTOR_AWS_REGION",
-          "value": "eu-west-1"
         }
       ],
-      "secrets": [
-        {
-          "name": "ADIUTOR_SECRET_KEY",
-          "valueFrom": "/crypto-adiutor/SECRET_KEY"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_HOST",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_HOST"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_DATABASE",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_DATABASE"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_USER",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_USER"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PASSWORD",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_HOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_HOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_VHOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_VHOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_USER",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_USER"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PASSWORD",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_SENTRY_DSN",
-          "valueFrom": "/crypto-adiutor/SENTRY_DSN"
-        },
-        {
-          "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
-          "valueFrom": "/crypto-adiutor/AWS_ACCESS_KEY_ID"
-        },
-        {
-          "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
-          "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
-        },
-        {
-          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
-          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
-        }
-      ],
+      "secrets": [],
       "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {
@@ -334,94 +109,19 @@
       "memoryReservation": 1024,
       "portMappings": [],
       "essential": true,
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::cryptopatro-secrets/backend-production.env",
+          "type": "s3"
+        }
+      ],
       "environment": [
         {
-          "name": "ADIUTOR_CONTAINER_KIND",
+          "name": "CRYPTOPATRO_CONTAINER_KIND",
           "value": "bot"
-        },
-        {
-          "name": "ADIUTOR_STAGE",
-          "value": "production"
-        },
-        {
-          "name": "ADIUTOR_BACKEND_URL",
-          "value": "https://api.cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_FRONTEND_URL",
-          "value": "https://cryptopatro.net"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PORT",
-          "value": "5432"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PORT",
-          "value": "5672"
-        },
-        {
-          "name": "ADIUTOR_AWS_REGION",
-          "value": "eu-west-1"
         }
       ],
-      "secrets": [
-        {
-          "name": "ADIUTOR_SECRET_KEY",
-          "valueFrom": "/crypto-adiutor/SECRET_KEY"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_HOST",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_HOST"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_DATABASE",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_DATABASE"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_USER",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_USER"
-        },
-        {
-          "name": "ADIUTOR_POSTGRESQL_PASSWORD",
-          "valueFrom": "/crypto-adiutor/POSTGRESQL_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_HOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_HOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_VHOST",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_VHOST"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_USER",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_USER"
-        },
-        {
-          "name": "ADIUTOR_RABBITMQ_PASSWORD",
-          "valueFrom": "/crypto-adiutor/RABBITMQ_PASSWORD"
-        },
-        {
-          "name": "ADIUTOR_SENTRY_DSN",
-          "valueFrom": "/crypto-adiutor/SENTRY_DSN"
-        },
-        {
-          "name": "ADIUTOR_AWS_ACCESS_KEY_ID",
-          "valueFrom": "/crypto-adiutor/AWS_ACCESS_KEY_ID"
-        },
-        {
-          "name": "ADIUTOR_AWS_SECRET_ACCESS_KEY",
-          "valueFrom": "/crypto-adiutor/AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "name": "ADIUTOR_CRYPTOPANIC_AUTH_TOKEN",
-          "valueFrom": "/crypto-adiutor/CRYPTOPANIC_AUTH_TOKEN"
-        },
-        {
-          "name": "ADIUTOR_TELEGRAM_BOT_TOKEN",
-          "valueFrom": "/crypto-adiutor/TELEGRAM_BOT_TOKEN"
-        }
-      ],
+      "secrets": [],
       "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {

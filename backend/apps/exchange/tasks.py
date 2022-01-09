@@ -5,8 +5,8 @@ import binance.error
 from binance.spot import Spot
 from django.db.models import Sum
 
-from adiutor.users.models import BinanceAuth, User
-from adiutor.users.telegram.utils import send_message
+from apps.users.models import BinanceAuth, User
+from apps.users.telegram.utils import send_message
 from .models import Asset, Portfolio, PortfolioAsset
 from ..celery_app import app
 

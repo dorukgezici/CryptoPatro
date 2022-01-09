@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, Updater
 
-from adiutor.users.telegram import handlers
+from apps.users.telegram import handlers
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)

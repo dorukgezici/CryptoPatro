@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(me
 
 required_environment_variables = [
     '{prefix}{name}'.format(
-        prefix='ADIUTOR_',
+        prefix='CRYPTOPATRO_',
         name=name,
     )
     for name in [
@@ -33,6 +33,7 @@ required_environment_variables = [
         'AWS_REGION',
         'AWS_ACCESS_KEY_ID',
         'AWS_SECRET_ACCESS_KEY',
+        'AWS_SECRETS_BUCKET',
         # Cryptopanic
         'CRYPTOPANIC_AUTH_TOKEN',
         # Telegram

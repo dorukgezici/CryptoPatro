@@ -1,13 +1,13 @@
-FROM python:3.9
+FROM python:3.10
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /adiutor
+WORKDIR /cryptopatro
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY adiutor adiutor
+COPY apps apps
 COPY fixtures fixtures
 COPY locale locale
 COPY scripts scripts
