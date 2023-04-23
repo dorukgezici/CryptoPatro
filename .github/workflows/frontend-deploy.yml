@@ -19,10 +19,10 @@ jobs:
           npm run build
           cd dist
           ln -s index.html 404.html
-          echo $DOMAIN > CNAME
+          # echo $DOMAIN > CNAME
           git config --global user.email $GITHUB_EMAIL
           git config --global user.name $GITHUB_ACTOR
           git init
           git add -A
           git commit -m 'Deploy to GitHub Pages'
-          git push -f https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git master:gh-pages
+          git push -f https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git main:gh-pages
