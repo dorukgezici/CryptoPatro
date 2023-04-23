@@ -1,10 +1,12 @@
 # OS & IDE
 .DS_Store
 .idea/
+.fleet/
 
 # Python - Django
 __pycache__/
 .pyc
+/backend/.venv
 /backend/.env
 /backend/aws/secrets/*
 /backend/db.sqlite3

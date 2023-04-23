@@ -1,0 +1,22 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$zNeZozPF6PTibpgNwa7YaE$cF4eAc+bhuicQQRBtg5LdbUEAlY+r1IgMnzVKLopao0=",
+            "last_login": "2021-10-06T20:46:12Z",
+            "is_superuser": true,
+            "username": "doruk",
+            "first_name": "Doruk",
+            "last_name": "Gezici",
+            "email": "doruk@gezici.me",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-10-06T20:45:58Z",
+            "created_at": "2021-10-11T11:04:12.313Z",
+            "updated_at": "2021-10-13T08:24:36.185Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
