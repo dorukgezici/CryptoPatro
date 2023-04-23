@@ -1,4 +1,4 @@
-# crypo
+# VueJS
 
 ## Project setup
 ```
