@@ -54,8 +54,8 @@ class ExchangeInfoAPIView(APIView):
 
     def get(self, request: Request, pair: str = None) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.exchange_info(symbol=pair))
 
@@ -65,8 +65,8 @@ class OrderBookAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.depth(symbol=pair))
 
@@ -76,8 +76,8 @@ class RecentTradesAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.trades(symbol=pair))
 
@@ -87,8 +87,8 @@ class CurrentAvgPriceAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.avg_price(symbol=pair))
 
@@ -98,8 +98,8 @@ class TickerPriceChangeAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.ticker_24hr(symbol=pair))
 
@@ -109,8 +109,8 @@ class AllOrderListAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.get_orders(symbol=pair))
 
@@ -120,8 +120,8 @@ class OpenOrderListAPIView(APIView):
 
     def get(self, request: Request) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.get_open_orders())
 
@@ -131,8 +131,8 @@ class AccountAPIView(APIView):
 
     def get(self, request: Request) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.account())
 
@@ -142,8 +142,8 @@ class MyTradesAPIView(APIView):
 
     def get(self, request: Request, pair: str) -> Response:
         client = Spot(
-            key=request.user.binance.api_key,
-            secret=request.user.binance.api_secret,
+            api_key=request.user.binance.api_key,
+            api_secret=request.user.binance.api_secret,
         )
         return Response(client.my_trades(symbol=pair))
 

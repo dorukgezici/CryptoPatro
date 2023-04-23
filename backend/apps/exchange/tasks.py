@@ -18,7 +18,7 @@ def synchronize_prices(telegram_id: Optional[int] = None) -> None:
     else:
         binance_auth = BinanceAuth.objects.first()
 
-    client = Spot(key=binance_auth.api_key, secret=binance_auth.api_secret)
+    client = Spot(api_key=binance_auth.api_key, api_secret=binance_auth.api_secret)
 
     for ticker_price_data in client.ticker_price():
         symbol, price = ticker_price_data['symbol'], ticker_price_data['price']
@@ -36,7 +36,7 @@ def synchronize_balances(telegram_id: Optional[int] = None) -> None:
         users = users.filter(tg__id=str(telegram_id))
 
     for user in users:
-        client = Spot(key=user.binance.api_key, secret=user.binance.api_secret)
+        client = Spot(api_key=user.binance.api_key, api_secret=user.binance.api_secret)
 
         for data in client.account()['balances']:
             asset = data['asset']
@@ -89,7 +89,7 @@ def calculate_and_report_average_costs_and_charges(telegram_id: Optional[int] = 
     for portfolio_asset in portfolio_assets:
         user = portfolio_asset.portfolio.user
         symbol = portfolio_asset.asset.symbol
-        client = Spot(key=user.binance.api_key, secret=user.binance.api_secret)
+        client = Spot(api_key=user.binance.api_key, api_secret=user.binance.api_secret)
 
         buy_quantity = Decimal(0)
         cost = Decimal(0)

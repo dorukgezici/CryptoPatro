@@ -26,7 +26,7 @@ class AssetSerializer(serializers.ModelSerializer):
         if request is None or not hasattr(request.user, 'binance'):
             return ''
 
-        client = Spot(key=request.user.binance.api_key, secret=request.user.binance.api_secret)
+        client = Spot(api_key=request.user.binance.api_key, api_secret=request.user.binance.api_secret)
 
         try:
             return client.ticker_24hr(f'{obj.symbol}USDT')
