@@ -17,4 +17,4 @@ ___
 - [Doruk Gezici](https://github.com/dorukgezici)
 
 ## License
-Copyright © Doruk Gezici - All Rights Reserved
+[GNU General Public License v3](/LICENSE)
