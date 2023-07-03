@@ -2,6 +2,7 @@
 .DS_Store
 .idea/
 .fleet/
+.vscode/
 
 # Python - Django
 __pycache__/
