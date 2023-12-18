@@ -29,11 +29,6 @@ required_environment_variables = [
         'RABBITMQ_PASSWORD',
         # Sentry
         'SENTRY_DSN',
-        # AWS
-        'AWS_REGION',
-        'AWS_ACCESS_KEY_ID',
-        'AWS_SECRET_ACCESS_KEY',
-        'AWS_SECRETS_BUCKET',
         # Cryptopanic
         'CRYPTOPANIC_AUTH_TOKEN',
         # Telegram

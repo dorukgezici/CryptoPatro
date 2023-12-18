@@ -180,16 +180,6 @@ sentry_sdk.init(
 
 # Configurations
 
-AWS = {
-    'region': os.environ.get('CRYPTOPATRO_AWS_REGION'),
-    'access_key_id': os.environ.get('CRYPTOPATRO_AWS_ACCESS_KEY_ID'),
-    'secret_access_key': os.environ.get('CRYPTOPATRO_AWS_SECRET_ACCESS_KEY'),
-    'secrets_bucket': os.environ.get('CRYPTOPATRO_AWS_SECRETS_BUCKET'),
-}
-AWS_REGION = AWS['region']
-AWS_ACCESS_KEY_ID = AWS['access_key_id']
-AWS_SECRET_ACCESS_KEY = AWS['secret_access_key']
-
 CRYPTOPANIC = {
     'auth_token': os.environ.get('CRYPTOPATRO_CRYPTOPANIC_AUTH_TOKEN'),
 }
