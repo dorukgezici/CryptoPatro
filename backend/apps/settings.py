@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from re import A
 
 import sentry_sdk
 from corsheaders.defaults import default_headers
@@ -24,6 +25,7 @@ SECRET_KEY = ADIUTOR['secret_key']
 DEBUG = ADIUTOR['stage'] == 'development'
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [ADIUTOR['backend_url'], ADIUTOR['frontend_url']]
 
 # Application definition
 
