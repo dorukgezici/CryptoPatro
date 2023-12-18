@@ -52,7 +52,7 @@ jobs:
           hostname: github-runners-${{ github.run_id }}
 
       - name: Deploy Helm chart
-        uses: deliverybot/helm@v1
+        uses: vimeda/helm@v1
         env:
           KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
         with:
