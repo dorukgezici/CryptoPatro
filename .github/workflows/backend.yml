@@ -44,21 +44,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Netbird Connect
-        id: netbird
-        uses: Alemiz112/netbird-connect@v1
-        with:
-          setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
-          hostname: github-run-${{ github.run_id }}
+      - name: Install Helm
+        uses: azure/setup-helm@v3
 
       - name: Deploy Helm chart
-        uses: chrkaatz/helm@v1.9
         env:
           KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
-        with:
-          helm: helm3
-          release: ${{ env.PROJECT_NAME }}
-          namespace: default
-          chart: backend/k8s-helm
-          values: |
-            image.tag: ${{ github.sha }}
+          CHART_PATH: backend/k8s-helm
+          IMAGE_TAG: ${{ github.sha }}
+        run: helm upgrade $PROJECT_NAME $CHART_PATH --set image.tag=$IMAGE_TAG -n default --install --wait
