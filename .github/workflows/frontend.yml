@@ -1,4 +1,4 @@
-name: Build & Deploy VueJS to GitHub Pages
+name: Build & Deploy Frontend
 
 on: workflow_dispatch
 
@@ -7,21 +7,32 @@ env:
   GITHUB_EMAIL: doruk@gezici.me
 
 jobs:
-  deploy:
+  build_and_deploy:
     name: Build & Deploy VueJS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build & Deploy
-        shell: bash
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: cd frontend && pnpm install
+
+      - name: Build with Vite
+        run: pnpm run build
+
+      - name: Deploy to GitHub Pages
         run: |
-          cd frontend
-          npm ci
-          npm run build
           cd dist
           ln -s index.html 404.html
-          # echo $DOMAIN > CNAME
+          echo $DOMAIN > CNAME
           git config --global user.email $GITHUB_EMAIL
           git config --global user.name $GITHUB_ACTOR
           git init
