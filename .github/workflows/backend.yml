@@ -49,13 +49,14 @@ jobs:
         uses: Alemiz112/netbird-connect@v1
         with:
           setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
-          hostname: github-runners-${{ github.run_id }}
+          hostname: github-run-${{ github.run_id }}
 
       - name: Deploy Helm chart
         uses: chrkaatz/helm@v1.9
         env:
           KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
         with:
+          helm: helm3
           release: ${{ env.PROJECT_NAME }}
           namespace: default
           chart: backend/k8s-helm
