@@ -31,6 +31,7 @@ jobs:
           context: backend
           push: true
           tags: ${{ github.repository_owner }}/${{ env.PROJECT_NAME }}:${{ github.sha }}
+          platforms: linux/arm64
 
   deploy_to_production:
     name: Deploy to production
