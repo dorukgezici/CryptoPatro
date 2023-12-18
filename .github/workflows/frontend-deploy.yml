@@ -1,15 +1,17 @@
 name: Build & Deploy VueJS to GitHub Pages
-on: push
+
+on: workflow_dispatch
+
 env:
   DOMAIN: cryptopatro.gezici.me
   GITHUB_EMAIL: doruk@gezici.me
+
 jobs:
   deploy:
     name: Build & Deploy VueJS
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build & Deploy
         shell: bash

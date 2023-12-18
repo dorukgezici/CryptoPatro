@@ -1,0 +1,61 @@
+name: Build & Deploy
+
+on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  PROJECT_NAME: cryptopatro
+
+jobs:
+  build_and_push:
+    name: Build & Push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build, tag and push Docker image
+        env:
+          REGISTRY: dorukgezici
+          REPOSITORY: ${{ env.PROJECT_NAME }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$COMMIT_SHA --platform linux/arm64 .
+          docker push $REGISTRY/$REPOSITORY:$COMMIT_SHA
+
+  deploy_to_production:
+    name: Deploy to production
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: production
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Netbird Connect
+        id: netbird
+        uses: Alemiz112/netbird-connect-action@v1
+        with:
+          setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
+          hostname: github-runners-${{ github.run_id }}
+
+      - name: Deploy
+        uses: deliverybot/helm@v1
+        env:
+          KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
+        with:
+          release: ${{ env.PROJECT_NAME }}
+          namespace: default
+          chart: backend/k8s-helm
+          values: |
+            image.tag: ${{ github.sha }}
