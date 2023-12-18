@@ -28,7 +28,8 @@ jobs:
           REPOSITORY: ${{ env.PROJECT_NAME }}
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          docker build -t $REGISTRY/$REPOSITORY:$COMMIT_SHA --platform linux/arm64 .
+          cd backend
+          docker build -t $REGISTRY/$REPOSITORY:$COMMIT_SHA --platform linux/arm64
           docker push $REGISTRY/$REPOSITORY:$COMMIT_SHA
 
   deploy_to_production:
