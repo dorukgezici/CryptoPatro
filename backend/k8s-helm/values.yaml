@@ -23,7 +23,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "service-account"
+  name: ""
 
 podAnnotations: {}
 podLabels: {}
@@ -43,11 +43,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
-
-envFrom:
-  - secretRef:
-      name: cryptopatro
+  port: 8000
 
 ingress:
   enabled: true

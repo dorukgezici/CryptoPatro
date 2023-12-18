@@ -11,9 +11,9 @@ api)
   python3 manage.py migrate
 
   if [[ "$CRYPTOPATRO_STAGE" == "development" ]]; then
-    exec python3 manage.py runserver 0.0.0.0:80
+    exec python3 manage.py runserver 0.0.0.0:8000
   else
-    exec gunicorn apps.wsgi:application --workers 2 --bind=0.0.0.0:80
+    exec gunicorn apps.wsgi:application --workers 2 --bind=0.0.0.0:8000
   fi
   ;;
 scheduler)
