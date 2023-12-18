@@ -52,7 +52,7 @@ jobs:
           hostname: github-runners-${{ github.run_id }}
 
       - name: Deploy Helm chart
-        uses: chrkaatz/helm@v1
+        uses: chrkaatz/helm@v1.9
         env:
           KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
         with:
