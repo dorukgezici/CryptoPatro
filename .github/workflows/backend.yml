@@ -2,10 +2,6 @@ name: Build & Deploy Backend
 
 on: workflow_dispatch
 
-permissions:
-  id-token: write
-  contents: read
-
 env:
   PROJECT_NAME: cryptopatro
 
@@ -15,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd backend
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
