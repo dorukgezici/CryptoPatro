@@ -12,10 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: .
-          sparse-checkout: frontend
-          sparse-checkout-cone-mode: false
+      - run: cd frontend
 
       - uses: pnpm/action-setup@v2
         with:
