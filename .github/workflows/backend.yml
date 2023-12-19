@@ -41,15 +41,13 @@ jobs:
     concurrency:
       group: production
       cancel-in-progress: true
-    env:
-      KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up kube config
         run: |
           mkdir -p ~/.kube
-          echo $KUBECONFIG_BASE64 | base64 -d > ~/.kube/config
+          echo ${{ secrets.KUBE_CONFIG }} | base64 -d > ~/.kube/config
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
