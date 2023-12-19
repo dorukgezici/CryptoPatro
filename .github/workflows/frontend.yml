@@ -2,6 +2,11 @@ name: Build & Deploy Frontend
 
 on: workflow_dispatch
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./frontend
+
 env:
   DOMAIN: cryptopatro.gezici.me
   GITHUB_EMAIL: doruk@gezici.me
@@ -21,10 +26,9 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: cd frontend && pnpm install
+        run: pnpm install
 
       - name: Build with Vite
         run: pnpm run build
