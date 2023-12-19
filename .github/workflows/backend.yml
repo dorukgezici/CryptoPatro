@@ -51,9 +51,11 @@ jobs:
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
+        with:
+          token: ${{ github.token }}
 
       - name: Deploy Helm chart
         env:
-          CHART_PATH: k8s-helm
+          CHART_PATH: backend/k8s-helm
           IMAGE_TAG: ${{ github.sha }}
         run: helm upgrade $PROJECT_NAME $CHART_PATH --set image.tag=$IMAGE_TAG -n default --install --wait
