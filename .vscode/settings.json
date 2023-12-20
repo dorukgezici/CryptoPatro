@@ -1,4 +1,4 @@
 {
-  "python.defaultInterpreterPath": "${workspaceRoot}/backend/.venv/bin/python",
-  "typescript.tsdk": "${workspaceRoot}/frontend/node_modules/typescript/lib"
+  "python.defaultInterpreterPath": "./backend/.venv/bin/python",
+  "typescript.tsdk": "./frontend/node_modules/typescript/lib"
 }

@@ -1,0 +1,138 @@
+[
+  {
+    "model": "exchange.portfolio",
+    "pk": 1,
+    "fields": {
+      "created_at": "2021-10-18T00:21:21.829Z",
+      "updated_at": "2021-10-18T00:21:21.829Z",
+      "user": 1,
+      "name": "Binance"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 37,
+    "fields": {
+      "created_at": "2023-12-19T18:47:55.077Z",
+      "updated_at": "2023-12-19T18:47:55.077Z",
+      "portfolio": 1,
+      "asset": 1,
+      "amount": "0.00907092",
+      "value": "383.99009473",
+      "avg_cost": "26298.16629512",
+      "buy_amount": "0.05307600",
+      "avg_charge": "43397.67828178",
+      "sell_amount": "0.00827600",
+      "realized_pnl": "141.51556120",
+      "unrealized_pnl": "145.44153212"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 38,
+    "fields": {
+      "created_at": "2023-12-19T18:48:05.601Z",
+      "updated_at": "2023-12-19T18:48:05.601Z",
+      "portfolio": 1,
+      "asset": 2,
+      "amount": "0.08818109",
+      "value": "192.36881146",
+      "avg_cost": "1806.13519884",
+      "buy_amount": "0.61847000",
+      "avg_charge": "3905.88895487",
+      "sell_amount": "0.02947000",
+      "realized_pnl": "61.87974319",
+      "unrealized_pnl": "33.10184094"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 39,
+    "fields": {
+      "created_at": "2023-12-19T18:48:15.058Z",
+      "updated_at": "2023-12-19T18:48:15.058Z",
+      "portfolio": 1,
+      "asset": 3,
+      "amount": "300.85476200",
+      "value": "300.85476200",
+      "avg_cost": "0E-8",
+      "buy_amount": "0E-8",
+      "avg_charge": "0E-8",
+      "sell_amount": "0E-8",
+      "realized_pnl": "0E-8",
+      "unrealized_pnl": "0E-8"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 40,
+    "fields": {
+      "created_at": "2023-12-19T18:48:28.998Z",
+      "updated_at": "2023-12-19T18:48:28.998Z",
+      "portfolio": 1,
+      "asset": 5,
+      "amount": "2.36763000",
+      "value": "173.71301310",
+      "avg_cost": "21.09000000",
+      "buy_amount": "2.37000000",
+      "avg_charge": "105.93458728",
+      "sell_amount": "3.68000000",
+      "realized_pnl": "312.22808119",
+      "unrealized_pnl": "123.77969640"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 41,
+    "fields": {
+      "created_at": "2023-12-19T18:48:41.740Z",
+      "updated_at": "2023-12-19T18:48:41.740Z",
+      "portfolio": 1,
+      "asset": 6,
+      "amount": "9.59040000",
+      "value": "381.21840000",
+      "avg_cost": "17.14073815",
+      "buy_amount": "200.88000000",
+      "avg_charge": "34.64537783",
+      "sell_amount": "225.23500000",
+      "realized_pnl": "3942.65751832",
+      "unrealized_pnl": "216.83186485"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 42,
+    "fields": {
+      "created_at": "2023-12-19T18:55:07.268Z",
+      "updated_at": "2023-12-19T18:55:07.268Z",
+      "portfolio": 1,
+      "asset": 10,
+      "amount": "37.46250000",
+      "value": "139.51035000",
+      "avg_cost": "1.33100000",
+      "buy_amount": "37.50000000",
+      "avg_charge": "0E-8",
+      "sell_amount": "0E-8",
+      "realized_pnl": "0E-8",
+      "unrealized_pnl": "89.64776250"
+    }
+  },
+  {
+    "model": "exchange.portfolioasset",
+    "pk": 43,
+    "fields": {
+      "created_at": "2023-12-19T18:55:42.412Z",
+      "updated_at": "2023-12-19T18:55:42.412Z",
+      "portfolio": 1,
+      "asset": 11,
+      "amount": "103.50230000",
+      "value": "111.45127664",
+      "avg_cost": "0.96480000",
+      "buy_amount": "103.60000000",
+      "avg_charge": "0E-8",
+      "sell_amount": "0E-8",
+      "realized_pnl": "0E-8",
+      "unrealized_pnl": "11.59225760"
+    }
+  }
+]
