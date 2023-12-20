@@ -40,6 +40,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Netbird Connect
+        id: netbird
+        uses: Alemiz112/netbird-connect@v1
+        with:
+          setup-key: ${{ secrets.NETBIRD_SETUP_KEY }}
+          hostname: github-run-${{ github.run_id }}
+
       - name: Set up kube config
         run: |
           mkdir -p ~/.kube
