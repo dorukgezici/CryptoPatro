@@ -49,9 +49,9 @@ ingress:
   enabled: true
   className: "traefik"
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+    cert-manager.io/cluster-issuer: cloudflare
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
   hosts:
     - host: cryptopatro-api.lab.gezici.me
       paths:
