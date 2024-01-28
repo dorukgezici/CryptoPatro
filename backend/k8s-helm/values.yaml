@@ -53,19 +53,14 @@ ingress:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 500m
   hosts:
-    - host: cryptopatro.rpi.dorukgezici.eu1.kubegateway.com
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    - host: cryptopatro-api.gezici.me
+    - host: cryptopatro-api.lab.gezici.me
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls:
     - secretName: cryptopatro-tls
       hosts:
-        - cryptopatro.rpi.dorukgezici.eu1.kubegateway.com
-        - cryptopatro-api.gezici.me
+        - cryptopatro-api.lab.gezici.me
 
 resources:
   {}
