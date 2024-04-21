@@ -65,7 +65,7 @@
                   <h5 class="card-title">General Information</h5>
                   <div class="settings-profile">
                     <form>
-                      <img src="img/avatar.svg" alt="avatar"/>
+                      <img src="/img/avatar.svg" alt="avatar"/>
                       <div class="custom-file">
                         <input type="file" class="form-control"/>
                       </div>
@@ -280,7 +280,7 @@
                             aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/18.png" alt="btc"/>
+                            <img src="/img/icon/BTC.png" alt="btc"/>
                             <div>
                               <h2>BTC</h2>
                               <p>Bitcoin</p>
@@ -311,7 +311,7 @@
                             aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/1.png" alt="btc"/>
+                            <img src="/img/icon/ETH.png" alt="eth"/>
                             <div>
                               <h2>ETH</h2>
                               <p>Ethereum</p>
@@ -342,7 +342,7 @@
                             aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/9.png" alt="btc"/>
+                            <img src="/img/icon/BNB.png" alt="bnb"/>
                             <div>
                               <h2>BNB</h2>
                               <p>Binance</p>
@@ -366,37 +366,6 @@
                             align-items-center
                           "
                             data-bs-toggle="tab"
-                            data-bs-target="#coinTRX"
-                            type="button"
-                            role="tab"
-                            aria-controls="coinTRX"
-                            aria-selected="true"
-                        >
-                          <div class="d-flex">
-                            <img src="img/icon/6.png" alt="btc"/>
-                            <div>
-                              <h2>TRX</h2>
-                              <p>Tron</p>
-                            </div>
-                          </div>
-                          <div>
-                            <h3>4.458941</h3>
-                            <p class="text-end">
-                              <i class="icon ion-md-lock"></i> 0.0000000
-                            </p>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                            href="#"
-                            class="
-                            nav-link
-                            d-flex
-                            justify-content-between
-                            align-items-center
-                          "
-                            data-bs-toggle="tab"
                             data-bs-target="#coinEOS"
                             type="button"
                             role="tab"
@@ -404,7 +373,7 @@
                             aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/2.png" alt="btc"/>
+                            <img src="/img/icon/EOS.png" alt="eos"/>
                             <div>
                               <h2>EOS</h2>
                               <p>Eosio</p>
@@ -435,7 +404,7 @@
                             aria-selected="true"
                         >
                           <div class="d-flex">
-                            <img src="img/icon/7.png" alt="btc"/>
+                            <img src="/img/icon/XMR.png" alt="xmr"/>
                             <div>
                               <h2>XMR</h2>
                               <p>Monero</p>
@@ -443,37 +412,6 @@
                           </div>
                           <div>
                             <h3>99.465975</h3>
-                            <p class="text-end">
-                              <i class="icon ion-md-lock"></i> 0.0000000
-                            </p>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                            href="#"
-                            class="
-                            nav-link
-                            d-flex
-                            justify-content-between
-                            align-items-center
-                          "
-                            data-bs-toggle="tab"
-                            data-bs-target="#coinKCS"
-                            type="button"
-                            role="tab"
-                            aria-controls="coinKCS"
-                            aria-selected="true"
-                        >
-                          <div class="d-flex">
-                            <img src="img/icon/4.png" alt="btc"/>
-                            <div>
-                              <h2>KCS</h2>
-                              <p>Kstarcoin</p>
-                            </div>
-                          </div>
-                          <div>
-                            <h3>114.57564</h3>
                             <p class="text-end">
                               <i class="icon ion-md-lock"></i> 0.0000000
                             </p>
@@ -556,12 +494,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -725,12 +663,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -894,12 +832,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1063,12 +1001,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1232,12 +1170,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1401,12 +1339,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1570,12 +1508,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>

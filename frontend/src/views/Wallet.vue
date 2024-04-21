@@ -65,7 +65,7 @@
                   <h5 class="card-title">General Information</h5>
                   <div class="settings-profile">
                     <form>
-                      <img src="img/avatar.svg" alt="avatar"/>
+                      <img src="/img/avatar.svg" alt="avatar"/>
                       <div class="custom-file">
                         <input type="file" class="form-control"/>
                       </div>
@@ -361,12 +361,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -530,12 +530,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -699,12 +699,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -868,12 +868,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1037,12 +1037,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1206,12 +1206,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
@@ -1375,12 +1375,12 @@
                               <div class="col-md-4">
                                 <img
                                     v-if="$store.state.darkTheme"
-                                    src="img/qr-code-light.svg"
+                                    src="/img/qr-code-light.svg"
                                     alt="qr-code"
                                 />
                                 <img
                                     v-else
-                                    src="img/qr-code-dark.svg"
+                                    src="/img/qr-code-dark.svg"
                                     alt="qr-code"
                                 />
                               </div>
