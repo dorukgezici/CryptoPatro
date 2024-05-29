@@ -24,11 +24,17 @@ import {
 import { CalendarClockIcon } from "@/components/icons";
 import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
 
-export function Dashboard() {
+type Props = {
+  portfolio: any;
+};
+
+export function Dashboard({ portfolio }: Props) {
   return (
     <div>
       <div className="flex items-center gap-4">
-        <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
+        <h1 className="font-semibold text-lg md:text-xl">
+          Portfolio {portfolio}
+        </h1>
         <div className="ml-auto flex items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
