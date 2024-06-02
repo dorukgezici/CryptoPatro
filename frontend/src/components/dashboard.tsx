@@ -1,4 +1,4 @@
-// import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
+import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
 import { CalendarClockIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -23,13 +23,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import usePortfolioAssets from "@/hooks/usePortfolioAssets";
-import { $queryClient } from "@/lib/store";
-import { useStore } from "@nanostores/react";
-import { QueryClientProvider } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 export function Dashboard() {
-  const queryClient = useStore($queryClient);
   const { portfolioAssets } = usePortfolioAssets();
 
   const totalPortfolioValue = useMemo(
@@ -59,7 +55,7 @@ export function Dashboard() {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <div>
       <div className="flex items-center gap-4">
         <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
         <div className="ml-auto flex items-center gap-2">
@@ -89,7 +85,7 @@ export function Dashboard() {
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
-              {/* <TimeseriesChart className="aspect-[4/3]" /> */}
+              <TimeseriesChart className="aspect-[4/3]" />
             </CardContent>
           </Card>
           <Card>
@@ -102,7 +98,7 @@ export function Dashboard() {
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
-              {/* <BarChart className="aspect-[4/3]" /> */}
+              <BarChart className="aspect-[4/3]" />
             </CardContent>
           </Card>
           <Card>
@@ -128,7 +124,7 @@ export function Dashboard() {
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
-              {/* <PieChart className="aspect-[4/3]" /> */}
+              <PieChart className="aspect-[4/3]" />
             </CardContent>
           </Card>
         </div>
@@ -170,6 +166,6 @@ export function Dashboard() {
           </Table>
         </div>
       </div>
-    </QueryClientProvider>
+    </div>
   );
 }
