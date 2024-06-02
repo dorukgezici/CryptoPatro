@@ -27,7 +27,8 @@ class PortfolioListView(generics.ListAPIView):
     serializer_class = PortfolioSerializer
 
     def get_queryset(self) -> QuerySet[Portfolio]:
-        return Portfolio.objects.filter(user=self.request.user)
+        # return Portfolio.objects.filter(user_id=self.request.user.id)
+        return Portfolio.objects.filter(user_id=1)
 
 
 class PortfolioDetailView(generics.RetrieveAPIView):
@@ -39,7 +40,8 @@ class PortfolioAssetListView(generics.ListAPIView):
     serializer_class = PortfolioAssetSerializer
 
     def get_queryset(self) -> QuerySet[PortfolioAsset]:
-        return PortfolioAsset.objects.filter(portfolio__user=self.request.user)
+        # return PortfolioAsset.objects.filter(portfolio__user_id=self.request.user.id)
+        return PortfolioAsset.objects.filter(portfolio__user_id=1)
 
 
 class PortfolioAssetDetailView(generics.RetrieveAPIView):
@@ -48,6 +50,7 @@ class PortfolioAssetDetailView(generics.RetrieveAPIView):
 
 
 # Binance API
+
 
 class ExchangeInfoAPIView(APIView):
     permission_classes = [IsAuthenticated, HasBinanceAuth]
@@ -150,13 +153,14 @@ class MyTradesAPIView(APIView):
 
 # CryptoPanic API
 
+
 class NewsAPIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(
-            url='https://cryptopanic.com/api/v1/posts/',
+            url="https://cryptopanic.com/api/v1/posts/",
             params={
-                'auth_token': settings.CRYPTOPANIC['auth_token'],
-                'public': 'true',
-            }
+                "auth_token": settings.CRYPTOPANIC["auth_token"],
+                "public": "true",
+            },
         )
         return Response(r.json())
