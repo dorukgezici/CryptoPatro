@@ -8,7 +8,7 @@ export default function useAssets() {
   const { data, error, isPending, isFetching } = useQuery(
     {
       queryKey: ["assets"],
-      queryFn: () => axios.assets_list(),
+      queryFn: async () => (await axios).assets_list(),
     },
     queryClient,
   );

@@ -8,7 +8,7 @@ export default function usePortfolioAssets() {
   const { data, error, isPending, isFetching } = useQuery(
     {
       queryKey: ["portfolioAssets"],
-      queryFn: () => axios.portfolio_assets_list(),
+      queryFn: async () => (await axios).portfolio_assets_list(),
     },
     queryClient,
   );
