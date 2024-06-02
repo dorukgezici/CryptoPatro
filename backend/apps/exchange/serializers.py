@@ -56,6 +56,11 @@ class PortfolioAssetSerializer(serializers.ModelSerializer):
     realized_pnl = serializers.DecimalField(max_digits=64, decimal_places=2)
     unrealized_pnl = serializers.DecimalField(max_digits=64, decimal_places=2)
 
+    percentage = serializers.SerializerMethodField()
+
     class Meta:
         model = PortfolioAsset
         fields = "__all__"
+
+    def get_percentage(self, obj: PortfolioAsset) -> str:
+        return f"{obj.value / obj.portfolio.total_amount * 100:.2f}"

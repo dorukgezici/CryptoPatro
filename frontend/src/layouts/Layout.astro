@@ -1,0 +1,33 @@
+---
+import { Header } from "@/components/header";
+import { Sidebar } from "@/components/sidebar";
+import "@/styles/globals.css";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <div class="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
+            <Sidebar />
+            <div class="flex flex-col">
+                <Header />
+                <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+                    <slot />
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

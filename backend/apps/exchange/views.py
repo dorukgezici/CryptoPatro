@@ -27,8 +27,7 @@ class PortfolioListView(generics.ListAPIView):
     serializer_class = PortfolioSerializer
 
     def get_queryset(self) -> QuerySet[Portfolio]:
-        # return Portfolio.objects.filter(user_id=self.request.user.id)
-        return Portfolio.objects.filter(user_id=1)
+        return Portfolio.objects.filter(user_id=self.request.user.id)
 
 
 class PortfolioDetailView(generics.RetrieveAPIView):
@@ -40,8 +39,8 @@ class PortfolioAssetListView(generics.ListAPIView):
     serializer_class = PortfolioAssetSerializer
 
     def get_queryset(self) -> QuerySet[PortfolioAsset]:
-        # return PortfolioAsset.objects.filter(portfolio__user_id=self.request.user.id)
-        return PortfolioAsset.objects.filter(portfolio__user_id=1)
+        return PortfolioAsset.objects.filter(portfolio__user_id=self.request.user.id)
+        # return PortfolioAsset.objects.filter(portfolio__user_id=1)
 
 
 class PortfolioAssetDetailView(generics.RetrieveAPIView):

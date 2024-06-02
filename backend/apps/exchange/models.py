@@ -30,6 +30,10 @@ class Portfolio(models.Model):
     )
     name = models.CharField(max_length=64, verbose_name=_("name"))
 
+    @property
+    def total_amount(self) -> int:
+        return self.portfolioasset_set.aggregate(models.Sum("value"))["value__sum"]
+
     def __str__(self) -> str:
         return f"{self.user} | {self.name}"
 
