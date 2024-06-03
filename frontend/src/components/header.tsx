@@ -1,4 +1,4 @@
-import { CoinsIcon, SearchIcon } from "@/components/icons";
+import { CoinsIcon, SearchIcon, RefreshCwIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,6 +29,10 @@ export function Header() {
           </div>
         </form>
       </div>
+      <Button variant="outline" size="icon" className="h-8 w-8">
+        <RefreshCwIcon className="h-4 w-4" />
+        <span className="sr-only">Refresh portfolio</span>
+      </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
