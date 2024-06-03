@@ -1,5 +1,5 @@
 import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
-import { CalendarClockIcon } from "@/components/icons";
+import { CalendarClockIcon, RefreshCwIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -23,15 +23,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import usePortfolioAssets from "@/hooks/usePortfolioAssets";
+import { $axios } from "@/lib/store";
+import { useStore } from "@nanostores/react";
 import { useCallback, useMemo } from "react";
 
 export function Dashboard() {
   const { portfolioAssets } = usePortfolioAssets();
-
-  const orderedAssets = useMemo(
-    () => portfolioAssets?.sort((a, b) => b.percentage - a.percentage),
-    [portfolioAssets],
-  );
+  const axios = useStore($axios);
 
   const totalPortfolioValue = useMemo(
     () =>
@@ -41,7 +39,6 @@ export function Dashboard() {
       ),
     [portfolioAssets],
   );
-
   const totalRealizedPnl = useMemo(
     () =>
       portfolioAssets?.reduce(
@@ -70,6 +67,15 @@ export function Dashboard() {
       <div className="flex items-center gap-4">
         <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
         <div className="ml-auto flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8"
+            onClick={async () => (await axios).get("/portfolios/refresh")}
+          >
+            <RefreshCwIcon className="h-4 w-4" />
+            <span className="sr-only">Refresh portfolio</span>
+          </Button>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -116,7 +122,7 @@ export function Dashboard() {
             <CardHeader>
               <CardDescription>Asset Allocation</CardDescription>
               <CardTitle>
-                {orderedAssets?.slice(0, 3).map((item) => (
+                {portfolioAssets?.slice(0, 3).map((item) => (
                   <div key={item.id} className="flex items-center gap-2">
                     <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-50" />
                     <div>{item.asset.name}</div>
@@ -129,7 +135,7 @@ export function Dashboard() {
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
-              <PieChart className="aspect-[4/3]" assets={orderedAssets} />
+              <PieChart className="aspect-[4/3]" assets={portfolioAssets} />
             </CardContent>
           </Card>
         </div>

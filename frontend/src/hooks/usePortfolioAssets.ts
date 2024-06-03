@@ -14,7 +14,7 @@ export default function usePortfolioAssets() {
   );
 
   return {
-    portfolioAssets: data?.data,
+    portfolioAssets: data?.data.sort((a, b) => b.percentage - a.percentage),
     error,
     isPending,
     isFetching,

@@ -6,11 +6,13 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.views import APIView, Http404
 
+from ..users.models import TelegramUser
+from ..users.permissions import HasBinanceAuth
 from .models import Asset, Portfolio, PortfolioAsset
 from .serializers import AssetSerializer, PortfolioAssetSerializer, PortfolioSerializer
-from ..users.permissions import HasBinanceAuth
+from .tasks import calculate_portfolio_asset_pnls
 
 
 class AssetListView(generics.ListAPIView):
@@ -35,12 +37,24 @@ class PortfolioDetailView(generics.RetrieveAPIView):
     serializer_class = PortfolioSerializer
 
 
+class PortfolioRefreshAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request) -> Response:
+        try:
+            tg = TelegramUser.objects.get(user_id=request.user.id)
+        except:
+            raise Http404()
+
+        calculate_portfolio_asset_pnls.delay(tg.id)
+        return Response()
+
+
 class PortfolioAssetListView(generics.ListAPIView):
     serializer_class = PortfolioAssetSerializer
 
     def get_queryset(self) -> QuerySet[PortfolioAsset]:
         return PortfolioAsset.objects.filter(portfolio__user_id=self.request.user.id)
-        # return PortfolioAsset.objects.filter(portfolio__user_id=1)
 
 
 class PortfolioAssetDetailView(generics.RetrieveAPIView):
