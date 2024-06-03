@@ -2,20 +2,3 @@
 .DS_Store
 .idea/
 .fleet/
-
-# Python - Django
-__pycache__/
-.pyc
-/backend/.venv
-/backend/.env
-/backend/aws/secrets/*
-/backend/db.sqlite3
-/backend/static/
-/backend/media/
-
-# JavaScript - VueJS
-node_modules/
-dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
