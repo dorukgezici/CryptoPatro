@@ -23,10 +23,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import usePortfolioAssets from "@/hooks/usePortfolioAssets";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 export function Dashboard() {
   const { portfolioAssets } = usePortfolioAssets();
+
+  const orderedAssets = useMemo(
+    () => portfolioAssets?.sort((a, b) => b.percentage - a.percentage),
+    [portfolioAssets],
+  );
 
   const totalPortfolioValue = useMemo(
     () =>
@@ -52,6 +57,12 @@ export function Dashboard() {
         0,
       ),
     [portfolioAssets],
+  );
+
+  const multiplyFloatStrs = useCallback(
+    (a?: string, b?: string) =>
+      parseInt((parseFloat(a || "0") * parseFloat(b || "0")).toString()),
+    [],
   );
 
   return (
@@ -91,9 +102,9 @@ export function Dashboard() {
           <Card>
             <CardHeader>
               <CardDescription>Total Profit/Loss</CardDescription>
-              <CardTitle>${totalRealizedPnl}</CardTitle>
-              <CardTitle className="text-yellow-500">
-                ${totalUnrealizedPnl}
+              <CardTitle>${totalUnrealizedPnl}</CardTitle>
+              <CardTitle className="text-gray-500">
+                ${totalRealizedPnl}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -105,21 +116,15 @@ export function Dashboard() {
             <CardHeader>
               <CardDescription>Asset Allocation</CardDescription>
               <CardTitle>
-                <div className="flex items-center gap-2">
-                  <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-50" />
-                  <div>Bitcoin</div>
-                  <div className="text-gray-500 dark:text-gray-400">50%</div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="h-4 w-4 rounded-full bg-gray-100 dark:bg-gray-800" />
-                  <div>Ethereum</div>
-                  <div className="text-gray-500 dark:text-gray-400">30%</div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="h-4 w-4 rounded-full bg-tertiary" />
-                  <div>Litecoin</div>
-                  <div className="text-gray-500 dark:text-gray-400">20%</div>
-                </div>
+                {orderedAssets?.slice(0, 3).map((item) => (
+                  <div key={item.id} className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-50" />
+                    <div>{item.asset.name}</div>
+                    <div className="text-gray-500 dark:text-gray-400">
+                      {item.percentage}%
+                    </div>
+                  </div>
+                ))}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -134,15 +139,16 @@ export function Dashboard() {
               <TableRow>
                 <TableHead>Asset</TableHead>
                 <TableHead>Price</TableHead>
+                <TableHead>Amount</TableHead>
                 <TableHead>Total Value</TableHead>
-                <TableHead>Realized PNL</TableHead>
                 <TableHead>Unrealized PNL</TableHead>
-                <TableHead>Buy Avg.</TableHead>
-                <TableHead>Sell Avg.</TableHead>
+                <TableHead>Realized PNL</TableHead>
+                <TableHead>Buy Avg. x Amount</TableHead>
+                <TableHead>Sell Avg. x Amount</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {portfolioAssets?.map((item: any) => (
+              {portfolioAssets?.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -151,15 +157,22 @@ export function Dashboard() {
                     </div>
                   </TableCell>
                   <TableCell>${item.asset.price}</TableCell>
+                  <TableCell>{item.amount}</TableCell>
                   <TableCell>${item.value}</TableCell>
-                  <TableCell className="text-green-500">
-                    {item.realizedPnl}
-                  </TableCell>
                   <TableCell className="text-green-500">
                     {item.unrealizedPnl}
                   </TableCell>
-                  <TableCell>${item.avgCost}</TableCell>
-                  <TableCell>${item.avgCharge}</TableCell>
+                  <TableCell className="text-green-500">
+                    {item.realizedPnl}
+                  </TableCell>
+                  <TableCell>
+                    ${item.avgCost} x {item.buyAmount} ={" "}
+                    {multiplyFloatStrs(item.avgCost, item.buyAmount)}
+                  </TableCell>
+                  <TableCell>
+                    ${item.avgCharge} x {item.sellAmount} ={" "}
+                    {multiplyFloatStrs(item.avgCharge, item.sellAmount)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
