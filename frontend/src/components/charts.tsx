@@ -56,17 +56,13 @@ export function BarChart(props: any) {
 }
 
 export function PieChart(props: any) {
-  return (
+  return !props.assets ? null : (
     <div {...props}>
       <ResponsivePie
-        data={[
-          { id: "Jan", value: 111 },
-          { id: "Feb", value: 157 },
-          { id: "Mar", value: 129 },
-          { id: "Apr", value: 150 },
-          { id: "May", value: 119 },
-          { id: "Jun", value: 72 },
-        ]}
+        data={props.assets.map((item: any) => ({
+          id: item.asset.symbol,
+          value: item.percentage,
+        }))}
         sortByValue
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
         cornerRadius={0}

@@ -66,7 +66,7 @@ export function Dashboard() {
   );
 
   return (
-    <div>
+    <>
       <div className="flex items-center gap-4">
         <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
         <div className="ml-auto flex items-center gap-2">
@@ -129,7 +129,7 @@ export function Dashboard() {
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
-              <PieChart className="aspect-[4/3]" />
+              <PieChart className="aspect-[4/3]" assets={orderedAssets} />
             </CardContent>
           </Card>
         </div>
@@ -179,6 +179,6 @@ export function Dashboard() {
           </Table>
         </div>
       </div>
-    </div>
+    </>
   );
 }
