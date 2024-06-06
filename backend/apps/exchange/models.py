@@ -3,6 +3,23 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Portfolio(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
+
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("user")
+    )
+    name = models.CharField(max_length=64, verbose_name=_("name"))
+
+    @property
+    def total_value(self) -> int:
+        return self.portfolioasset_set.aggregate(models.Sum("value"))["value__sum"]
+
+    def __str__(self) -> str:
+        return f"{self.user} | {self.name}"
+
+
 class Asset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
@@ -19,23 +36,6 @@ class Asset(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-class Portfolio(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
-
-    user = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("user")
-    )
-    name = models.CharField(max_length=64, verbose_name=_("name"))
-
-    @property
-    def total_value(self) -> int:
-        return self.portfolioasset_set.aggregate(models.Sum("value"))["value__sum"]
-
-    def __str__(self) -> str:
-        return f"{self.user} | {self.name}"
 
 
 class PortfolioAsset(models.Model):

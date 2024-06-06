@@ -37,15 +37,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # libraries
-    "rest_framework",
-    "rest_framework.authtoken",
     "corsheaders",
     "django_celery_results",
     "django_celery_beat",
     # apps
     "apps.users",
     "apps.exchange",
-    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -144,36 +141,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ],
-    "DEFAULT_RENDERER_CLASSES": (
-        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
-        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
-    ),
-    "DEFAULT_PARSER_CLASSES": (
-        "djangorestframework_camel_case.parser.CamelCaseFormParser",
-        "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
-        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-}
-
-SPECTACULAR_SETTINGS = {
-    "TITLE": "CryptoPatro API",
-    "DESCRIPTION": "Personal cryptoasset portfolio tracker and trading assistant bot",
-    "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,
-    "CAMELIZE_NAMES": False,
-    "POSTPROCESSING_HOOKS": [
-        "drf_spectacular.contrib.djangorestframework_camel_case.camelize_serializer_fields",
-        "drf_spectacular.hooks.postprocess_schema_enums",
-    ],
-}
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True

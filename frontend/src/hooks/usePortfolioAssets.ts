@@ -8,13 +8,13 @@ export default function usePortfolioAssets() {
   const { data, error, isPending, isFetching } = useQuery(
     {
       queryKey: ["portfolioAssets"],
-      queryFn: async () => (await axios).portfolio_assets_list(),
+      queryFn: async () => (await axios).apps_exchange_api_portfolio_assets(),
     },
     queryClient,
   );
 
   return {
-    portfolioAssets: data?.data.sort((a, b) => b.percentage - a.percentage),
+    portfolioAssets: data?.data.sort((a, b) => b.value - a.value),
     error,
     isPending,
     isFetching,

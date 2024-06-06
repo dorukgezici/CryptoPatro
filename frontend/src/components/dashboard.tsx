@@ -25,41 +25,27 @@ import {
 import usePortfolioAssets from "@/hooks/usePortfolioAssets";
 import { $axios } from "@/lib/store";
 import { useStore } from "@nanostores/react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
+
+const formatFloat = (value?: number) => value?.toFixed(2) || "0.00";
 
 export function Dashboard() {
   const { portfolioAssets } = usePortfolioAssets();
   const axios = useStore($axios);
 
   const totalPortfolioValue = useMemo(
-    () =>
-      portfolioAssets?.reduce(
-        (total, item) => total + parseInt(item.value || "0"),
-        0,
-      ),
+    () => portfolioAssets?.reduce((total, item) => total + item.value, 0),
     [portfolioAssets],
   );
   const totalRealizedPnl = useMemo(
     () =>
-      portfolioAssets?.reduce(
-        (total, item) => total + parseInt(item.realizedPnl || "0"),
-        0,
-      ),
+      portfolioAssets?.reduce((total, item) => total + item.realized_pnl, 0),
     [portfolioAssets],
   );
   const totalUnrealizedPnl = useMemo(
     () =>
-      portfolioAssets?.reduce(
-        (total, item) => total + parseInt(item.unrealizedPnl || "0"),
-        0,
-      ),
+      portfolioAssets?.reduce((total, item) => total + item.unrealized_pnl, 0),
     [portfolioAssets],
-  );
-
-  const multiplyFloatStrs = useCallback(
-    (a?: string, b?: string) =>
-      parseInt((parseFloat(a || "0") * parseFloat(b || "0")).toString()),
-    [],
   );
 
   return (
@@ -71,7 +57,7 @@ export function Dashboard() {
             variant="outline"
             size="icon"
             className="h-8 w-8"
-            onClick={async () => (await axios).get("/portfolios/refresh")}
+            onClick={async () => (await axios).apps_exchange_api_refresh()}
           >
             <RefreshCwIcon className="h-4 w-4" />
             <span className="sr-only">Refresh portfolio</span>
@@ -98,7 +84,7 @@ export function Dashboard() {
           <Card>
             <CardHeader>
               <CardDescription>Total Portfolio Value</CardDescription>
-              <CardTitle>${totalPortfolioValue}</CardTitle>
+              <CardTitle>${formatFloat(totalPortfolioValue)}</CardTitle>
             </CardHeader>
             <CardContent>
               <span className="aspect-[4/3]" />
@@ -108,9 +94,9 @@ export function Dashboard() {
           <Card>
             <CardHeader>
               <CardDescription>Total Profit/Loss</CardDescription>
-              <CardTitle>${totalUnrealizedPnl}</CardTitle>
+              <CardTitle>${formatFloat(totalUnrealizedPnl)}</CardTitle>
               <CardTitle className="text-gray-500">
-                ${totalRealizedPnl}
+                ${formatFloat(totalRealizedPnl)}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -162,22 +148,24 @@ export function Dashboard() {
                       <div>{item.asset.name}</div>
                     </div>
                   </TableCell>
-                  <TableCell>${item.asset.price}</TableCell>
-                  <TableCell>{item.amount}</TableCell>
-                  <TableCell>${item.value}</TableCell>
+                  <TableCell>${formatFloat(item.asset.price)}</TableCell>
+                  <TableCell>{formatFloat(item.amount)}</TableCell>
+                  <TableCell>${formatFloat(item.value)}</TableCell>
                   <TableCell className="text-green-500">
-                    {item.unrealizedPnl}
+                    {formatFloat(item.unrealized_pnl)}
                   </TableCell>
                   <TableCell className="text-green-500">
-                    {item.realizedPnl}
+                    {formatFloat(item.realized_pnl)}
                   </TableCell>
                   <TableCell>
-                    ${item.avgCost} x {item.buyAmount} ={" "}
-                    {multiplyFloatStrs(item.avgCost, item.buyAmount)}
+                    ${formatFloat(item.avg_cost)} x{" "}
+                    {formatFloat(item.buy_amount)} ={" "}
+                    {formatFloat(item.avg_cost * item.buy_amount)}
                   </TableCell>
                   <TableCell>
-                    ${item.avgCharge} x {item.sellAmount} ={" "}
-                    {multiplyFloatStrs(item.avgCharge, item.sellAmount)}
+                    ${formatFloat(item.avg_charge)} x{" "}
+                    {formatFloat(item.sell_amount)} ={" "}
+                    {formatFloat(item.avg_charge * item.sell_amount)}
                   </TableCell>
                 </TableRow>
               ))}

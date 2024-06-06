@@ -1,7 +1,35 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from rest_framework.authtoken.models import Token
+from django.conf import settings
+
+import binascii
+import os
+
+
+class Token(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
+
+    key = models.CharField(_("Key"), max_length=40, primary_key=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        related_name="auth_token",
+        on_delete=models.CASCADE,
+        verbose_name=_("User"),
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = self.generate_key()
+        return super().save(*args, **kwargs)
+
+    @classmethod
+    def generate_key(cls):
+        return binascii.hexlify(os.urandom(20)).decode()
+
+    def __str__(self):
+        return self.key
 
 
 class User(AbstractUser):
@@ -20,7 +48,9 @@ class TelegramUser(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
     id = models.CharField(primary_key=True, max_length=16)
-    user = models.OneToOneField(User, related_name='tg', on_delete=models.CASCADE, verbose_name=_("user"))
+    user = models.OneToOneField(
+        User, related_name="tg", on_delete=models.CASCADE, verbose_name=_("user")
+    )
 
     def __str__(self) -> str:
         return self.user.username
@@ -30,7 +60,9 @@ class BinanceAuth(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    user = models.OneToOneField(User, related_name='binance', on_delete=models.CASCADE, verbose_name=_("user"))
+    user = models.OneToOneField(
+        User, related_name="binance", on_delete=models.CASCADE, verbose_name=_("user")
+    )
     api_key = models.CharField(max_length=256, verbose_name=_("api key"))
     api_secret = models.CharField(max_length=256, verbose_name=_("api secret"))
 
@@ -61,7 +93,9 @@ class FtxAuth(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    user = models.OneToOneField(User, related_name='ftx', on_delete=models.CASCADE, verbose_name=_("user"))
+    user = models.OneToOneField(
+        User, related_name="ftx", on_delete=models.CASCADE, verbose_name=_("user")
+    )
     api_key = models.CharField(max_length=256, verbose_name=_("api key"))
     api_secret = models.CharField(max_length=256, verbose_name=_("api secret"))
 

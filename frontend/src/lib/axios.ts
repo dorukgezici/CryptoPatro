@@ -3,14 +3,13 @@ import type { Client } from "@/types/openapi";
 import { BACKEND_URL } from "@/config";
 
 const api = new OpenAPIClientAxios({
-  definition: `${BACKEND_URL}/api/schema/`,
+  definition: `${BACKEND_URL}/api/openapi.json`,
 });
 
 export const getApiClient = async (token?: string) => {
   const client = await api.getClient<Client>();
 
   client.defaults.baseURL = BACKEND_URL;
-  if (token) client.defaults.headers["authorization"] = `Token ${token}`;
-
+  if (token) client.defaults.headers["authorization"] = `Bearer ${token}`;
   return client;
 };

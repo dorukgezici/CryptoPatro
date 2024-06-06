@@ -14,7 +14,7 @@ def send_message(
     disable_web_page_preview: Optional[bool] = None,
     entities: Optional[List[MessageEntity]] = None,
 ) -> bool:
-    bot = telegram.Bot(settings.TELEGRAM['bot_token'])
+    bot = telegram.Bot(settings.TELEGRAM["bot_token"])
 
     try:
         bot.send_message(
