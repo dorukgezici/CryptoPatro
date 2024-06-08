@@ -37,6 +37,8 @@ volumes:
 
 services:
   postgres:
+    profiles:
+      - infra
     image: postgres:14
     volumes:
       - postgres:/var/lib/postgresql/data
@@ -47,12 +49,14 @@ services:
       POSTGRES_USER: *PROJECT
       POSTGRES_PASSWORD: *PROJECT
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: ["CMD", "pg_isready"]
       interval: 30s
       timeout: 5s
       retries: 3
 
   rabbitmq:
+    profiles:
+      - infra
     image: rabbitmq:3-management-alpine
     ports:
       - "127.0.0.1:5672:5672"
@@ -62,13 +66,15 @@ services:
       RABBITMQ_DEFAULT_USER: *PROJECT
       RABBITMQ_DEFAULT_PASS: *PROJECT
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://rabbitmq:15672" ]
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
       interval: 30s
       timeout: 5s
       retries: 3
 
   api:
     <<: *backend-common
+    profiles:
+      - api
     depends_on:
       - postgres
       - rabbitmq
@@ -78,25 +84,31 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://api" ]
+      test: ["CMD", "curl", "-f", "http://api"]
       interval: 30s
       timeout: 5s
       retries: 3
 
   scheduler:
     <<: *backend-common
+    profiles:
+      - infra
     environment:
       <<: *backend-common-environment
       CRYPTOPATRO_CONTAINER_KIND: scheduler
 
   worker:
     <<: *backend-common
+    profiles:
+      - infra
     environment:
       <<: *backend-common-environment
       CRYPTOPATRO_CONTAINER_KIND: worker
 
   bot:
     <<: *backend-common
+    profiles:
+      - bot
     environment:
       <<: *backend-common-environment
       CRYPTOPATRO_CONTAINER_KIND: bot

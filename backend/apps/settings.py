@@ -14,8 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CRYPTOPATRO = {
     "secret_key": os.environ.get("CRYPTOPATRO_SECRET_KEY", "notsosecretkey"),
     "stage": os.environ.get("CRYPTOPATRO_STAGE", "development"),
-    "backend_url": os.environ.get("CRYPTOPATRO_BACKEND_URL", "localhost:8000"),
-    "frontend_url": os.environ.get("CRYPTOPATRO_FRONTEND_URL", "localhost:8080"),
+    "backend_url": os.environ.get("CRYPTOPATRO_BACKEND_URL", "http://localhost:8000"),
+    "frontend_url": os.environ.get("CRYPTOPATRO_FRONTEND_URL", "http://localhost:4321"),
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!

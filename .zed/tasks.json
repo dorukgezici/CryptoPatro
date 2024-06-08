@@ -1,0 +1,20 @@
+[
+  {
+    "label": "infra",
+    "cwd": "$ZED_WORKTREE_ROOT/backend",
+    "command": "docker compose --profile infra up --build -d",
+    "reveal": "always"
+  },
+  {
+    "label": "api",
+    "cwd": "$ZED_WORKTREE_ROOT/backend",
+    "command": "source $ZED_WORKTREE_ROOT/backend/.venv/bin/activate && uvicorn apps.asgi:application --host 0.0.0.0 --port 8000 --reload",
+    "reveal": "always"
+  },
+  {
+    "label": "frontend",
+    "cwd": "$ZED_WORKTREE_ROOT/frontend",
+    "command": "pnpm run dev",
+    "reveal": "always"
+  }
+]

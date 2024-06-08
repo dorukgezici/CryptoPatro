@@ -2,37 +2,37 @@ import logging
 import os
 import sys
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 required_environment_variables = [
-    '{prefix}{name}'.format(
-        prefix='CRYPTOPATRO_',
+    "{prefix}{name}".format(
+        prefix="CRYPTOPATRO_",
         name=name,
     )
     for name in [
         # Django
-        'SECRET_KEY',
-        'STAGE',
-        'BACKEND_URL',
-        'FRONTEND_URL',
+        "SECRET_KEY",
+        "STAGE",
+        "BACKEND_URL",
+        "FRONTEND_URL",
         # Database
-        'POSTGRESQL_HOST',
-        'POSTGRESQL_DATABASE',
-        'POSTGRESQL_PORT',
-        'POSTGRESQL_USER',
-        'POSTGRESQL_PASSWORD',
+        "POSTGRESQL_HOST",
+        "POSTGRESQL_DATABASE",
+        "POSTGRESQL_PORT",
+        "POSTGRESQL_USER",
+        "POSTGRESQL_PASSWORD",
         # RabbitMQ
-        'RABBITMQ_HOST',
-        'RABBITMQ_VHOST',
-        'RABBITMQ_PORT',
-        'RABBITMQ_USER',
-        'RABBITMQ_PASSWORD',
+        "RABBITMQ_HOST",
+        "RABBITMQ_VHOST",
+        "RABBITMQ_PORT",
+        "RABBITMQ_USER",
+        "RABBITMQ_PASSWORD",
         # Sentry
-        'SENTRY_DSN',
+        "SENTRY_DSN",
         # Cryptopanic
-        'CRYPTOPANIC_AUTH_TOKEN',
+        "CRYPTOPANIC_AUTH_TOKEN",
         # Telegram
-        'TELEGRAM_BOT_TOKEN',
+        "TELEGRAM_BOT_TOKEN",
     ]
 ]
 
@@ -45,7 +45,7 @@ for required_environment_variable in required_environment_variables:
 if len(missing_environment_variables) > 0:
     logging.error(
         "These environment variables are required but not set: {missing_environment_variables}".format(
-            missing_environment_variables=', '.join(missing_environment_variables),
+            missing_environment_variables=", ".join(missing_environment_variables),
         )
     )
 
