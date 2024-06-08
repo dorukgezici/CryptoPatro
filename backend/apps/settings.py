@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_celery_results",
     "django_celery_beat",
+    "ninja",
     # apps
     "apps.users",
     "apps.exchange",

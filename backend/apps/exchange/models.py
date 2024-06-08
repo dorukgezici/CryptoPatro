@@ -1,3 +1,4 @@
+from functools import cached_property
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +13,7 @@ class Portfolio(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("user"))
     name = models.CharField(max_length=64, verbose_name=_("name"))
 
-    @property
+    @cached_property
     def total_value(self) -> float:
         return self.portfolioasset_set.aggregate(models.Sum("value"))["value__sum"]
 

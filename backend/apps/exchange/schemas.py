@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.db.models import Sum
 from ninja import ModelSchema
+from pydantic import field_serializer
 
 from ..utils import sync_executor
 from .models import Portfolio, Asset, PortfolioAsset

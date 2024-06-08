@@ -1,6 +1,7 @@
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
+import { calculatePercentage } from "@/lib/utils";
 
 export function BarChart(props: any) {
   return (
@@ -61,7 +62,7 @@ export function PieChart(props: any) {
       <ResponsivePie
         data={props.assets.map((item: any) => ({
           id: item.asset.symbol,
-          value: item.percentage,
+          value: calculatePercentage(item.value, item.portfolio.total_value),
         }))}
         sortByValue
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}

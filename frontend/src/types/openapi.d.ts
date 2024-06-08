@@ -44,6 +44,10 @@ declare namespace Components {
             portfolio: /* PortfolioSchema */ PortfolioSchema;
             asset: /* AssetSchema */ AssetSchema;
             /**
+             * Percentage
+             */
+            percentage: number;
+            /**
              * Amount
              */
             amount: number;
@@ -235,6 +239,14 @@ declare namespace Paths {
             export type $200 = /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema[];
         }
     }
+    namespace AppsExchangeApiPortfolios {
+        namespace Responses {
+            /**
+             * Response
+             */
+            export type $200 = /* PortfolioSchema */ Components.Schemas.PortfolioSchema[];
+        }
+    }
     namespace AppsExchangeApiRecentTrades {
         namespace Parameters {
             /**
@@ -282,6 +294,14 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.AppsApiHealth.Responses.$200>
+  /**
+   * apps_exchange_api_portfolios - Portfolios
+   */
+  'apps_exchange_api_portfolios'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>
   /**
    * apps_exchange_api_assets - Assets
    */
@@ -398,6 +418,16 @@ export interface PathsDictionary {
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.AppsApiHealth.Responses.$200>
+  }
+  ['/api/exchange/portfolios']: {
+    /**
+     * apps_exchange_api_portfolios - Portfolios
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>
   }
   ['/api/exchange/assets']: {
     /**

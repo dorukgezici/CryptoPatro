@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/table";
 import usePortfolioAssets from "@/hooks/usePortfolioAssets";
 import { $axios } from "@/lib/store";
+import { calculatePercentage } from "@/lib/utils";
 import { useStore } from "@nanostores/react";
 import { useMemo } from "react";
 
@@ -113,7 +114,11 @@ export function Dashboard() {
                     <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-50" />
                     <div>{item.asset.name}</div>
                     <div className="text-gray-500 dark:text-gray-400">
-                      {item.percentage}%
+                      {calculatePercentage(
+                        item.value,
+                        item.portfolio.total_value,
+                      )}
+                      %
                     </div>
                   </div>
                 ))}
