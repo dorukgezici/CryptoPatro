@@ -4,7 +4,7 @@ from .models import Portfolio, Asset, PortfolioAsset
 
 
 class PortfolioSchema(ModelSchema):
-    total_value: Decimal
+    total_value: float
 
     class Meta:
         model = Portfolio

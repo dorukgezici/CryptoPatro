@@ -95,7 +95,7 @@ declare namespace Components {
       /**
        * Total Value
        */
-      total_value: /* Total Value */ number | string;
+      total_value: number;
       /**
        * ID
        */
@@ -126,15 +126,6 @@ declare namespace Paths {
     }
   }
   namespace AppsExchangeApiAccount {
-    namespace Parameters {
-      /**
-       * Self
-       */
-      export type Self = string;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
-    }
     namespace Responses {
       export interface $200 {}
     }
@@ -145,19 +136,20 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
     }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
-    }
     namespace Responses {
       export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiAssets {
+    namespace Responses {
+      /**
+       * Response
+       */
+      export type $200 = /* AssetSchema */ Components.Schemas.AssetSchema[];
     }
   }
   namespace AppsExchangeApiCurrentAvgPrice {
@@ -166,16 +158,9 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
@@ -187,16 +172,9 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
@@ -208,45 +186,20 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
     }
   }
   namespace AppsExchangeApiNews {
-    namespace Parameters {
-      /**
-       * Self
-       */
-      export type Self = string;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
-    }
     namespace Responses {
       export interface $200 {}
     }
   }
   namespace AppsExchangeApiOpenOrders {
-    namespace Parameters {
-      /**
-       * Self
-       */
-      export type Self = string;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
-    }
     namespace Responses {
       export interface $200 {}
     }
@@ -257,16 +210,9 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
@@ -287,16 +233,9 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
@@ -313,16 +252,9 @@ declare namespace Paths {
        * Pair
        */
       export type Pair = string;
-      /**
-       * Self
-       */
-      export type Self = string;
     }
     export interface PathParameters {
       pair: /* Pair */ Parameters.Pair;
-    }
-    export interface QueryParameters {
-      self: /* Self */ Parameters.Self;
     }
     namespace Responses {
       export interface $200 {}
@@ -339,6 +271,14 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+  /**
+   * apps_exchange_api_assets - Assets
+   */
+  "apps_exchange_api_assets"(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
   /**
    * apps_exchange_api_portfolio_assets - Portfolio Assets
    */
@@ -359,10 +299,7 @@ export interface OperationMethods {
    * apps_exchange_api_info - Info
    */
   "apps_exchange_api_info"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiInfo.QueryParameters &
-        Paths.AppsExchangeApiInfo.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
@@ -370,10 +307,7 @@ export interface OperationMethods {
    * apps_exchange_api_order_book - Order Book
    */
   "apps_exchange_api_order_book"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiOrderBook.QueryParameters &
-        Paths.AppsExchangeApiOrderBook.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
@@ -381,10 +315,7 @@ export interface OperationMethods {
    * apps_exchange_api_recent_trades - Recent Trades
    */
   "apps_exchange_api_recent_trades"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiRecentTrades.QueryParameters &
-        Paths.AppsExchangeApiRecentTrades.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
@@ -392,10 +323,7 @@ export interface OperationMethods {
    * apps_exchange_api_current_avg_price - Current Avg Price
    */
   "apps_exchange_api_current_avg_price"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiCurrentAvgPrice.QueryParameters &
-        Paths.AppsExchangeApiCurrentAvgPrice.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
@@ -403,10 +331,7 @@ export interface OperationMethods {
    * apps_exchange_api_ticker_price_change - Ticker Price Change
    */
   "apps_exchange_api_ticker_price_change"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiTickerPriceChange.QueryParameters &
-        Paths.AppsExchangeApiTickerPriceChange.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
@@ -414,10 +339,7 @@ export interface OperationMethods {
    * apps_exchange_api_all_orders - All Orders
    */
   "apps_exchange_api_all_orders"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiAllOrders.QueryParameters &
-        Paths.AppsExchangeApiAllOrders.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
@@ -425,7 +347,7 @@ export interface OperationMethods {
    * apps_exchange_api_open_orders - Open Orders
    */
   "apps_exchange_api_open_orders"(
-    parameters?: Parameters<Paths.AppsExchangeApiOpenOrders.QueryParameters> | null,
+    parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
@@ -433,7 +355,7 @@ export interface OperationMethods {
    * apps_exchange_api_account - Account
    */
   "apps_exchange_api_account"(
-    parameters?: Parameters<Paths.AppsExchangeApiAccount.QueryParameters> | null,
+    parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
@@ -441,10 +363,7 @@ export interface OperationMethods {
    * apps_exchange_api_my_trades - My Trades
    */
   "apps_exchange_api_my_trades"(
-    parameters: Parameters<
-      Paths.AppsExchangeApiMyTrades.QueryParameters &
-        Paths.AppsExchangeApiMyTrades.PathParameters
-    >,
+    parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
@@ -452,7 +371,7 @@ export interface OperationMethods {
    * apps_exchange_api_news - News
    */
   "apps_exchange_api_news"(
-    parameters?: Parameters<Paths.AppsExchangeApiNews.QueryParameters> | null,
+    parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
   ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;
@@ -468,6 +387,16 @@ export interface PathsDictionary {
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+  };
+  ["/api/exchange/assets"]: {
+    /**
+     * apps_exchange_api_assets - Assets
+     */
+    "get"(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
   };
   ["/api/exchange/portfolio-assets"]: {
     /**
@@ -494,10 +423,7 @@ export interface PathsDictionary {
      * apps_exchange_api_info - Info
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiInfo.QueryParameters &
-          Paths.AppsExchangeApiInfo.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
@@ -507,10 +433,7 @@ export interface PathsDictionary {
      * apps_exchange_api_order_book - Order Book
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiOrderBook.QueryParameters &
-          Paths.AppsExchangeApiOrderBook.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
@@ -520,10 +443,7 @@ export interface PathsDictionary {
      * apps_exchange_api_recent_trades - Recent Trades
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiRecentTrades.QueryParameters &
-          Paths.AppsExchangeApiRecentTrades.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
@@ -533,10 +453,7 @@ export interface PathsDictionary {
      * apps_exchange_api_current_avg_price - Current Avg Price
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiCurrentAvgPrice.QueryParameters &
-          Paths.AppsExchangeApiCurrentAvgPrice.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
@@ -546,10 +463,7 @@ export interface PathsDictionary {
      * apps_exchange_api_ticker_price_change - Ticker Price Change
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiTickerPriceChange.QueryParameters &
-          Paths.AppsExchangeApiTickerPriceChange.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
@@ -559,10 +473,7 @@ export interface PathsDictionary {
      * apps_exchange_api_all_orders - All Orders
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiAllOrders.QueryParameters &
-          Paths.AppsExchangeApiAllOrders.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
@@ -572,7 +483,7 @@ export interface PathsDictionary {
      * apps_exchange_api_open_orders - Open Orders
      */
     "get"(
-      parameters?: Parameters<Paths.AppsExchangeApiOpenOrders.QueryParameters> | null,
+      parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
@@ -582,7 +493,7 @@ export interface PathsDictionary {
      * apps_exchange_api_account - Account
      */
     "get"(
-      parameters?: Parameters<Paths.AppsExchangeApiAccount.QueryParameters> | null,
+      parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
@@ -592,10 +503,7 @@ export interface PathsDictionary {
      * apps_exchange_api_my_trades - My Trades
      */
     "get"(
-      parameters: Parameters<
-        Paths.AppsExchangeApiMyTrades.QueryParameters &
-          Paths.AppsExchangeApiMyTrades.PathParameters
-      >,
+      parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
@@ -605,7 +513,7 @@ export interface PathsDictionary {
      * apps_exchange_api_news - News
      */
     "get"(
-      parameters?: Parameters<Paths.AppsExchangeApiNews.QueryParameters> | null,
+      parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
     ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;

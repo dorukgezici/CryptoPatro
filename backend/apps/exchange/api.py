@@ -6,11 +6,16 @@ from django.shortcuts import get_object_or_404
 from django.conf import settings
 
 from ..users.models import TelegramUser
-from .schemas import PortfolioAssetSchema
-from .models import PortfolioAsset
+from .schemas import AssetSchema, PortfolioAssetSchema
+from .models import Asset, PortfolioAsset
 from .tasks import calculate_portfolio_asset_pnls
 
 router = Router()
+
+
+@router.get("/assets", response=List[AssetSchema])
+def assets(request):
+    return Asset.objects.all()
 
 
 @router.get("/portfolio-assets", response=List[PortfolioAssetSchema])

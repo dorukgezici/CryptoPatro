@@ -1,2 +1,4 @@
 black==24.4.2
-django-types==0.19.1
+celery-types==0.22.0
+django-stubs==5.0.2
+isort==5.13.2

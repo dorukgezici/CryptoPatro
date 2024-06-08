@@ -1,4 +1,4 @@
-import { CoinsIcon, SearchIcon } from "@/components/icons";
+import { BellIcon, CoinsIcon, SearchIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,6 +29,10 @@ export function Header() {
           </div>
         </form>
       </div>
+      <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
+        <BellIcon className="h-4 w-4" />
+        <span className="sr-only">Toggle notifications</span>
+      </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
