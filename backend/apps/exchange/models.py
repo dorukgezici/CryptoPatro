@@ -1,10 +1,11 @@
 from django.conf import settings
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class Portfolio(models.Model):
+    portfolioasset_set: models.QuerySet["PortfolioAsset"]
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
@@ -12,7 +13,7 @@ class Portfolio(models.Model):
     name = models.CharField(max_length=64, verbose_name=_("name"))
 
     @property
-    def total_value(self) -> int:
+    def total_value(self) -> float:
         return self.portfolioasset_set.aggregate(models.Sum("value"))["value__sum"]
 
     def __str__(self) -> str:
@@ -26,10 +27,6 @@ class Asset(models.Model):
     symbol = models.CharField(unique=True, max_length=16, verbose_name=_("symbol"))
     name = models.CharField(max_length=32, verbose_name=_("name"))
     price = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("price (USD)"))
-
-    @property
-    def icon(self) -> str:
-        return f"https://cryptoicon-api.vercel.app/api/icon/{self.symbol.lower()}"
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -55,4 +52,4 @@ class PortfolioAsset(models.Model):
     unrealized_pnl = models.DecimalField(default=0, max_digits=64, decimal_places=8, verbose_name=_("unrealized pnl"))
 
     def __str__(self) -> str:
-        return self.asset.name
+        return f"{self.portfolio} | {self.asset}"

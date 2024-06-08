@@ -33,6 +33,10 @@ class Token(models.Model):
 
 
 class User(AbstractUser):
+    id: int
+    tg: "TelegramUser"
+    binance: "BinanceAuth"
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
@@ -48,9 +52,7 @@ class TelegramUser(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
     id = models.CharField(primary_key=True, max_length=16)
-    user = models.OneToOneField(
-        User, related_name="tg", on_delete=models.CASCADE, verbose_name=_("user")
-    )
+    user = models.OneToOneField(User, related_name="tg", on_delete=models.CASCADE, verbose_name=_("user"))
 
     def __str__(self) -> str:
         return self.user.username
@@ -60,9 +62,7 @@ class BinanceAuth(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
 
-    user = models.OneToOneField(
-        User, related_name="binance", on_delete=models.CASCADE, verbose_name=_("user")
-    )
+    user = models.OneToOneField(User, related_name="binance", on_delete=models.CASCADE, verbose_name=_("user"))
     api_key = models.CharField(max_length=256, verbose_name=_("api key"))
     api_secret = models.CharField(max_length=256, verbose_name=_("api secret"))
 
@@ -87,17 +87,3 @@ class BinanceAuth(models.Model):
     #     aes = pyaes.AESModeOfOperationCTR(settings.SECRET_KEY.encode())
     #     print('API SECRET:', self.api_secret)
     #     return aes.decrypt(self.api_secret).decode()
-
-
-class FtxAuth(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("updated at"))
-
-    user = models.OneToOneField(
-        User, related_name="ftx", on_delete=models.CASCADE, verbose_name=_("user")
-    )
-    api_key = models.CharField(max_length=256, verbose_name=_("api key"))
-    api_secret = models.CharField(max_length=256, verbose_name=_("api secret"))
-
-    def __str__(self) -> str:
-        return self.user.username

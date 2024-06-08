@@ -2,30 +2,37 @@ import requests
 from typing import List
 from binance.spot import Spot
 from ninja import Router
-from django.shortcuts import get_object_or_404
+from django.shortcuts import aget_list_or_404, aget_object_or_404
 from django.conf import settings
 
-from ..users.models import TelegramUser
-from .schemas import AssetSchema, PortfolioAssetSchema
-from .models import Asset, PortfolioAsset
+from ..types import Request
+from ..users.models import User, TelegramUser
+from .schemas import PortfolioSchema, AssetSchema, PortfolioAssetSchema
+from .models import Portfolio, Asset, PortfolioAsset
 from .tasks import calculate_portfolio_asset_pnls
+
 
 router = Router()
 
 
+@router.get("/portfolios", response=List[PortfolioSchema])
+async def portfolios(request: Request):
+    return await aget_list_or_404(Portfolio)
+
+
 @router.get("/assets", response=List[AssetSchema])
-def assets(request):
-    return Asset.objects.all()
+async def assets(request: Request):
+    return await aget_list_or_404(Asset)
 
 
 @router.get("/portfolio-assets", response=List[PortfolioAssetSchema])
-def portfolio_assets(request):
-    return PortfolioAsset.objects.all()
+async def portfolio_assets(request: Request):
+    return await aget_list_or_404(PortfolioAsset.objects.select_related("portfolio", "asset"))
 
 
 @router.get("/refresh")
-def refresh(request):
-    tg = get_object_or_404(TelegramUser, user_id=request.user.id)
+async def refresh(request: Request):
+    tg = await aget_object_or_404(TelegramUser, user_id=request.auth.id)
     calculate_portfolio_asset_pnls.delay(tg.id)
 
 

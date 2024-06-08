@@ -1,5 +1,8 @@
 from decimal import Decimal
-from ninja import ModelSchema, Field
+from django.db.models import Sum
+from ninja import ModelSchema
+
+from ..utils import sync_executor
 from .models import Portfolio, Asset, PortfolioAsset
 
 
@@ -9,6 +12,14 @@ class PortfolioSchema(ModelSchema):
     class Meta:
         model = Portfolio
         fields = ("id", "created_at", "updated_at", "user", "name")
+
+    @staticmethod
+    def resolve_total_value(obj) -> float:
+        async def get_total_value() -> float:
+            data = await PortfolioAsset.objects.filter(portfolio_id=obj.id).aaggregate(Sum("value"))
+            return float(data["value__sum"])
+
+        return sync_executor(get_total_value)()
 
 
 class AssetSchema(ModelSchema):

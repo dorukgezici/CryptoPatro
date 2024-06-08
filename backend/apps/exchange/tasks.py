@@ -1,6 +1,6 @@
 from decimal import Decimal
 from typing import Optional
-
+from asgiref.sync import async_to_sync
 import binance.error
 from binance.spot import Spot
 from django.db.models import Sum
@@ -17,6 +17,9 @@ def synchronize_prices(telegram_id: Optional[int] = None) -> None:
         binance_auth = BinanceAuth.objects.filter(user__tg__id=str(telegram_id)).first()
     else:
         binance_auth = BinanceAuth.objects.first()
+
+    if not binance_auth:
+        return
 
     client = Spot(api_key=binance_auth.api_key, api_secret=binance_auth.api_secret)
 
@@ -80,17 +83,11 @@ def sync(telegram_id: Optional[int] = None) -> None:
 
 
 @app.task
-def calculate_average_costs_and_charges(
-    telegram_id: Optional[int] = None, report: bool = True
-) -> None:
-    portfolio_assets = PortfolioAsset.objects.filter(
-        portfolio__user__binance__isnull=False
-    )
+def calculate_average_costs_and_charges(telegram_id: Optional[int] = None, report: bool = True) -> None:
+    portfolio_assets = PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False)
 
     if telegram_id is not None:
-        portfolio_assets = portfolio_assets.filter(
-            portfolio__user__tg__id=str(telegram_id)
-        )
+        portfolio_assets = portfolio_assets.filter(portfolio__user__tg__id=str(telegram_id))
 
     for portfolio_asset in portfolio_assets:
         user = portfolio_asset.portfolio.user
@@ -145,29 +142,23 @@ def calculate_average_costs_and_charges(
             portfolio_asset.save(update_fields=["avg_charge", "sell_amount"])
 
         if report:
-            send_message(
-                user.tg.id,
-                f"{portfolio_asset.asset.symbol}:\n"
+            async_to_sync(send_message)(
+                user_id=user.tg.id,
+                text=f"{portfolio_asset.asset.symbol}:\n"
                 f"Avg. Cost = {portfolio_asset.avg_cost:.2f} USD\n"
                 f"Avg. Charge = {portfolio_asset.avg_charge:.2f} USD\n",
             )
 
 
 @app.task
-def calculate_portfolio_asset_pnls(
-    telegram_id: Optional[int] = None, report: bool = True
-) -> None:
+def calculate_portfolio_asset_pnls(telegram_id: Optional[int] = None, report: bool = True) -> None:
     sync(telegram_id)
     calculate_average_costs_and_charges(telegram_id, False)
 
-    portfolio_assets = PortfolioAsset.objects.filter(
-        portfolio__user__binance__isnull=False
-    ).exclude(asset__price=0)
+    portfolio_assets = PortfolioAsset.objects.filter(portfolio__user__binance__isnull=False).exclude(asset__price=0)
 
     if telegram_id is not None:
-        portfolio_assets = portfolio_assets.filter(
-            portfolio__user__tg__id=str(telegram_id)
-        )
+        portfolio_assets = portfolio_assets.filter(portfolio__user__tg__id=str(telegram_id))
 
     for portfolio_asset in portfolio_assets:
         amount, price = portfolio_asset.amount, portfolio_asset.asset.price
@@ -196,9 +187,9 @@ def calculate_portfolio_asset_pnls(
                 if avg_charge > 0:
                     realized_percentage = (avg_charge - avg_cost) / avg_cost * 100
 
-            send_message(
-                portfolio_asset.portfolio.user.tg.id,
-                f"{portfolio_asset.asset.symbol}:\n"
+            async_to_sync(send_message)(
+                user_id=portfolio_asset.portfolio.user.tg.id,
+                text=f"{portfolio_asset.asset.symbol}:\n"
                 f"Amount = {amount:.2f}\n"
                 f"Value = {portfolio_asset.value:.2f} USD\n"
                 f"Real. P&L = {portfolio_asset.realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n"
@@ -217,9 +208,7 @@ def report_portfolio_pnls(telegram_id: Optional[int] = None) -> None:
 
     for portfolio in portfolios:
         if portfolio.portfolioasset_set.exists():
-            data = portfolio.portfolioasset_set.aggregate(
-                Sum("value"), Sum("realized_pnl"), Sum("unrealized_pnl")
-            )
+            data = portfolio.portfolioasset_set.aggregate(Sum("value"), Sum("realized_pnl"), Sum("unrealized_pnl"))
             value = data["value__sum"]
             realized_pnl = data["realized_pnl__sum"]
             unrealized_pnl = data["unrealized_pnl__sum"]
@@ -227,9 +216,9 @@ def report_portfolio_pnls(telegram_id: Optional[int] = None) -> None:
             realized_percentage = realized_pnl / (value - unrealized_pnl) * 100
             unrealized_percentage = unrealized_pnl / (value - realized_pnl) * 100
 
-            send_message(
-                portfolio.user.tg.id,
-                f"{portfolio}:\n"
+            async_to_sync(send_message)(
+                user_id=portfolio.user.tg.id,
+                text=f"{portfolio}:\n"
                 f"Value = {value:.2f} USD\n"
                 f"Real. P&L = {realized_pnl:.2f} USD ({realized_percentage:.2f}%)\n"
                 f"Unr. P&L = {unrealized_pnl:.2f} USD ({unrealized_percentage:.2f}%)\n",

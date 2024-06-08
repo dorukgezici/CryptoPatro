@@ -13,7 +13,7 @@ class PortfolioAdmin(admin.ModelAdmin):
 
 @admin.register(models.Asset)
 class AssetAdmin(admin.ModelAdmin):
-    list_display = ["symbol", "name", "price", "icon"]
+    list_display = ["symbol", "name", "price"]
     list_filter = ["created_at", "updated_at"]
     search_fields = ["symbol", "name"]
 

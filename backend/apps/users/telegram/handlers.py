@@ -1,5 +1,5 @@
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
-from telegram.ext import CallbackContext, ConversationHandler
+from telegram.ext import ContextTypes, ConversationHandler
 
 from apps.exchange.models import Asset, Portfolio, PortfolioAsset
 from apps.exchange.tasks import (
@@ -10,59 +10,59 @@ from apps.exchange.tasks import (
 )
 
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(
-        f"Hello {update.effective_user.first_name}. Your Telegram id is {update.effective_user.id}. "
-        "You need to forward this message to @dorukgezici to receive setup instructions."
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    sync.delay(update.effective_user.id)
+
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"Hello {update.effective_user.first_name}. Your Telegram id is {update.effective_user.id}. "
+        "You need to forward this message to @dorukgezici to receive setup instructions.",
     )
-    sync(update.effective_user.id)
 
 
-def assets(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Listing portfolio assets...")
+async def assets(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    sync.delay(update.effective_user.id)
 
-    telegram_id = update.effective_user.id
-    sync(telegram_id)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Listing portfolio assets...")
 
-    for portfolio_asset in PortfolioAsset.objects.filter(
-        portfolio__user__tg__id=str(telegram_id)
-    ):
-        update.message.reply_text(
-            f"{portfolio_asset.asset.symbol}:\n"
+    for portfolio_asset in PortfolioAsset.objects.filter(portfolio__user__tg__id=str(update.effective_user.id)):
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=f"{portfolio_asset.asset.symbol}:\n"
             f"Price = {portfolio_asset.asset.price:.2f} USD\n"
             f"Amount = {portfolio_asset.amount:.2f}\n"
-            f"Value = {portfolio_asset.value:.2f} USD\n"
+            f"Value = {portfolio_asset.value:.2f} USD\n",
         )
 
 
-def avg(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Reporting average costs and charges...")
-    calculate_average_costs_and_charges(update.effective_user.id)
+async def avg(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    calculate_average_costs_and_charges.delay(update.effective_user.id)
+
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Reporting average costs and charges...")
 
 
-def pnls(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Reporting portfolio asset PNLs...")
-    calculate_portfolio_asset_pnls(update.effective_user.id)
+async def pnls(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    calculate_portfolio_asset_pnls.delay(update.effective_user.id)
+
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Reporting portfolio asset PNLs...")
 
 
-def pnl(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Reporting portfolio PNLs...")
-    report_portfolio_pnls(update.effective_user.id)
+async def pnl(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    report_portfolio_pnls.delay(update.effective_user.id)
+
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Reporting portfolio PNLs...")
 
 
-def pick_asset(update: Update, context: CallbackContext) -> int:
+async def pick_asset(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Asks for and stores a portfolio asset"""
     existent_symbols = PortfolioAsset.objects.filter(
         portfolio__user__tg__id=str(update.effective_user.id),
     ).values_list("asset__symbol", flat=True)
 
-    assets = list(
-        Asset.objects.exclude(symbol__in=existent_symbols).values_list(
-            "symbol", flat=True
-        )
-    )
+    assets = list(Asset.objects.exclude(symbol__in=existent_symbols).values_list("symbol", flat=True))
 
-    update.message.reply_text(
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
         text="Pick the symbol you would like to add.",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[assets],
@@ -74,11 +74,11 @@ def pick_asset(update: Update, context: CallbackContext) -> int:
     return 0
 
 
-def add_asset(update: Update, context: CallbackContext) -> int:
+async def add_asset(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Adds the selected portfolio asset"""
     telegram_id = update.effective_user.id
     symbol = update.message.text
-    update.message.reply_text(f"Adding portfolio asset {symbol}...")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Adding portfolio asset {symbol}...")
 
     portfolio_asset, _ = PortfolioAsset.objects.get_or_create(
         portfolio=Portfolio.objects.filter(user__tg__id=str(telegram_id)).first(),
@@ -87,19 +87,21 @@ def add_asset(update: Update, context: CallbackContext) -> int:
     report_portfolio_pnls(telegram_id, False)
     portfolio_asset.refresh_from_db()
 
-    update.message.reply_text(
-        f"{portfolio_asset.asset.symbol}:\n"
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"{portfolio_asset.asset.symbol}:\n"
         f"Price = {portfolio_asset.asset.price:.2f} USD\n"
         f"Amount = {portfolio_asset.amount:.2f}\n"
-        f"Value = {portfolio_asset.value:.2f} USD\n"
+        f"Value = {portfolio_asset.value:.2f} USD\n",
     )
 
     return ConversationHandler.END
 
 
-def cancel(update: Update, context: CallbackContext) -> int:
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Cancels and ends the conversation"""
-    update.message.reply_text(
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
         text="Bye! I hope we can talk again some day.",
         reply_markup=ReplyKeyboardRemove(),
     )

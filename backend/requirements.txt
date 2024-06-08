@@ -4,11 +4,9 @@ django-celery-beat==2.6.0
 django-celery-results==2.5.1
 django-cors-headers==4.3.1
 django-ninja==1.1.0
-gunicorn==22.0.0
 psycopg2-binary==2.9.9
 pillow==10.3.0
-pycryptodome==3.20.0
-python-telegram-bot==13.15
-pyOpenSSL==24.1.0
-sentry-sdk==2.4.0
+python-telegram-bot==21.3
+sentry-sdk==2.5.1
+uvicorn==0.30.1
 whitenoise==6.6.0
