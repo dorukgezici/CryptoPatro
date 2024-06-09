@@ -2,7 +2,8 @@ import requests
 from typing import List
 from binance.spot import Spot
 from ninja import Router
-from django.shortcuts import aget_list_or_404, aget_object_or_404
+from ninja.pagination import paginate
+from django.shortcuts import aget_list_or_404, aget_object_or_404, get_list_or_404
 from django.conf import settings
 
 from ..types import Request
@@ -21,8 +22,9 @@ async def portfolios(request: Request):
 
 
 @router.get("/assets", response=List[AssetSchema])
-async def assets(request: Request):
-    return await aget_list_or_404(Asset)
+@paginate
+def assets(request: Request):
+    return get_list_or_404(Asset)
 
 
 @router.get("/portfolio-assets", response=List[PortfolioAssetSchema])

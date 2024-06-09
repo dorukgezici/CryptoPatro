@@ -38,15 +38,37 @@ declare namespace Components {
             name: string;
         }
         /**
+         * Input
+         */
+        export interface Input {
+            /**
+             * Limit
+             */
+            limit?: number;
+            /**
+             * Offset
+             */
+            offset?: number;
+        }
+        /**
+         * PagedAssetSchema
+         */
+        export interface PagedAssetSchema {
+            /**
+             * Items
+             */
+            items: /* AssetSchema */ AssetSchema[];
+            /**
+             * Count
+             */
+            count: number;
+        }
+        /**
          * PortfolioAssetSchema
          */
         export interface PortfolioAssetSchema {
             portfolio: /* PortfolioSchema */ PortfolioSchema;
             asset: /* AssetSchema */ AssetSchema;
-            /**
-             * Percentage
-             */
-            percentage: number;
             /**
              * Amount
              */
@@ -152,11 +174,22 @@ declare namespace Paths {
         }
     }
     namespace AppsExchangeApiAssets {
-        namespace Responses {
+        namespace Parameters {
             /**
-             * Response
+             * Limit
              */
-            export type $200 = /* AssetSchema */ Components.Schemas.AssetSchema[];
+            export type Limit = number;
+            /**
+             * Offset
+             */
+            export type Offset = number;
+        }
+        export interface QueryParameters {
+            limit?: /* Limit */ Parameters.Limit;
+            offset?: /* Offset */ Parameters.Offset;
+        }
+        namespace Responses {
+            export type $200 = /* PagedAssetSchema */ Components.Schemas.PagedAssetSchema;
         }
     }
     namespace AppsExchangeApiCurrentAvgPrice {
@@ -306,7 +339,7 @@ export interface OperationMethods {
    * apps_exchange_api_assets - Assets
    */
   'apps_exchange_api_assets'(
-    parameters?: Parameters<UnknownParamsObject> | null,
+    parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>
@@ -434,7 +467,7 @@ export interface PathsDictionary {
      * apps_exchange_api_assets - Assets
      */
     'get'(
-      parameters?: Parameters<UnknownParamsObject> | null,
+      parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>
