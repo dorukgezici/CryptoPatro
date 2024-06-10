@@ -1,7 +1,7 @@
 import requests
 from typing import List
 from binance.spot import Spot
-from ninja import Router
+from ninja import Router, Form, Body
 from ninja.pagination import paginate
 from django.shortcuts import aget_list_or_404, aget_object_or_404, get_list_or_404
 from django.conf import settings
@@ -18,7 +18,7 @@ router = Router()
 
 @router.get("/portfolios", response=List[PortfolioSchema])
 async def portfolios(request: Request):
-    return await aget_list_or_404(Portfolio)
+    return await aget_list_or_404(Portfolio, user_id=request.auth.id)
 
 
 @router.get("/assets", response=List[AssetSchema])
@@ -29,7 +29,24 @@ def assets(request: Request):
 
 @router.get("/portfolio-assets", response=List[PortfolioAssetSchema])
 async def portfolio_assets(request: Request):
-    return await aget_list_or_404(PortfolioAsset.objects.select_related("portfolio", "asset"))
+    return await aget_list_or_404(
+        PortfolioAsset.objects.select_related("portfolio", "asset"),
+        portfolio__user_id=request.auth.id,
+    )
+
+
+@router.post("/portfolio-assets", response=PortfolioAssetSchema)
+def create_portfolio_asset(request: Request, portfolio_id: Body[int], asset_id: Body[int]):
+    return PortfolioAsset.objects.create(
+        portfolio_id=portfolio_id,
+        asset_id=asset_id,
+    )
+
+
+@router.delete("/portfolio-assets/{id}")
+async def delete_portfolio_asset(request: Request, id: int):
+    obj = await aget_object_or_404(PortfolioAsset, id=id, portfolio__user_id=request.auth.id)
+    await obj.adelete()
 
 
 @router.get("/refresh")

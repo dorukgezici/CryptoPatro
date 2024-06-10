@@ -1,5 +1,5 @@
-import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
-import { CalendarClockIcon, RefreshCwIcon } from "@/components/icons";
+import { useMemo } from "react";
+import { useStore } from "@nanostores/react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -22,17 +22,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import usePortfolioAssets from "@/hooks/usePortfolioAssets";
-import { $axios } from "@/lib/store";
-import { calculatePercentage } from "@/lib/utils";
-import { useStore } from "@nanostores/react";
-import { useMemo } from "react";
+import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
+import { CalendarClockIcon, RefreshCwIcon, XIcon } from "@/components/icons";
+import { calculatePercentage, formatFloat } from "@/lib/utils";
+import {
+  $portfolioAssets,
+  $deletePortfolioAsset,
+  $refreshPortfolio,
+} from "@/store/portfolio";
 
-const formatFloat = (value?: number) => value?.toFixed(2) || "0.00";
-
-export function Dashboard() {
-  const { portfolioAssets } = usePortfolioAssets();
-  const axios = useStore($axios);
+export function Portfolio() {
+  const { data: portfolioAssets } = useStore($portfolioAssets);
+  const { mutate } = useStore($deletePortfolioAsset);
+  const { mutate: refreshPortfolio } = useStore($refreshPortfolio);
 
   const totalPortfolioValue = useMemo(
     () => portfolioAssets?.reduce((total, item) => total + item.value, 0),
@@ -58,7 +60,7 @@ export function Dashboard() {
             variant="outline"
             size="icon"
             className="h-8 w-8"
-            onClick={async () => (await axios).apps_exchange_api_refresh()}
+            onClick={async () => await refreshPortfolio()}
           >
             <RefreshCwIcon className="h-4 w-4" />
             <span className="sr-only">Refresh portfolio</span>
@@ -142,6 +144,9 @@ export function Dashboard() {
                 <TableHead>Realized PNL</TableHead>
                 <TableHead>Buy Avg. x Amount</TableHead>
                 <TableHead>Sell Avg. x Amount</TableHead>
+                <TableHead className="w-[50px]">
+                  <span className="sr-only">Remove</span>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -171,6 +176,16 @@ export function Dashboard() {
                     ${formatFloat(item.avg_charge)} x{" "}
                     {formatFloat(item.sell_amount)} ={" "}
                     {formatFloat(item.avg_charge * item.sell_amount)}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-red-500 hover:bg-red-500/10 dark:hover:bg-red-500/20"
+                      onClick={async () => await mutate({ id: item.id! })}
+                    >
+                      <XIcon className="h-4 w-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

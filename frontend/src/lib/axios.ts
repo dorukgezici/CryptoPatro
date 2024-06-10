@@ -7,9 +7,10 @@ const api = new OpenAPIClientAxios({
 });
 
 export const getApiClient = async (token?: string) => {
-  const client = await api.getClient<Client>();
+  const client = await api.init<Client>();
 
   client.defaults.baseURL = BACKEND_URL;
   if (token) client.defaults.headers["authorization"] = `Bearer ${token}`;
+
   return client;
 };
