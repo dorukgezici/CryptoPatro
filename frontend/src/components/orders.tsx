@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { $assets, $assetsLimit } from "@/store/portfolio";
 import { $selectedPair, $orders } from "@/store/binance";
-import { formatFloat } from "@/lib/utils";
+import { formatFloat, formatTimestamp } from "@/lib/utils";
 
 export function Orders() {
   $assetsLimit.set(20);
@@ -78,7 +78,7 @@ export function Orders() {
                     parseFloat(order.price) * parseFloat(order.executedQty),
                   )}
                 </TableCell>
-                <TableCell>{order.time}</TableCell>
+                <TableCell>{formatTimestamp(order.time)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
