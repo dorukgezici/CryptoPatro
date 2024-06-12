@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { Settings } from "@/components/settings";
+import { Settings as SettingsComponent } from "@/components/settings";
 ---
 
 <Layout title="CryptoPatro">
-    <Settings client:only="react" />
+    <SettingsComponent client:only="react" />
 </Layout>

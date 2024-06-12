@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { Orders } from "@/components/orders";
+import { Orders as OrdersComponent } from "@/components/orders";
 ---
 
 <Layout title="CryptoPatro">
-    <Orders client:only="react" />
+    <OrdersComponent client:only="react" />
 </Layout>

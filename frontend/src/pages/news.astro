@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { News } from "@/components/news";
+import { News as NewsComponent } from "@/components/news.tsx";
 ---
 
 <Layout title="CryptoPatro">
-    <News client:only="react" />
+    <NewsComponent client:only="react" />
 </Layout>

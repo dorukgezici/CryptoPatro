@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { Analytics } from "@/components/analytics";
+import { Analytics as AnalyticsComponent } from "@/components/analytics";
 ---
 
 <Layout title="CryptoPatro">
-    <Analytics client:only="react" />
+    <AnalyticsComponent client:only="react" />
 </Layout>
