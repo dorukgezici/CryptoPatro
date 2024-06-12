@@ -21,9 +21,9 @@ const { title } = Astro.props;
     </head>
     <body>
         <div class="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-            <Sidebar client:load />
+            <Sidebar client:load url={Astro.url} />
             <div class="flex flex-col">
-                <Header client:load />
+                <Header client:load url={Astro.url} />
                 <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
                     <slot />
                 </main>

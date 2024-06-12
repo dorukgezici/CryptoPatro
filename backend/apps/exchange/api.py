@@ -1,13 +1,15 @@
 import requests
 from typing import List
+from asgiref.sync import sync_to_async
 from binance.spot import Spot
 from ninja import Router, Form, Body
 from ninja.pagination import paginate
-from django.shortcuts import aget_list_or_404, aget_object_or_404, get_list_or_404
+from django.shortcuts import aget_list_or_404, aget_object_or_404, get_list_or_404, get_object_or_404
 from django.conf import settings
 
 from ..types import Request
-from ..users.models import User, TelegramUser
+from ..api import TokenAuth
+from ..users.models import BinanceAuth, User, TelegramUser
 from .schemas import PortfolioSchema, AssetSchema, PortfolioAssetSchema
 from .models import Portfolio, Asset, PortfolioAsset
 from .tasks import calculate_portfolio_asset_pnls
@@ -21,7 +23,7 @@ async def portfolios(request: Request):
     return await aget_list_or_404(Portfolio, user_id=request.auth.id)
 
 
-@router.get("/assets", response=List[AssetSchema])
+@router.get("/assets", response=List[AssetSchema], auth=TokenAuth())
 @paginate
 def assets(request: Request):
     return get_list_or_404(Asset)
@@ -36,10 +38,19 @@ async def portfolio_assets(request: Request):
 
 
 @router.post("/portfolio-assets", response=PortfolioAssetSchema)
-def create_portfolio_asset(request: Request, portfolio_id: Body[int], asset_id: Body[int]):
-    return PortfolioAsset.objects.create(
+async def create_portfolio_asset(request: Request, portfolio_id: Body[int], asset_id: Body[int]):
+    try:
+        portfolio = await Portfolio.objects.aget(id=portfolio_id, user_id=request.auth.id)
+    except Portfolio.DoesNotExist:
+        return 403, {"detail": "Access denied"}
+
+    await PortfolioAsset.objects.select_related("portfolio", "asset").aget_or_create(
         portfolio_id=portfolio_id,
         asset_id=asset_id,
+    )
+
+    return await aget_object_or_404(
+        PortfolioAsset.objects.select_related("portfolio", "asset"), portfolio_id=portfolio_id, asset_id=asset_id
     )
 
 
@@ -61,8 +72,8 @@ async def refresh(request: Request):
 @router.get("/info/{pair}")
 def info(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.exchange_info(symbol=pair)
 
@@ -70,8 +81,8 @@ def info(request, pair: str):
 @router.get("/order-book/{pair}")
 def order_book(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.depth(symbol=pair)
 
@@ -79,8 +90,8 @@ def order_book(request, pair: str):
 @router.get("/recent-trades/{pair}")
 def recent_trades(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.trades(symbol=pair)
 
@@ -88,8 +99,8 @@ def recent_trades(request, pair: str):
 @router.get("/current-avg-price/{pair}")
 def current_avg_price(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.avg_price(symbol=pair)
 
@@ -97,26 +108,27 @@ def current_avg_price(request, pair: str):
 @router.get("/ticker-price-change/{pair}")
 def ticker_price_change(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.ticker_24hr(symbol=pair)
 
 
 @router.get("/all-orders/{pair}")
-def all_orders(request, pair: str):
+async def all_orders(request: Request, pair: str):
+    binance_auth = await aget_object_or_404(BinanceAuth, user_id=request.auth.id)
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=binance_auth.api_key,
+        api_secret=binance_auth.api_secret,
     )
-    return client.get_orders(symbol=pair)
+    return await sync_to_async(client.get_orders)(symbol=pair)
 
 
 @router.get("/open-orders")
 def open_orders(request):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.get_open_orders()
 
@@ -124,8 +136,8 @@ def open_orders(request):
 @router.get("/account")
 def account(request):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.account()
 
@@ -133,8 +145,8 @@ def account(request):
 @router.get("/my-trades/{pair}")
 def my_trades(request, pair: str):
     client = Spot(
-        api_key=request.user.binance.api_key,
-        api_secret=request.user.binance.api_secret,
+        api_key=request.auth.binance.api_key,
+        api_secret=request.auth.binance.api_secret,
     )
     return client.my_trades(symbol=pair)
 

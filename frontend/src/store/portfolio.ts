@@ -3,14 +3,17 @@ import type { Asset, PortfolioAsset } from "@/types";
 import { createFetcherStore, createMutatorStore } from "@/store/fetcher";
 import { $axios } from "@/store/axios";
 
-const $assets_limit = atom(5);
-const $assets_offset = atom(0);
+export const $assetsLimit = atom(5);
+export const $assetsOffset = atom(0);
 export const $assets = createFetcherStore<Asset[]>(
-  ["assets", $assets_limit, $assets_offset],
+  ["assets", $assetsLimit, $assetsOffset],
   {
     fetcher: async () => {
       const client = await $axios.get();
-      const res = await client.apps_exchange_api_assets(5, 1);
+      const res = await client.apps_exchange_api_assets(
+        $assetsLimit.get(),
+        $assetsOffset.get(),
+      );
       return res.data.items;
     },
   },
