@@ -60,10 +60,10 @@ async def delete_portfolio_asset(request: Request, id: int):
     await obj.adelete()
 
 
-@router.get("/refresh")
+@router.get("/refresh", response=str)
 async def refresh(request: Request):
     tg = await aget_object_or_404(TelegramUser, user_id=request.auth.id)
-    calculate_portfolio_asset_pnls.delay(tg.id)
+    return calculate_portfolio_asset_pnls.delay(tg.id).id
 
 
 # Binance API

@@ -3,6 +3,7 @@ from typing import Optional
 from asgiref.sync import async_to_sync
 import binance.error
 from binance.spot import Spot
+from django.utils import timezone
 from django.db.models import Sum
 
 from apps.users.models import BinanceAuth, User
@@ -165,7 +166,8 @@ def calculate_portfolio_asset_pnls(telegram_id: Optional[int] = None, report: bo
         avg_cost, avg_charge = portfolio_asset.avg_cost, portfolio_asset.avg_charge
 
         portfolio_asset.value = amount * price
-        portfolio_asset.save(update_fields=["value"])
+        portfolio_asset.updated_at = timezone.now()
+        portfolio_asset.save(update_fields=["value", "updated_at"])
 
         if avg_cost > 0:
             unrealized_pnl = amount * (price - avg_cost)

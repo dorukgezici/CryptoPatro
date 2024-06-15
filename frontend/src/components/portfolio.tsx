@@ -24,14 +24,17 @@ import {
 } from "@/components/ui/table";
 import { BarChart, PieChart, TimeseriesChart } from "@/components/charts";
 import { CalendarClockIcon, RefreshCwIcon, XIcon } from "@/components/icons";
-import { calculatePercentage, formatFloat } from "@/lib/utils";
+import { calculatePercentage, formatDate, formatFloat } from "@/lib/utils";
 import {
   $portfolioAssets,
   $deletePortfolioAsset,
   $refreshPortfolio,
 } from "@/store/portfolio";
+import { $taskId } from "@/store/tasks";
 
 export function Portfolio() {
+  const taskId = useStore($taskId);
+
   const { data: portfolioAssets } = useStore($portfolioAssets);
   const { mutate } = useStore($deletePortfolioAsset);
   const { mutate: refreshPortfolio } = useStore($refreshPortfolio);
@@ -55,12 +58,19 @@ export function Portfolio() {
     <>
       <div className="flex items-center gap-4">
         <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
+        <span className="text-gray-500 dark:text-gray-400">
+          {formatDate(portfolioAssets?.at(1)?.updated_at || "")}
+        </span>
         <div className="ml-auto flex items-center gap-2">
           <Button
             variant="outline"
             size="icon"
             className="h-8 w-8"
-            onClick={async () => await refreshPortfolio()}
+            disabled={!!taskId}
+            onClick={async () => {
+              const taskId = await refreshPortfolio();
+              $taskId.set(taskId);
+            }}
           >
             <RefreshCwIcon className="h-4 w-4" />
             <span className="sr-only">Refresh portfolio</span>

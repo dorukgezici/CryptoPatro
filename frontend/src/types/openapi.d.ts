@@ -4,661 +4,690 @@ import type {
   UnknownParamsObject,
   OperationResponse,
   AxiosRequestConfig,
-} from 'openapi-client-axios'; 
+} from "openapi-client-axios";
 
 declare namespace Components {
-    namespace Schemas {
-        /**
-         * AssetSchema
-         */
-        export interface AssetSchema {
-            /**
-             * Price
-             */
-            price: number;
-            /**
-             * ID
-             */
-            id?: /* ID */ number | null;
-            /**
-             * Created At
-             */
-            created_at: string; // date-time
-            /**
-             * Updated At
-             */
-            updated_at: string; // date-time
-            /**
-             * Symbol
-             */
-            symbol: string;
-            /**
-             * Name
-             */
-            name: string;
-        }
-        /**
-         * Input
-         */
-        export interface Input {
-            /**
-             * Limit
-             */
-            limit?: number;
-            /**
-             * Offset
-             */
-            offset?: number;
-        }
-        /**
-         * PagedAssetSchema
-         */
-        export interface PagedAssetSchema {
-            /**
-             * Items
-             */
-            items: /* AssetSchema */ AssetSchema[];
-            /**
-             * Count
-             */
-            count: number;
-        }
-        /**
-         * PortfolioAssetSchema
-         */
-        export interface PortfolioAssetSchema {
-            portfolio: /* PortfolioSchema */ PortfolioSchema;
-            asset: /* AssetSchema */ AssetSchema;
-            /**
-             * Amount
-             */
-            amount: number;
-            /**
-             * Value
-             */
-            value: number;
-            /**
-             * Avg Cost
-             */
-            avg_cost: number;
-            /**
-             * Buy Amount
-             */
-            buy_amount: number;
-            /**
-             * Avg Charge
-             */
-            avg_charge: number;
-            /**
-             * Sell Amount
-             */
-            sell_amount: number;
-            /**
-             * Realized Pnl
-             */
-            realized_pnl: number;
-            /**
-             * Unrealized Pnl
-             */
-            unrealized_pnl: number;
-            /**
-             * ID
-             */
-            id?: /* ID */ number | null;
-            /**
-             * Created At
-             */
-            created_at: string; // date-time
-            /**
-             * Updated At
-             */
-            updated_at: string; // date-time
-        }
-        /**
-         * PortfolioSchema
-         */
-        export interface PortfolioSchema {
-            /**
-             * Total Value
-             */
-            total_value: number;
-            /**
-             * ID
-             */
-            id?: /* ID */ number | null;
-            /**
-             * Created At
-             */
-            created_at: string; // date-time
-            /**
-             * Updated At
-             */
-            updated_at: string; // date-time
-            /**
-             * User
-             */
-            user: number;
-            /**
-             * Name
-             */
-            name: string;
-        }
+  namespace Schemas {
+    /**
+     * AssetSchema
+     */
+    export interface AssetSchema {
+      /**
+       * Price
+       */
+      price: number;
+      /**
+       * ID
+       */
+      id?: /* ID */ number | null;
+      /**
+       * Created At
+       */
+      created_at: string; // date-time
+      /**
+       * Updated At
+       */
+      updated_at: string; // date-time
+      /**
+       * Symbol
+       */
+      symbol: string;
+      /**
+       * Name
+       */
+      name: string;
     }
+    /**
+     * Input
+     */
+    export interface Input {
+      /**
+       * Limit
+       */
+      limit?: number;
+      /**
+       * Offset
+       */
+      offset?: number;
+    }
+    /**
+     * PagedAssetSchema
+     */
+    export interface PagedAssetSchema {
+      /**
+       * Items
+       */
+      items: /* AssetSchema */ AssetSchema[];
+      /**
+       * Count
+       */
+      count: number;
+    }
+    /**
+     * PortfolioAssetSchema
+     */
+    export interface PortfolioAssetSchema {
+      portfolio: /* PortfolioSchema */ PortfolioSchema;
+      asset: /* AssetSchema */ AssetSchema;
+      /**
+       * Amount
+       */
+      amount: number;
+      /**
+       * Value
+       */
+      value: number;
+      /**
+       * Avg Cost
+       */
+      avg_cost: number;
+      /**
+       * Buy Amount
+       */
+      buy_amount: number;
+      /**
+       * Avg Charge
+       */
+      avg_charge: number;
+      /**
+       * Sell Amount
+       */
+      sell_amount: number;
+      /**
+       * Realized Pnl
+       */
+      realized_pnl: number;
+      /**
+       * Unrealized Pnl
+       */
+      unrealized_pnl: number;
+      /**
+       * ID
+       */
+      id?: /* ID */ number | null;
+      /**
+       * Created At
+       */
+      created_at: string; // date-time
+      /**
+       * Updated At
+       */
+      updated_at: string; // date-time
+    }
+    /**
+     * PortfolioSchema
+     */
+    export interface PortfolioSchema {
+      /**
+       * Total Value
+       */
+      total_value: number;
+      /**
+       * ID
+       */
+      id?: /* ID */ number | null;
+      /**
+       * Created At
+       */
+      created_at: string; // date-time
+      /**
+       * Updated At
+       */
+      updated_at: string; // date-time
+      /**
+       * User
+       */
+      user: number;
+      /**
+       * Name
+       */
+      name: string;
+    }
+  }
 }
 declare namespace Paths {
-    namespace AppsApiHealth {
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  namespace AppsApiHealth {
+    namespace Responses {
+      export interface $200 {}
     }
-    namespace AppsExchangeApiAccount {
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  }
+  namespace AppsApiTasks {
+    namespace Parameters {
+      /**
+       * Task Id
+       */
+      export type TaskId = string;
     }
-    namespace AppsExchangeApiAllOrders {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    export interface PathParameters {
+      task_id: /* Task Id */ Parameters.TaskId;
     }
-    namespace AppsExchangeApiAssets {
-        namespace Parameters {
-            /**
-             * Limit
-             */
-            export type Limit = number;
-            /**
-             * Offset
-             */
-            export type Offset = number;
-        }
-        export interface QueryParameters {
-            limit?: /* Limit */ Parameters.Limit;
-            offset?: /* Offset */ Parameters.Offset;
-        }
-        namespace Responses {
-            export type $200 = /* PagedAssetSchema */ Components.Schemas.PagedAssetSchema;
-        }
+    namespace Responses {
+      /**
+       * Response
+       */
+      export type $200 = string;
     }
-    namespace AppsExchangeApiCreatePortfolioAsset {
-        /**
-         * BodyParams
-         */
-        export interface RequestBody {
-            /**
-             * Portfolio Id
-             */
-            portfolio_id: number;
-            /**
-             * Asset Id
-             */
-            asset_id: number;
-        }
-        namespace Responses {
-            export type $200 = /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema;
-        }
+  }
+  namespace AppsExchangeApiAccount {
+    namespace Responses {
+      export interface $200 {}
     }
-    namespace AppsExchangeApiCurrentAvgPrice {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  }
+  namespace AppsExchangeApiAllOrders {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
     }
-    namespace AppsExchangeApiDeletePortfolioAsset {
-        namespace Parameters {
-            /**
-             * Id
-             */
-            export type Id = number;
-        }
-        export interface PathParameters {
-            id: /* Id */ Parameters.Id;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
     }
-    namespace AppsExchangeApiInfo {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    namespace Responses {
+      export interface $200 {}
     }
-    namespace AppsExchangeApiMyTrades {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  }
+  namespace AppsExchangeApiAssets {
+    namespace Parameters {
+      /**
+       * Limit
+       */
+      export type Limit = number;
+      /**
+       * Offset
+       */
+      export type Offset = number;
     }
-    namespace AppsExchangeApiNews {
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    export interface QueryParameters {
+      limit?: /* Limit */ Parameters.Limit;
+      offset?: /* Offset */ Parameters.Offset;
     }
-    namespace AppsExchangeApiOpenOrders {
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    namespace Responses {
+      export type $200 =
+        /* PagedAssetSchema */ Components.Schemas.PagedAssetSchema;
     }
-    namespace AppsExchangeApiOrderBook {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  }
+  namespace AppsExchangeApiCreatePortfolioAsset {
+    /**
+     * BodyParams
+     */
+    export interface RequestBody {
+      /**
+       * Portfolio Id
+       */
+      portfolio_id: number;
+      /**
+       * Asset Id
+       */
+      asset_id: number;
     }
-    namespace AppsExchangeApiPortfolioAssets {
-        namespace Responses {
-            /**
-             * Response
-             */
-            export type $200 = /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema[];
-        }
+    namespace Responses {
+      export type $200 =
+        /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema;
     }
-    namespace AppsExchangeApiPortfolios {
-        namespace Responses {
-            /**
-             * Response
-             */
-            export type $200 = /* PortfolioSchema */ Components.Schemas.PortfolioSchema[];
-        }
+  }
+  namespace AppsExchangeApiCurrentAvgPrice {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
     }
-    namespace AppsExchangeApiRecentTrades {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
     }
-    namespace AppsExchangeApiRefresh {
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+    namespace Responses {
+      export interface $200 {}
     }
-    namespace AppsExchangeApiTickerPriceChange {
-        namespace Parameters {
-            /**
-             * Pair
-             */
-            export type Pair = string;
-        }
-        export interface PathParameters {
-            pair: /* Pair */ Parameters.Pair;
-        }
-        namespace Responses {
-            export interface $200 {
-            }
-        }
+  }
+  namespace AppsExchangeApiDeletePortfolioAsset {
+    namespace Parameters {
+      /**
+       * Id
+       */
+      export type Id = number;
     }
+    export interface PathParameters {
+      id: /* Id */ Parameters.Id;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiInfo {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
+    }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiMyTrades {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
+    }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiNews {
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiOpenOrders {
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiOrderBook {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
+    }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiPortfolioAssets {
+    namespace Responses {
+      /**
+       * Response
+       */
+      export type $200 =
+        /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema[];
+    }
+  }
+  namespace AppsExchangeApiPortfolios {
+    namespace Responses {
+      /**
+       * Response
+       */
+      export type $200 =
+        /* PortfolioSchema */ Components.Schemas.PortfolioSchema[];
+    }
+  }
+  namespace AppsExchangeApiRecentTrades {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
+    }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
+  namespace AppsExchangeApiRefresh {
+    namespace Responses {
+      /**
+       * Response
+       */
+      export type $200 = string;
+    }
+  }
+  namespace AppsExchangeApiTickerPriceChange {
+    namespace Parameters {
+      /**
+       * Pair
+       */
+      export type Pair = string;
+    }
+    export interface PathParameters {
+      pair: /* Pair */ Parameters.Pair;
+    }
+    namespace Responses {
+      export interface $200 {}
+    }
+  }
 }
 
 export interface OperationMethods {
   /**
    * apps_api_health - Health
    */
-  'apps_api_health'(
+  "apps_api_health"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsApiHealth.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+  /**
+   * apps_api_tasks - Tasks
+   */
+  "apps_api_tasks"(
+    parameters: Parameters<Paths.AppsApiTasks.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsApiTasks.Responses.$200>;
   /**
    * apps_exchange_api_portfolios - Portfolios
    */
-  'apps_exchange_api_portfolios'(
+  "apps_exchange_api_portfolios"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>;
   /**
    * apps_exchange_api_assets - Assets
    */
-  'apps_exchange_api_assets'(
+  "apps_exchange_api_assets"(
     parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
   /**
    * apps_exchange_api_portfolio_assets - Portfolio Assets
    */
-  'apps_exchange_api_portfolio_assets'(
+  "apps_exchange_api_portfolio_assets"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>;
   /**
    * apps_exchange_api_create_portfolio_asset - Create Portfolio Asset
    */
-  'apps_exchange_api_create_portfolio_asset'(
+  "apps_exchange_api_create_portfolio_asset"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.AppsExchangeApiCreatePortfolioAsset.RequestBody,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>;
   /**
    * apps_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
    */
-  'apps_exchange_api_delete_portfolio_asset'(
+  "apps_exchange_api_delete_portfolio_asset"(
     parameters: Parameters<Paths.AppsExchangeApiDeletePortfolioAsset.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>;
   /**
    * apps_exchange_api_refresh - Refresh
    */
-  'apps_exchange_api_refresh'(
+  "apps_exchange_api_refresh"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>;
   /**
    * apps_exchange_api_info - Info
    */
-  'apps_exchange_api_info'(
+  "apps_exchange_api_info"(
     parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
   /**
    * apps_exchange_api_order_book - Order Book
    */
-  'apps_exchange_api_order_book'(
+  "apps_exchange_api_order_book"(
     parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
   /**
    * apps_exchange_api_recent_trades - Recent Trades
    */
-  'apps_exchange_api_recent_trades'(
+  "apps_exchange_api_recent_trades"(
     parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
   /**
    * apps_exchange_api_current_avg_price - Current Avg Price
    */
-  'apps_exchange_api_current_avg_price'(
+  "apps_exchange_api_current_avg_price"(
     parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
   /**
    * apps_exchange_api_ticker_price_change - Ticker Price Change
    */
-  'apps_exchange_api_ticker_price_change'(
+  "apps_exchange_api_ticker_price_change"(
     parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
   /**
    * apps_exchange_api_all_orders - All Orders
    */
-  'apps_exchange_api_all_orders'(
+  "apps_exchange_api_all_orders"(
     parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
   /**
    * apps_exchange_api_open_orders - Open Orders
    */
-  'apps_exchange_api_open_orders'(
+  "apps_exchange_api_open_orders"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
   /**
    * apps_exchange_api_account - Account
    */
-  'apps_exchange_api_account'(
+  "apps_exchange_api_account"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
   /**
    * apps_exchange_api_my_trades - My Trades
    */
-  'apps_exchange_api_my_trades'(
+  "apps_exchange_api_my_trades"(
     parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
   /**
    * apps_exchange_api_news - News
    */
-  'apps_exchange_api_news'(
+  "apps_exchange_api_news"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;
 }
 
 export interface PathsDictionary {
-  ['/api/health']: {
+  ["/api/health"]: {
     /**
      * apps_api_health - Health
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsApiHealth.Responses.$200>
-  }
-  ['/api/exchange/portfolios']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+  };
+  ["/api/tasks/{task_id}"]: {
+    /**
+     * apps_api_tasks - Tasks
+     */
+    "get"(
+      parameters: Parameters<Paths.AppsApiTasks.PathParameters>,
+      data?: any,
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsApiTasks.Responses.$200>;
+  };
+  ["/api/exchange/portfolios"]: {
     /**
      * apps_exchange_api_portfolios - Portfolios
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>
-  }
-  ['/api/exchange/assets']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>;
+  };
+  ["/api/exchange/assets"]: {
     /**
      * apps_exchange_api_assets - Assets
      */
-    'get'(
+    "get"(
       parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>
-  }
-  ['/api/exchange/portfolio-assets']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
+  };
+  ["/api/exchange/portfolio-assets"]: {
     /**
      * apps_exchange_api_portfolio_assets - Portfolio Assets
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>;
     /**
      * apps_exchange_api_create_portfolio_asset - Create Portfolio Asset
      */
-    'post'(
+    "post"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.AppsExchangeApiCreatePortfolioAsset.RequestBody,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>
-  }
-  ['/api/exchange/portfolio-assets/{id}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>;
+  };
+  ["/api/exchange/portfolio-assets/{id}"]: {
     /**
      * apps_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
      */
-    'delete'(
+    "delete"(
       parameters: Parameters<Paths.AppsExchangeApiDeletePortfolioAsset.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>
-  }
-  ['/api/exchange/refresh']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>;
+  };
+  ["/api/exchange/refresh"]: {
     /**
      * apps_exchange_api_refresh - Refresh
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>
-  }
-  ['/api/exchange/info/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>;
+  };
+  ["/api/exchange/info/{pair}"]: {
     /**
      * apps_exchange_api_info - Info
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>
-  }
-  ['/api/exchange/order-book/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
+  };
+  ["/api/exchange/order-book/{pair}"]: {
     /**
      * apps_exchange_api_order_book - Order Book
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>
-  }
-  ['/api/exchange/recent-trades/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
+  };
+  ["/api/exchange/recent-trades/{pair}"]: {
     /**
      * apps_exchange_api_recent_trades - Recent Trades
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>
-  }
-  ['/api/exchange/current-avg-price/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
+  };
+  ["/api/exchange/current-avg-price/{pair}"]: {
     /**
      * apps_exchange_api_current_avg_price - Current Avg Price
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>
-  }
-  ['/api/exchange/ticker-price-change/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
+  };
+  ["/api/exchange/ticker-price-change/{pair}"]: {
     /**
      * apps_exchange_api_ticker_price_change - Ticker Price Change
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>
-  }
-  ['/api/exchange/all-orders/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
+  };
+  ["/api/exchange/all-orders/{pair}"]: {
     /**
      * apps_exchange_api_all_orders - All Orders
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>
-  }
-  ['/api/exchange/open-orders']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
+  };
+  ["/api/exchange/open-orders"]: {
     /**
      * apps_exchange_api_open_orders - Open Orders
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>
-  }
-  ['/api/exchange/account']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
+  };
+  ["/api/exchange/account"]: {
     /**
      * apps_exchange_api_account - Account
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>
-  }
-  ['/api/exchange/my-trades/{pair}']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
+  };
+  ["/api/exchange/my-trades/{pair}"]: {
     /**
      * apps_exchange_api_my_trades - My Trades
      */
-    'get'(
+    "get"(
       parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>
-  }
-  ['/api/exchange/news']: {
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
+  };
+  ["/api/exchange/news"]: {
     /**
      * apps_exchange_api_news - News
      */
-    'get'(
+    "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>
-  }
+      config?: AxiosRequestConfig,
+    ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;
+  };
 }
 
-export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
+export type Client = OpenAPIClient<OperationMethods, PathsDictionary>;

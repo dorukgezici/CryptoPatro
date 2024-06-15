@@ -1,5 +1,15 @@
 import type { Components } from "@/types/openapi";
 
+export type TaskStatus =
+  | string
+  | "PENDING"
+  | "RECEIVED"
+  | "STARTED"
+  | "SUCCESS"
+  | "FAILURE"
+  | "RETRY"
+  | "REVOKED";
+
 export type Portfolio = Components.Schemas.PortfolioSchema;
 export type Asset = Components.Schemas.AssetSchema;
 export type PortfolioAsset = Components.Schemas.PortfolioAssetSchema;
@@ -16,7 +26,7 @@ export type BinanceOrder = {
   status: string;
   timeInForce: string;
   type: string;
-  side: string;
+  side: "BUY" | "SELL";
   stopPrice: string;
   icebergQty: string;
   time: number;

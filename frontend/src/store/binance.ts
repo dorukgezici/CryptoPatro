@@ -12,7 +12,7 @@ export const $orders = createFetcherStore<BinanceOrder[]>(
       const res = await client.apps_exchange_api_all_orders(
         $selectedPair.get(),
       );
-      return res.data as BinanceOrder[];
+      return (res.data as BinanceOrder[]).sort((a, b) => b.time - a.time);
     },
   },
 );

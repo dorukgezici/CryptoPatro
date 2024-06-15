@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useStore } from "@nanostores/react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,8 +11,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { BellIcon, CoinsIcon, SearchIcon } from "@/components/icons";
+import { $taskId, $taskStatus } from "@/store/tasks";
+import { $portfolioAssets } from "@/store/portfolio";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Header({ url }: { url: URL }) {
+  const { data: taskStatus } = useStore($taskStatus);
+
+  useEffect(() => {
+    if (taskStatus === "SUCCESS") {
+      $taskId.set("");
+      $portfolioAssets.invalidate();
+    } else if (["PENDING", "RECEIVED", "STARTED"].includes(taskStatus || "")) {
+      setTimeout(() => $taskStatus.invalidate($taskId), 1000);
+    } else {
+      // TODO: show error message
+      $taskId.set("");
+    }
+  }, [taskStatus]);
+
   return (
     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
       <a className="lg:hidden" href="/">
