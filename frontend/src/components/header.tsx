@@ -13,7 +13,7 @@ import useTask from "@/hooks/useTask";
 import { $theme } from "@/store/settings";
 import { useStore } from "@nanostores/react";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function Header() {
   // background task manager
