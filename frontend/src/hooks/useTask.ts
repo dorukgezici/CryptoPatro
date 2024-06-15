@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useStore } from "@nanostores/react";
 import { $portfolioAssets } from "@/store/portfolio";
 import { $taskId, $taskStatus } from "@/store/tasks";
+import { useStore } from "@nanostores/react";
+import { useEffect, useState } from "react";
 
 export default function useTask() {
   const taskId = useStore($taskId);
@@ -24,7 +24,7 @@ export default function useTask() {
         }, 1000);
         break;
       default:
-        // TODO: handle error case and retry limit
+        // TODO: handle error case and limit checks
         $taskId.set("");
     }
   }, [taskStatus, checkCount]);

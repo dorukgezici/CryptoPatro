@@ -1,14 +1,14 @@
-import { useStore } from "@nanostores/react";
-import type { CryptopanicNews } from "@/types";
 import {
-  CardHeader,
-  CardContent,
   Card,
+  CardContent,
   CardDescription,
   CardFooter,
+  CardHeader,
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { $news } from "@/store/news";
+import type { CryptopanicNews } from "@/types";
+import { useStore } from "@nanostores/react";
 
 export function News() {
   const { data: posts } = useStore($news);

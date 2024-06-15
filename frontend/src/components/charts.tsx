@@ -1,7 +1,7 @@
+import { calculatePercentage } from "@/lib/utils";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
-import { calculatePercentage } from "@/lib/utils";
 
 export function BarChart(props: any) {
   return (

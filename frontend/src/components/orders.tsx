@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import { useStore } from "@nanostores/react";
 import {
   Card,
   CardContent,
@@ -9,22 +7,24 @@ import {
 } from "@/components/ui/card";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import {
   Table,
-  TableHeader,
-  TableRow,
-  TableHead,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { formatFloat, formatTimestamp } from "@/lib/utils";
+import { $orders, $selectedPair } from "@/store/binance";
 import { $assets, $assetsLimit } from "@/store/portfolio";
-import { $selectedPair, $orders } from "@/store/binance";
+import { useStore } from "@nanostores/react";
+import { useMemo } from "react";
 
 export function Orders() {
   $assetsLimit.set(20);

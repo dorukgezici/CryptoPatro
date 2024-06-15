@@ -1,6 +1,6 @@
-import { OpenAPIClientAxios } from "openapi-client-axios";
-import type { Client } from "@/types/openapi";
 import { BACKEND_URL } from "@/config";
+import type { Client } from "@/types/openapi";
+import { OpenAPIClientAxios } from "openapi-client-axios";
 
 const api = new OpenAPIClientAxios({
   definition: `${BACKEND_URL}/api/openapi.json`,
