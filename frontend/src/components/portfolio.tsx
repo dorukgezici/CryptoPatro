@@ -58,9 +58,6 @@ export function Portfolio() {
     <>
       <div className="flex items-center gap-4">
         <h1 className="font-semibold text-lg md:text-xl">Portfolio</h1>
-        <span className="text-gray-500 dark:text-gray-400">
-          {formatDate(portfolioAssets?.at(1)?.updated_at || "")}
-        </span>
         <div className="ml-auto flex items-center gap-2">
           <Button
             variant="outline"
@@ -78,12 +75,15 @@ export function Portfolio() {
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                className="w-[280px] justify-start text-left font-normal"
+                className="justify-start text-left font-normal"
                 id="date"
                 variant="outline"
               >
                 <CalendarClockIcon className="mr-2 h-4 w-4" />
-                June 01, 2023 - June 30, 2023
+                {formatDate(
+                  portfolioAssets?.find((item) => item.asset.symbol !== "USDT")
+                    ?.updated_at || "",
+                )}
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-auto p-0">
