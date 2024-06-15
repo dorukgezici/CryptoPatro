@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -56,7 +57,7 @@ export function Orders() {
     return {
       totalBought,
       totalSold,
-      executedPNL: totalSold.value - totalBought.value,
+      realizedPNL: totalSold.value - totalBought.value,
     };
   }, [orders]);
 
@@ -88,22 +89,34 @@ export function Orders() {
         <div className="grid md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
-              <CardDescription>Total Value Bought</CardDescription>
+              <CardDescription>Total Bought</CardDescription>
               <CardTitle>
                 ${formatFloat(calculated.totalBought.value)}
+              </CardTitle>
+              <CardTitle className="text-gray-500">
+                {formatFloat(calculated.totalBought.amount)}
+              </CardTitle>
+            </CardHeader>
+            <CardContent></CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardDescription>Total Sold</CardDescription>
+              <CardTitle>${formatFloat(calculated.totalSold.value)}</CardTitle>
+              <CardTitle className="text-gray-500">
+                {formatFloat(calculated.totalSold.amount)}
               </CardTitle>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader>
-              <CardDescription>Total Value Sold</CardDescription>
-              <CardTitle>${formatFloat(calculated.totalSold.value)}</CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardDescription>Executed PNL</CardDescription>
-              <CardTitle>${formatFloat(calculated.executedPNL)}</CardTitle>
+              <CardDescription>Realized PNL</CardDescription>
+              <CardTitle>${formatFloat(calculated.realizedPNL)}</CardTitle>
+              <CardTitle className="text-gray-500">
+                {formatFloat(
+                  calculated.totalBought.amount - calculated.totalSold.amount,
+                )}
+              </CardTitle>
             </CardHeader>
           </Card>
         </div>

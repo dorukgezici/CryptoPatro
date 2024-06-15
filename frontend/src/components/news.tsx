@@ -1,6 +1,12 @@
 import { useStore } from "@nanostores/react";
 import type { CryptopanicNews } from "@/types";
-import { CardHeader, CardContent, Card } from "@/components/ui/card";
+import {
+  CardHeader,
+  CardContent,
+  Card,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { $news } from "@/store/news";
 
@@ -21,21 +27,16 @@ export function BlogCard({ post }: { post: CryptopanicNews }) {
   return (
     <Card key={post.id}>
       <CardHeader>
-        <img
-          src="/img/avatar.jpg"
-          width={600}
-          height={400}
-          alt={post.title}
-          className="aspect-[3/2] object-cover rounded-t-lg"
-        />
+        <h3 className="text-xl font-bold">{post.title}</h3>
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="inline-block rounded-md bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
           {post.source.title}
         </div>
-        <h3 className="text-xl font-bold">{post.title}</h3>
-        <p>{formatDate(post.published_at)}</p>
       </CardContent>
+      <CardFooter>
+        <CardDescription>{formatDate(post.published_at)}</CardDescription>
+      </CardFooter>
     </Card>
   );
 }

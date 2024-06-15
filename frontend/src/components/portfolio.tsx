@@ -164,7 +164,10 @@ export function Portfolio() {
                 <TableRow key={item.id}>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div className="h-6 w-6 rounded-full bg-gray-900 dark:bg-gray-50" />
+                      <img
+                        src={`/img/crypto/${item.asset.symbol}.png`}
+                        className="h-6 w-6 rounded-full"
+                      />
                       <div>{item.asset.name}</div>
                     </div>
                   </TableCell>

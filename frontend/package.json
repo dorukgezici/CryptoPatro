@@ -8,7 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "typegen": "typegen http://localhost:8000/api/openapi.json > ./src/types/openapi.d.ts"
+    "typegen": "typegen http://localhost:8000/api/openapi.json > ./src/types/openapi.d.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -27,12 +29,12 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.10.1",
+    "astro": "^4.10.2",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "lucide-react": "^0.394.0",
+    "lucide-react": "^0.395.0",
     "nanostores": "^0.10.3",
     "openapi-client-axios": "^7.5.5",
     "react": "^18.3.1",
@@ -43,12 +45,12 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.4.0",
+    "@eslint/js": "^9.5.0",
     "@types/eslint__js": "^8.42.3",
     "@typescript-eslint/parser": "^7.13.0",
-    "eslint": "^9.4.0",
-    "eslint-plugin-astro": "^1.2.0",
-    "openapi-client-axios-typegen": "^7.6.1",
+    "eslint": "^9.5.0",
+    "eslint-plugin-astro": "^1.2.2",
+    "openapi-client-axios-typegen": "^7.6.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.13.0"
   }
