@@ -10,7 +10,7 @@ export const $assets = createFetcherStore<Asset[]>(
   {
     fetcher: async () => {
       const client = await $axios.get();
-      const res = await client.apps_exchange_api_assets(
+      const res = await client.cryptopatro_exchange_api_assets(
         $assetsLimit.get(),
         $assetsOffset.get(),
       );
@@ -24,7 +24,7 @@ export const $portfolioAssets = createFetcherStore<PortfolioAsset[]>(
   {
     fetcher: async () => {
       const client = await $axios.get();
-      const res = await client.apps_exchange_api_portfolio_assets();
+      const res = await client.cryptopatro_exchange_api_portfolio_assets();
       return res.data.sort((a, b) => b.value - a.value);
     },
   },
@@ -38,7 +38,7 @@ export const $createPortfolioAsset = createMutatorStore<CreatePortfolioAsset>(
   async ({ data, revalidate }) => {
     revalidate("portfolioAssets");
     const client = await $axios.get();
-    const res = await client.apps_exchange_api_create_portfolio_asset(
+    const res = await client.cryptopatro_exchange_api_create_portfolio_asset(
       undefined,
       {
         portfolio_id: 1,
@@ -53,7 +53,9 @@ export const $deletePortfolioAsset = createMutatorStore<{ id: number }>(
   async ({ data, revalidate }) => {
     revalidate("portfolioAssets");
     const client = await $axios.get();
-    const res = await client.apps_exchange_api_delete_portfolio_asset(data.id);
+    const res = await client.cryptopatro_exchange_api_delete_portfolio_asset(
+      data.id,
+    );
     return res.data;
   },
 );
@@ -61,6 +63,6 @@ export const $deletePortfolioAsset = createMutatorStore<{ id: number }>(
 export const $refreshPortfolio = createMutatorStore(async ({ revalidate }) => {
   revalidate("portfolioAssets");
   const client = await $axios.get();
-  const res = await client.apps_exchange_api_refresh();
+  const res = await client.cryptopatro_exchange_api_refresh();
   return res.data;
 });

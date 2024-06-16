@@ -5,7 +5,7 @@ import { $axios } from "@/store/axios";
 export const $news = createFetcherStore<CryptopanicNews[]>(["news"], {
   fetcher: async () => {
     const client = await $axios.get();
-    const res = await client.apps_exchange_api_news();
+    const res = await client.cryptopatro_exchange_api_news();
     return (res.data as { results: CryptopanicNews[] }).results;
   },
 });

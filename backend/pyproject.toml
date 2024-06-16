@@ -38,14 +38,3 @@ export = "poetry export --output requirements.txt"
 
 [tool.ruff]
 line-length = 120
-indent-width = 4
-
-[tool.ruff.lint]
-select = ["E", "F"]
-ignore = ["F401"]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-docstring-code-format = true
-docstring-code-line-length = 120

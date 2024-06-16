@@ -4,7 +4,6 @@ import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
 
 export default function useTask() {
-  const taskId = useStore($taskId);
   const { data: taskStatus } = useStore($taskStatus);
 
   const [checkCount, setCheckCount] = useState(0);
@@ -13,13 +12,13 @@ export default function useTask() {
     switch (taskStatus) {
       case "SUCCESS":
         $taskId.set("");
-        $portfolioAssets.revalidate();
+        $portfolioAssets.invalidate();
         break;
       case "PENDING":
       case "RECEIVED":
       case "STARTED":
         setTimeout(() => {
-          $taskStatus.revalidate();
+          $taskStatus.invalidate();
           setCheckCount(checkCount + 1);
         }, 1000);
         break;
@@ -29,5 +28,5 @@ export default function useTask() {
     }
   }, [taskStatus, checkCount]);
 
-  return { taskId, taskStatus };
+  return taskStatus;
 }

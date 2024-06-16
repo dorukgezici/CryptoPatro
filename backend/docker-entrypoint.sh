@@ -17,10 +17,10 @@ api)
   fi
   ;;
 scheduler)
-  exec celery --app apps beat -l INFO
+  exec celery --app cryptopatro beat -l INFO
   ;;
 worker)
-  exec celery --app apps worker --concurrency 10 -l INFO
+  exec celery --app cryptopatro worker --concurrency 10 -l INFO
   ;;
 bot)
   exec python3 manage.py bot

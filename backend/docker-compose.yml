@@ -10,10 +10,10 @@ x-backend-common: &backend-common
   image: cryptopatro:development
   build: .
   volumes:
-    - ./apps:/cryptopatro/apps
-    - ./fixtures:/cryptopatro/fixtures
-    - ./locale:/cryptopatro/locale
-    - ./scripts:/cryptopatro/scripts
+    - ./cryptopatro:/app/cryptopatro
+    - ./fixtures:/app/fixtures
+    - ./locale:/app/locale
+    - ./scripts:/app/scripts
   env_file: .env
   environment: &backend-common-environment
     CRYPTOPATRO_STAGE: development

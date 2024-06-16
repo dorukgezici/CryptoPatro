@@ -12,7 +12,7 @@ from django.shortcuts import (
 from django.conf import settings
 
 from ..types import Request
-from ..api import TokenAuth
+from ..auth import SyncTokenAuth
 from ..users.models import BinanceAuth, TelegramUser
 from .schemas import PortfolioSchema, AssetSchema, PortfolioAssetSchema
 from .models import Portfolio, Asset, PortfolioAsset
@@ -20,6 +20,7 @@ from .tasks import calculate_portfolio_asset_pnls
 
 
 router = Router()
+sync_token_auth = SyncTokenAuth()
 
 
 @router.get("/portfolios", response=List[PortfolioSchema])
@@ -27,7 +28,7 @@ async def portfolios(request: Request):
     return await aget_list_or_404(Portfolio, user_id=request.auth.id)
 
 
-@router.get("/assets", response=List[AssetSchema], auth=TokenAuth())
+@router.get("/assets", auth=sync_token_auth, response=List[AssetSchema])
 @paginate
 def assets(request: Request):
     return get_list_or_404(Asset)
@@ -75,7 +76,7 @@ async def refresh(request: Request):
 # Binance API
 
 
-@router.get("/info/{pair}", auth=TokenAuth())
+@router.get("/info/{pair}", auth=sync_token_auth)
 def info(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -84,7 +85,7 @@ def info(request, pair: str):
     return client.exchange_info(symbol=pair)
 
 
-@router.get("/order-book/{pair}", auth=TokenAuth())
+@router.get("/order-book/{pair}", auth=sync_token_auth)
 def order_book(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -93,7 +94,7 @@ def order_book(request, pair: str):
     return client.depth(symbol=pair)
 
 
-@router.get("/recent-trades/{pair}", auth=TokenAuth())
+@router.get("/recent-trades/{pair}", auth=sync_token_auth)
 def recent_trades(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -102,7 +103,7 @@ def recent_trades(request, pair: str):
     return client.trades(symbol=pair)
 
 
-@router.get("/current-avg-price/{pair}", auth=TokenAuth())
+@router.get("/current-avg-price/{pair}", auth=sync_token_auth)
 def current_avg_price(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -111,7 +112,7 @@ def current_avg_price(request, pair: str):
     return client.avg_price(symbol=pair)
 
 
-@router.get("/ticker-price-change/{pair}", auth=TokenAuth())
+@router.get("/ticker-price-change/{pair}", auth=sync_token_auth)
 def ticker_price_change(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -120,7 +121,7 @@ def ticker_price_change(request, pair: str):
     return client.ticker_24hr(symbol=pair)
 
 
-@router.get("/all-orders/{pair}", auth=TokenAuth())
+@router.get("/all-orders/{pair}")
 async def all_orders(request: Request, pair: str):
     binance_auth = await aget_object_or_404(BinanceAuth, user_id=request.auth.id)
     client = Spot(
@@ -130,7 +131,7 @@ async def all_orders(request: Request, pair: str):
     return await sync_to_async(client.get_orders)(symbol=pair)
 
 
-@router.get("/open-orders", auth=TokenAuth())
+@router.get("/open-orders", auth=sync_token_auth)
 def open_orders(request):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -139,7 +140,7 @@ def open_orders(request):
     return client.get_open_orders()
 
 
-@router.get("/account", auth=TokenAuth())
+@router.get("/account", auth=sync_token_auth)
 def account(request):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -148,7 +149,7 @@ def account(request):
     return client.account()
 
 
-@router.get("/my-trades/{pair}", auth=TokenAuth())
+@router.get("/my-trades/{pair}", auth=sync_token_auth)
 def my_trades(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -160,7 +161,7 @@ def my_trades(request, pair: str):
 # CryptoPanic API
 
 
-@router.get("/news", auth=TokenAuth())
+@router.get("/news", auth=sync_token_auth)
 def news(request):
     res = requests.get(
         url="https://cryptopanic.com/api/v1/posts/",

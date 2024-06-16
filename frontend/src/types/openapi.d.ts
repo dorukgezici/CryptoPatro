@@ -146,12 +146,12 @@ declare namespace Components {
   }
 }
 declare namespace Paths {
-  namespace AppsApiHealth {
+  namespace CryptopatroApiHealth {
     namespace Responses {
       export interface $200 {}
     }
   }
-  namespace AppsApiTasks {
+  namespace CryptopatroApiTasks {
     namespace Parameters {
       /**
        * Task Id
@@ -168,12 +168,12 @@ declare namespace Paths {
       export type $200 = string;
     }
   }
-  namespace AppsExchangeApiAccount {
+  namespace CryptopatroExchangeApiAccount {
     namespace Responses {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiAllOrders {
+  namespace CryptopatroExchangeApiAllOrders {
     namespace Parameters {
       /**
        * Pair
@@ -187,7 +187,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiAssets {
+  namespace CryptopatroExchangeApiAssets {
     namespace Parameters {
       /**
        * Limit
@@ -207,7 +207,7 @@ declare namespace Paths {
         /* PagedAssetSchema */ Components.Schemas.PagedAssetSchema;
     }
   }
-  namespace AppsExchangeApiCreatePortfolioAsset {
+  namespace CryptopatroExchangeApiCreatePortfolioAsset {
     /**
      * BodyParams
      */
@@ -226,7 +226,7 @@ declare namespace Paths {
         /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema;
     }
   }
-  namespace AppsExchangeApiCurrentAvgPrice {
+  namespace CryptopatroExchangeApiCurrentAvgPrice {
     namespace Parameters {
       /**
        * Pair
@@ -240,7 +240,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiDeletePortfolioAsset {
+  namespace CryptopatroExchangeApiDeletePortfolioAsset {
     namespace Parameters {
       /**
        * Id
@@ -254,7 +254,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiInfo {
+  namespace CryptopatroExchangeApiInfo {
     namespace Parameters {
       /**
        * Pair
@@ -268,7 +268,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiMyTrades {
+  namespace CryptopatroExchangeApiMyTrades {
     namespace Parameters {
       /**
        * Pair
@@ -282,17 +282,17 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiNews {
+  namespace CryptopatroExchangeApiNews {
     namespace Responses {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiOpenOrders {
+  namespace CryptopatroExchangeApiOpenOrders {
     namespace Responses {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiOrderBook {
+  namespace CryptopatroExchangeApiOrderBook {
     namespace Parameters {
       /**
        * Pair
@@ -306,7 +306,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiPortfolioAssets {
+  namespace CryptopatroExchangeApiPortfolioAssets {
     namespace Responses {
       /**
        * Response
@@ -315,7 +315,7 @@ declare namespace Paths {
         /* PortfolioAssetSchema */ Components.Schemas.PortfolioAssetSchema[];
     }
   }
-  namespace AppsExchangeApiPortfolios {
+  namespace CryptopatroExchangeApiPortfolios {
     namespace Responses {
       /**
        * Response
@@ -324,7 +324,7 @@ declare namespace Paths {
         /* PortfolioSchema */ Components.Schemas.PortfolioSchema[];
     }
   }
-  namespace AppsExchangeApiRecentTrades {
+  namespace CryptopatroExchangeApiRecentTrades {
     namespace Parameters {
       /**
        * Pair
@@ -338,7 +338,7 @@ declare namespace Paths {
       export interface $200 {}
     }
   }
-  namespace AppsExchangeApiRefresh {
+  namespace CryptopatroExchangeApiRefresh {
     namespace Responses {
       /**
        * Response
@@ -346,7 +346,7 @@ declare namespace Paths {
       export type $200 = string;
     }
   }
-  namespace AppsExchangeApiTickerPriceChange {
+  namespace CryptopatroExchangeApiTickerPriceChange {
     namespace Parameters {
       /**
        * Pair
@@ -364,329 +364,329 @@ declare namespace Paths {
 
 export interface OperationMethods {
   /**
-   * apps_api_health - Health
+   * cryptopatro_api_health - Health
    */
-  "apps_api_health"(
+  "cryptopatro_api_health"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroApiHealth.Responses.$200>;
   /**
-   * apps_api_tasks - Tasks
+   * cryptopatro_api_tasks - Tasks
    */
-  "apps_api_tasks"(
-    parameters: Parameters<Paths.AppsApiTasks.PathParameters>,
+  "cryptopatro_api_tasks"(
+    parameters: Parameters<Paths.CryptopatroApiTasks.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsApiTasks.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroApiTasks.Responses.$200>;
   /**
-   * apps_exchange_api_portfolios - Portfolios
+   * cryptopatro_exchange_api_portfolios - Portfolios
    */
-  "apps_exchange_api_portfolios"(
+  "cryptopatro_exchange_api_portfolios"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiPortfolios.Responses.$200>;
   /**
-   * apps_exchange_api_assets - Assets
+   * cryptopatro_exchange_api_assets - Assets
    */
-  "apps_exchange_api_assets"(
-    parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
+  "cryptopatro_exchange_api_assets"(
+    parameters?: Parameters<Paths.CryptopatroExchangeApiAssets.QueryParameters> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiAssets.Responses.$200>;
   /**
-   * apps_exchange_api_portfolio_assets - Portfolio Assets
+   * cryptopatro_exchange_api_portfolio_assets - Portfolio Assets
    */
-  "apps_exchange_api_portfolio_assets"(
+  "cryptopatro_exchange_api_portfolio_assets"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiPortfolioAssets.Responses.$200>;
   /**
-   * apps_exchange_api_create_portfolio_asset - Create Portfolio Asset
+   * cryptopatro_exchange_api_create_portfolio_asset - Create Portfolio Asset
    */
-  "apps_exchange_api_create_portfolio_asset"(
+  "cryptopatro_exchange_api_create_portfolio_asset"(
     parameters?: Parameters<UnknownParamsObject> | null,
-    data?: Paths.AppsExchangeApiCreatePortfolioAsset.RequestBody,
+    data?: Paths.CryptopatroExchangeApiCreatePortfolioAsset.RequestBody,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiCreatePortfolioAsset.Responses.$200>;
   /**
-   * apps_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
+   * cryptopatro_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
    */
-  "apps_exchange_api_delete_portfolio_asset"(
-    parameters: Parameters<Paths.AppsExchangeApiDeletePortfolioAsset.PathParameters>,
+  "cryptopatro_exchange_api_delete_portfolio_asset"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiDeletePortfolioAsset.PathParameters>,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiDeletePortfolioAsset.Responses.$200>;
   /**
-   * apps_exchange_api_refresh - Refresh
+   * cryptopatro_exchange_api_refresh - Refresh
    */
-  "apps_exchange_api_refresh"(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>;
-  /**
-   * apps_exchange_api_info - Info
-   */
-  "apps_exchange_api_info"(
-    parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
-  /**
-   * apps_exchange_api_order_book - Order Book
-   */
-  "apps_exchange_api_order_book"(
-    parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
-  /**
-   * apps_exchange_api_recent_trades - Recent Trades
-   */
-  "apps_exchange_api_recent_trades"(
-    parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
-  /**
-   * apps_exchange_api_current_avg_price - Current Avg Price
-   */
-  "apps_exchange_api_current_avg_price"(
-    parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
-  /**
-   * apps_exchange_api_ticker_price_change - Ticker Price Change
-   */
-  "apps_exchange_api_ticker_price_change"(
-    parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
-  /**
-   * apps_exchange_api_all_orders - All Orders
-   */
-  "apps_exchange_api_all_orders"(
-    parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
-  /**
-   * apps_exchange_api_open_orders - Open Orders
-   */
-  "apps_exchange_api_open_orders"(
+  "cryptopatro_exchange_api_refresh"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiRefresh.Responses.$200>;
   /**
-   * apps_exchange_api_account - Account
+   * cryptopatro_exchange_api_info - Info
    */
-  "apps_exchange_api_account"(
+  "cryptopatro_exchange_api_info"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiInfo.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiInfo.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_order_book - Order Book
+   */
+  "cryptopatro_exchange_api_order_book"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiOrderBook.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiOrderBook.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_recent_trades - Recent Trades
+   */
+  "cryptopatro_exchange_api_recent_trades"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiRecentTrades.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiRecentTrades.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_current_avg_price - Current Avg Price
+   */
+  "cryptopatro_exchange_api_current_avg_price"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiCurrentAvgPrice.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiCurrentAvgPrice.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_ticker_price_change - Ticker Price Change
+   */
+  "cryptopatro_exchange_api_ticker_price_change"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiTickerPriceChange.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiTickerPriceChange.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_all_orders - All Orders
+   */
+  "cryptopatro_exchange_api_all_orders"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiAllOrders.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiAllOrders.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_open_orders - Open Orders
+   */
+  "cryptopatro_exchange_api_open_orders"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiOpenOrders.Responses.$200>;
   /**
-   * apps_exchange_api_my_trades - My Trades
+   * cryptopatro_exchange_api_account - Account
    */
-  "apps_exchange_api_my_trades"(
-    parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
-  /**
-   * apps_exchange_api_news - News
-   */
-  "apps_exchange_api_news"(
+  "cryptopatro_exchange_api_account"(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
     config?: AxiosRequestConfig,
-  ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;
+  ): OperationResponse<Paths.CryptopatroExchangeApiAccount.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_my_trades - My Trades
+   */
+  "cryptopatro_exchange_api_my_trades"(
+    parameters: Parameters<Paths.CryptopatroExchangeApiMyTrades.PathParameters>,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiMyTrades.Responses.$200>;
+  /**
+   * cryptopatro_exchange_api_news - News
+   */
+  "cryptopatro_exchange_api_news"(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): OperationResponse<Paths.CryptopatroExchangeApiNews.Responses.$200>;
 }
 
 export interface PathsDictionary {
   ["/api/health"]: {
     /**
-     * apps_api_health - Health
+     * cryptopatro_api_health - Health
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsApiHealth.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroApiHealth.Responses.$200>;
   };
   ["/api/tasks/{task_id}"]: {
     /**
-     * apps_api_tasks - Tasks
+     * cryptopatro_api_tasks - Tasks
      */
     "get"(
-      parameters: Parameters<Paths.AppsApiTasks.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroApiTasks.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsApiTasks.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroApiTasks.Responses.$200>;
   };
   ["/api/exchange/portfolios"]: {
     /**
-     * apps_exchange_api_portfolios - Portfolios
+     * cryptopatro_exchange_api_portfolios - Portfolios
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiPortfolios.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiPortfolios.Responses.$200>;
   };
   ["/api/exchange/assets"]: {
     /**
-     * apps_exchange_api_assets - Assets
+     * cryptopatro_exchange_api_assets - Assets
      */
     "get"(
-      parameters?: Parameters<Paths.AppsExchangeApiAssets.QueryParameters> | null,
+      parameters?: Parameters<Paths.CryptopatroExchangeApiAssets.QueryParameters> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiAssets.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiAssets.Responses.$200>;
   };
   ["/api/exchange/portfolio-assets"]: {
     /**
-     * apps_exchange_api_portfolio_assets - Portfolio Assets
+     * cryptopatro_exchange_api_portfolio_assets - Portfolio Assets
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiPortfolioAssets.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiPortfolioAssets.Responses.$200>;
     /**
-     * apps_exchange_api_create_portfolio_asset - Create Portfolio Asset
+     * cryptopatro_exchange_api_create_portfolio_asset - Create Portfolio Asset
      */
     "post"(
       parameters?: Parameters<UnknownParamsObject> | null,
-      data?: Paths.AppsExchangeApiCreatePortfolioAsset.RequestBody,
+      data?: Paths.CryptopatroExchangeApiCreatePortfolioAsset.RequestBody,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiCreatePortfolioAsset.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiCreatePortfolioAsset.Responses.$200>;
   };
   ["/api/exchange/portfolio-assets/{id}"]: {
     /**
-     * apps_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
+     * cryptopatro_exchange_api_delete_portfolio_asset - Delete Portfolio Asset
      */
     "delete"(
-      parameters: Parameters<Paths.AppsExchangeApiDeletePortfolioAsset.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiDeletePortfolioAsset.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiDeletePortfolioAsset.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiDeletePortfolioAsset.Responses.$200>;
   };
   ["/api/exchange/refresh"]: {
     /**
-     * apps_exchange_api_refresh - Refresh
+     * cryptopatro_exchange_api_refresh - Refresh
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiRefresh.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiRefresh.Responses.$200>;
   };
   ["/api/exchange/info/{pair}"]: {
     /**
-     * apps_exchange_api_info - Info
+     * cryptopatro_exchange_api_info - Info
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiInfo.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiInfo.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiInfo.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiInfo.Responses.$200>;
   };
   ["/api/exchange/order-book/{pair}"]: {
     /**
-     * apps_exchange_api_order_book - Order Book
+     * cryptopatro_exchange_api_order_book - Order Book
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiOrderBook.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiOrderBook.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiOrderBook.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiOrderBook.Responses.$200>;
   };
   ["/api/exchange/recent-trades/{pair}"]: {
     /**
-     * apps_exchange_api_recent_trades - Recent Trades
+     * cryptopatro_exchange_api_recent_trades - Recent Trades
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiRecentTrades.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiRecentTrades.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiRecentTrades.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiRecentTrades.Responses.$200>;
   };
   ["/api/exchange/current-avg-price/{pair}"]: {
     /**
-     * apps_exchange_api_current_avg_price - Current Avg Price
+     * cryptopatro_exchange_api_current_avg_price - Current Avg Price
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiCurrentAvgPrice.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiCurrentAvgPrice.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiCurrentAvgPrice.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiCurrentAvgPrice.Responses.$200>;
   };
   ["/api/exchange/ticker-price-change/{pair}"]: {
     /**
-     * apps_exchange_api_ticker_price_change - Ticker Price Change
+     * cryptopatro_exchange_api_ticker_price_change - Ticker Price Change
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiTickerPriceChange.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiTickerPriceChange.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiTickerPriceChange.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiTickerPriceChange.Responses.$200>;
   };
   ["/api/exchange/all-orders/{pair}"]: {
     /**
-     * apps_exchange_api_all_orders - All Orders
+     * cryptopatro_exchange_api_all_orders - All Orders
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiAllOrders.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiAllOrders.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiAllOrders.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiAllOrders.Responses.$200>;
   };
   ["/api/exchange/open-orders"]: {
     /**
-     * apps_exchange_api_open_orders - Open Orders
+     * cryptopatro_exchange_api_open_orders - Open Orders
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiOpenOrders.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiOpenOrders.Responses.$200>;
   };
   ["/api/exchange/account"]: {
     /**
-     * apps_exchange_api_account - Account
+     * cryptopatro_exchange_api_account - Account
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiAccount.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiAccount.Responses.$200>;
   };
   ["/api/exchange/my-trades/{pair}"]: {
     /**
-     * apps_exchange_api_my_trades - My Trades
+     * cryptopatro_exchange_api_my_trades - My Trades
      */
     "get"(
-      parameters: Parameters<Paths.AppsExchangeApiMyTrades.PathParameters>,
+      parameters: Parameters<Paths.CryptopatroExchangeApiMyTrades.PathParameters>,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiMyTrades.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiMyTrades.Responses.$200>;
   };
   ["/api/exchange/news"]: {
     /**
-     * apps_exchange_api_news - News
+     * cryptopatro_exchange_api_news - News
      */
     "get"(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
       config?: AxiosRequestConfig,
-    ): OperationResponse<Paths.AppsExchangeApiNews.Responses.$200>;
+    ): OperationResponse<Paths.CryptopatroExchangeApiNews.Responses.$200>;
   };
 }
 

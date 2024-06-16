@@ -5,14 +5,13 @@ import { $axios } from "@/store/axios";
 
 export const $taskId = atom<string>("");
 export const $taskStatus = createFetcherStore<TaskStatus | undefined>(
-  ["tasks", $taskId],
+  [$taskId],
   {
-    fetcher: async () => {
-      const taskId = $taskId.get();
+    fetcher: async (taskId) => {
       if (!taskId) return undefined;
 
       const client = await $axios.get();
-      const res = await client.apps_api_tasks(taskId);
+      const res = await client.cryptopatro_api_tasks(taskId.toString());
       return res.data;
     },
   },

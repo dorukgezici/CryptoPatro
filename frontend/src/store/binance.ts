@@ -9,7 +9,7 @@ export const $orders = createFetcherStore<BinanceOrder[]>(
   {
     fetcher: async () => {
       const client = await $axios.get();
-      const res = await client.apps_exchange_api_all_orders(
+      const res = await client.cryptopatro_exchange_api_all_orders(
         $selectedPair.get(),
       );
       return (res.data as BinanceOrder[]).sort((a, b) => b.time - a.time);

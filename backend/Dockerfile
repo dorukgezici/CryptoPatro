@@ -2,12 +2,12 @@ FROM python:3.12
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /cryptopatro
+WORKDIR /app
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY apps apps
+COPY cryptopatro cryptopatro
 COPY fixtures fixtures
 COPY locale locale
 COPY scripts scripts
