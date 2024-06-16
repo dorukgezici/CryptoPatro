@@ -12,15 +12,13 @@ export default function useTask() {
     switch (taskStatus) {
       case "SUCCESS":
         $taskId.set("");
-        $portfolioAssets.invalidate();
+        $portfolioAssets.revalidate();
         break;
       case "PENDING":
       case "RECEIVED":
       case "STARTED":
-        setTimeout(() => {
-          $taskStatus.invalidate();
-          setCheckCount(checkCount + 1);
-        }, 1000);
+        $taskStatus.revalidate();
+        setTimeout(() => setCheckCount(checkCount + 1), 1000);
         break;
       default:
         // TODO: handle error case and limit checks
