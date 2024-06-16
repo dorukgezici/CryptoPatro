@@ -8,7 +8,7 @@
   {
     "label": "api",
     "cwd": "$ZED_WORKTREE_ROOT/backend",
-    "command": "source $ZED_WORKTREE_ROOT/backend/.venv/bin/activate && uvicorn apps.asgi:application --host 0.0.0.0 --port 8000 --reload",
+    "command": "source $ZED_WORKTREE_ROOT/backend/.venv/bin/activate && uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000 --reload",
     "reveal": "always"
   },
   {

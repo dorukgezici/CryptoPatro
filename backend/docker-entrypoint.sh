@@ -11,9 +11,9 @@ api)
   python3 manage.py migrate
 
   if [[ "$CRYPTOPATRO_STAGE" == "development" ]]; then
-    exec uvicorn apps.asgi:application --host 0.0.0.0 --port 8000 --reload
+    exec uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000 --reload
   else
-    exec uvicorn apps.asgi:application --host 0.0.0.0 --port 8000
+    exec uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000
   fi
   ;;
 scheduler)

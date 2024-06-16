@@ -18,109 +18,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: adiutor/exchange/apps.py:8
+#: cryptopatro/exchange/apps.py:8
 msgid "Exchange"
 msgstr "Borsa"
 
-#: adiutor/exchange/models.py:7 adiutor/exchange/models.py:23
-#: adiutor/exchange/models.py:34 adiutor/users/models.py:8
-#: adiutor/users/models.py:19 adiutor/users/models.py:30
-#: adiutor/users/models.py:61
+#: cryptopatro/exchange/models.py:7 cryptopatro/exchange/models.py:23
+#: cryptopatro/exchange/models.py:34 cryptopatro/users/models.py:8
+#: cryptopatro/users/models.py:19 cryptopatro/users/models.py:30
+#: cryptopatro/users/models.py:61
 msgid "created at"
 msgstr "oluşturulma zamanı"
 
-#: adiutor/exchange/models.py:8 adiutor/exchange/models.py:24
-#: adiutor/exchange/models.py:35 adiutor/users/models.py:9
-#: adiutor/users/models.py:20 adiutor/users/models.py:31
-#: adiutor/users/models.py:62
+#: cryptopatro/exchange/models.py:8 cryptopatro/exchange/models.py:24
+#: cryptopatro/exchange/models.py:35 cryptopatro/users/models.py:9
+#: cryptopatro/users/models.py:20 cryptopatro/users/models.py:31
+#: cryptopatro/users/models.py:62
 msgid "updated at"
 msgstr "güncellenme zamanı"
 
-#: adiutor/exchange/models.py:10
+#: cryptopatro/exchange/models.py:10
 msgid "symbol"
 msgstr "sembol"
 
-#: adiutor/exchange/models.py:11 adiutor/exchange/models.py:27
+#: cryptopatro/exchange/models.py:11 cryptopatro/exchange/models.py:27
 msgid "name"
 msgstr "isim"
 
-#: adiutor/exchange/models.py:12
+#: cryptopatro/exchange/models.py:12
 msgid "price (USD)"
 msgstr "fiyat (USD)"
 
-#: adiutor/exchange/models.py:26 adiutor/users/models.py:23
-#: adiutor/users/models.py:33 adiutor/users/models.py:64
+#: cryptopatro/exchange/models.py:26 cryptopatro/users/models.py:23
+#: cryptopatro/users/models.py:33 cryptopatro/users/models.py:64
 msgid "user"
 msgstr "kullanıcı"
 
-#: adiutor/exchange/models.py:37
+#: cryptopatro/exchange/models.py:37
 msgid "portfolio"
 msgstr "portföy"
 
-#: adiutor/exchange/models.py:38
+#: cryptopatro/exchange/models.py:38
 msgid "asset"
 msgstr "varlık"
 
-#: adiutor/exchange/models.py:40
+#: cryptopatro/exchange/models.py:40
 msgid "amount (quantity)"
 msgstr "adet"
 
-#: adiutor/exchange/models.py:41
+#: cryptopatro/exchange/models.py:41
 msgid "value (USD)"
 msgstr "değer (USD)"
 
-#: adiutor/exchange/models.py:43
+#: cryptopatro/exchange/models.py:43
 msgid "average cost"
 msgstr "ortalama maliyet"
 
-#: adiutor/exchange/models.py:44
+#: cryptopatro/exchange/models.py:44
 msgid "buy amount"
 msgstr "alınan miktar"
 
-#: adiutor/exchange/models.py:46
+#: cryptopatro/exchange/models.py:46
 msgid "average charge"
 msgstr "ortalama ücret"
 
-#: adiutor/exchange/models.py:47
+#: cryptopatro/exchange/models.py:47
 msgid "sell amount"
 msgstr "satılan miktar"
 
-#: adiutor/exchange/models.py:49
+#: cryptopatro/exchange/models.py:49
 msgid "realized pnl"
 msgstr "sonuçlanan kar/zarar"
 
-#: adiutor/exchange/models.py:50
+#: cryptopatro/exchange/models.py:50
 msgid "unrealized pnl"
 msgstr "bekleyen kar/zarar"
 
-#: adiutor/settings.py:127
+#: cryptopatro/settings.py:127
 msgid "English"
 msgstr "İngilizce"
 
-#: adiutor/settings.py:128
+#: cryptopatro/settings.py:128
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: adiutor/urls.py:6
+#: cryptopatro/urls.py:6
 msgid "CryptoPatro"
 msgstr "CryptoPatro"
 
-#: adiutor/users/apps.py:8
+#: cryptopatro/users/apps.py:8
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: adiutor/users/models.py:34 adiutor/users/models.py:65
+#: cryptopatro/users/models.py:34 cryptopatro/users/models.py:65
 msgid "api key"
 msgstr "api key"
 
-#: adiutor/users/models.py:35 adiutor/users/models.py:66
+#: cryptopatro/users/models.py:35 cryptopatro/users/models.py:66
 msgid "api secret"
 msgstr "api secret"
 
-#: adiutor/users/serializers.py:50
+#: cryptopatro/users/serializers.py:50
 msgid "You must confirm your password."
 msgstr "Parolanı doğrulamalısın."
 
-#: adiutor/users/serializers.py:53
+#: cryptopatro/users/serializers.py:53
 msgid "Your passwords do not match."
 msgstr "Parolaların eşleşmiyor."
