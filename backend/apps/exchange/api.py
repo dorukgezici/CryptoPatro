@@ -69,7 +69,7 @@ async def refresh(request: Request):
 # Binance API
 
 
-@router.get("/info/{pair}")
+@router.get("/info/{pair}", auth=TokenAuth())
 def info(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -78,7 +78,7 @@ def info(request, pair: str):
     return client.exchange_info(symbol=pair)
 
 
-@router.get("/order-book/{pair}")
+@router.get("/order-book/{pair}", auth=TokenAuth())
 def order_book(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -87,7 +87,7 @@ def order_book(request, pair: str):
     return client.depth(symbol=pair)
 
 
-@router.get("/recent-trades/{pair}")
+@router.get("/recent-trades/{pair}", auth=TokenAuth())
 def recent_trades(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -96,7 +96,7 @@ def recent_trades(request, pair: str):
     return client.trades(symbol=pair)
 
 
-@router.get("/current-avg-price/{pair}")
+@router.get("/current-avg-price/{pair}", auth=TokenAuth())
 def current_avg_price(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -105,7 +105,7 @@ def current_avg_price(request, pair: str):
     return client.avg_price(symbol=pair)
 
 
-@router.get("/ticker-price-change/{pair}")
+@router.get("/ticker-price-change/{pair}", auth=TokenAuth())
 def ticker_price_change(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -114,7 +114,7 @@ def ticker_price_change(request, pair: str):
     return client.ticker_24hr(symbol=pair)
 
 
-@router.get("/all-orders/{pair}")
+@router.get("/all-orders/{pair}", auth=TokenAuth())
 async def all_orders(request: Request, pair: str):
     binance_auth = await aget_object_or_404(BinanceAuth, user_id=request.auth.id)
     client = Spot(
@@ -124,7 +124,7 @@ async def all_orders(request: Request, pair: str):
     return await sync_to_async(client.get_orders)(symbol=pair)
 
 
-@router.get("/open-orders")
+@router.get("/open-orders", auth=TokenAuth())
 def open_orders(request):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -133,7 +133,7 @@ def open_orders(request):
     return client.get_open_orders()
 
 
-@router.get("/account")
+@router.get("/account", auth=TokenAuth())
 def account(request):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -142,7 +142,7 @@ def account(request):
     return client.account()
 
 
-@router.get("/my-trades/{pair}")
+@router.get("/my-trades/{pair}", auth=TokenAuth())
 def my_trades(request, pair: str):
     client = Spot(
         api_key=request.auth.binance.api_key,
@@ -154,7 +154,7 @@ def my_trades(request, pair: str):
 # CryptoPanic API
 
 
-@router.get("/news")
+@router.get("/news", auth=TokenAuth())
 def news(request):
     res = requests.get(
         url="https://cryptopanic.com/api/v1/posts/",
