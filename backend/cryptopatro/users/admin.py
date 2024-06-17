@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from cryptopatro.exchange.models import BinanceAuth, TelegramUser, Token, User
+from cryptopatro.users.models import BinanceAuth, TelegramUser, Token, User
 
 
 @admin.register(Token)
@@ -12,7 +12,7 @@ class TokenAdmin(admin.ModelAdmin):
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class UserAdmin(BaseUserAdmin):
     list_filter = ["is_staff", "is_superuser", "created_at", "updated_at"]
 
 
