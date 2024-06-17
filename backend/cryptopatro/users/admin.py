@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import BinanceAuth, TelegramUser, Token, User
+from cryptopatro.exchange.models import BinanceAuth, TelegramUser, Token, User
 
 
 @admin.register(Token)

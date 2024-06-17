@@ -3,7 +3,7 @@ import type { Client } from "@/types/openapi";
 import { OpenAPIClientAxios } from "openapi-client-axios";
 
 const api = new OpenAPIClientAxios({
-  definition: `${BACKEND_URL}/api/openapi.json`,
+  definition: `${BACKEND_URL}/openapi.json`,
 });
 
 export const getApiClient = async (token?: string) => {

@@ -1,0 +1,8 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { AuthPage } from "@/components/auth";
+---
+
+<Layout title="Auth | CryptoPatro">
+    <AuthPage client:only="react" />
+</Layout>

@@ -10,12 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import useTask from "@/hooks/useTask";
+import { $user, logout } from "@/store/auth";
 import { $theme } from "@/store/settings";
+import type { User } from "@/types";
 import { useStore } from "@nanostores/react";
 import { Moon, Sun } from "lucide-react";
 import { useEffect } from "react";
 
 export function Header() {
+  const { data: user } = useStore($user);
   // background task manager
   useTask();
 
@@ -42,7 +45,7 @@ export function Header() {
         <BellIcon className="h-4 w-4" />
         <span className="sr-only">Toggle notifications</span>
       </Button>
-      <UserDropdownMenu />
+      <UserDropdownMenu user={user} />
     </header>
   );
 }
@@ -82,7 +85,7 @@ export function ThemeDropdownMenu() {
   );
 }
 
-export function UserDropdownMenu() {
+export function UserDropdownMenu({ user }: { user?: User }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -106,12 +109,19 @@ export function UserDropdownMenu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            if (user) logout();
+            else window.location.href = "/auth";
+          }}
+        >
+          {user ? "Logout" : "Login"}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

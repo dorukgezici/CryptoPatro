@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "typegen": "typegen http://localhost:8000/api/openapi.json > ./src/types/openapi.d.ts",
+    "typegen": "typegen http://localhost:8000/openapi.json > ./src/types/openapi.d.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },

@@ -1,5 +1,7 @@
 import type { Components } from "@/types/openapi";
 
+export type User = Components.Schemas.UserSchema;
+
 export type TaskStatus =
   | string
   | "PENDING"

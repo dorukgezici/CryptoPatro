@@ -1,5 +1,6 @@
 from ninja.security import HttpBearer
-from .users.models import User
+
+from cryptopatro.users.models import User
 
 
 class AsyncTokenAuth(HttpBearer):

@@ -1,8 +1,8 @@
 from django.db.models import Sum
 from ninja import ModelSchema
 
-from ..utils import sync_executor
-from .models import Portfolio, Asset, PortfolioAsset
+from cryptopatro.utils import sync_executor
+from cryptopatro.exchange.models import Portfolio, Asset, PortfolioAsset
 
 
 class PortfolioSchema(ModelSchema):

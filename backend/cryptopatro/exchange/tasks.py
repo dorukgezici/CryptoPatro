@@ -6,10 +6,10 @@ from binance.spot import Spot
 from django.utils import timezone
 from django.db.models import Sum
 
+from cryptopatro.celery_app import app
 from cryptopatro.users.models import BinanceAuth, User
 from cryptopatro.users.telegram.utils import send_message
-from .models import Asset, Portfolio, PortfolioAsset
-from ..celery_app import app
+from cryptopatro.exchange.models import Asset, Portfolio, PortfolioAsset
 
 
 @app.task

@@ -11,12 +11,12 @@ from django.shortcuts import (
 )
 from django.conf import settings
 
-from ..types import Request
-from ..auth import SyncTokenAuth
-from ..users.models import BinanceAuth, TelegramUser
-from .schemas import PortfolioSchema, AssetSchema, PortfolioAssetSchema
-from .models import Portfolio, Asset, PortfolioAsset
-from .tasks import calculate_portfolio_asset_pnls
+from cryptopatro.types import Request
+from cryptopatro.auth import SyncTokenAuth
+from cryptopatro.users.models import BinanceAuth, TelegramUser
+from cryptopatro.exchange.schemas import PortfolioSchema, AssetSchema, PortfolioAssetSchema
+from cryptopatro.exchange.models import Portfolio, Asset, PortfolioAsset
+from cryptopatro.exchange.tasks import calculate_portfolio_asset_pnls
 
 
 router = Router()
@@ -70,7 +70,7 @@ async def delete_portfolio_asset(request: Request, id: int):
 @router.get("/refresh", response=str)
 async def refresh(request: Request):
     tg = await aget_object_or_404(TelegramUser, user_id=request.auth.id)
-    return calculate_portfolio_asset_pnls.delay(tg.id).id
+    return calculate_portfolio_asset_pnls.delay(tg.id, False).id
 
 
 # Binance API

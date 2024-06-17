@@ -8,6 +8,7 @@ from .auth import AsyncTokenAuth
 
 api = NinjaAPI(auth=AsyncTokenAuth())
 api.add_router("/exchange/", "cryptopatro.exchange.api.router")
+api.add_router("/users/", "cryptopatro.users.api.router")
 
 
 @api.get("/health", auth=None)
