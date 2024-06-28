@@ -136,12 +136,12 @@ django-celery-beat==2.6.0 ; python_version >= "3.12" and python_version < "4.0" 
 django-celery-results==2.5.1 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:0da4cd5ecc049333e4524a23fcfc3460dfae91aa0a60f1fae4b6b2889c254e01 \
     --hash=sha256:3ecb7147f773f34d0381bac6246337ce4cf88a2ea7b82774ed48e518b67bb8fd
-django-cors-headers==4.3.1 ; python_version >= "3.12" and python_version < "4.0" \
-    --hash=sha256:0b1fd19297e37417fc9f835d39e45c8c642938ddba1acce0c1753d3edef04f36 \
-    --hash=sha256:0bf65ef45e606aff1994d35503e6b677c0b26cafff6506f8fd7187f3be840207
-django-ninja==1.1.0 ; python_version >= "3.12" and python_version < "4.0" \
-    --hash=sha256:6330c3497061d9fd1f43c1200f85c13aab7687110e2899f8304e5aa476c10b44 \
-    --hash=sha256:87bff046416a2653ed2fbef1408e101292bf8170684821bac82accfd73bef059
+django-cors-headers==4.4.0 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:5c6e3b7fe870876a1efdfeb4f433782c3524078fa0dc9e0195f6706ce7a242f6 \
+    --hash=sha256:92cf4633e22af67a230a1456cb1b7a02bb213d6536d2dcb2a4a24092ea9cebc2
+django-ninja==1.2.0 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:0a7b7e20202f50546ae45af6a262fccb606c9e75b8bbe9fe38d49075a9435bf0 \
+    --hash=sha256:aa8ca853bf189cc13247b1922ca41f1a6e60056c90041ec0081cce0ea8d8de02
 django-timezone-field==6.1.0 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:0095f43da716552fcc606783cfb42cb025892514f1ec660ebfa96186eb83b74c \
     --hash=sha256:d40f7059d7bae4075725d04a9dae601af9fe3c7f0119a69b0e2c6194a782f797
@@ -436,9 +436,9 @@ python-telegram-bot==21.3 ; python_version >= "3.12" and python_version < "4.0" 
 requests==2.32.3 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760 \
     --hash=sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6
-sentry-sdk==2.5.1 ; python_version >= "3.12" and python_version < "4.0" \
-    --hash=sha256:1f87acdce4a43a523ae5aa21a3fc37522d73ebd9ec04b1dbf01aa3d173852def \
-    --hash=sha256:fbc40a78a8a9c6675133031116144f0d0940376fa6e4e1acd5624c90b0aaf58b
+sentry-sdk==2.7.1 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:25006c7e68b75aaa5e6b9c6a420ece22e8d7daec4b7a906ffd3a8607b67c037b \
+    --hash=sha256:ef1b3d54eb715825657cd4bb3cb42bb4dc85087bac14c56b0fd8c21abd968c9a
 six==1.16.0 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
@@ -454,9 +454,9 @@ typing-extensions==4.12.2 ; python_version >= "3.12" and python_version < "4.0" 
 tzdata==2024.1 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:2674120f8d891909751c38abcdfd386ac0a5a1127954fbc332af6b5ceae07efd \
     --hash=sha256:9068bc196136463f5245e51efda838afa15aaeca9903f49050dfa2679db4d252
-urllib3==2.2.1 ; python_version >= "3.12" and python_version < "4.0" \
-    --hash=sha256:450b20ec296a467077128bff42b73080516e71b56ff59a60a02bef2232c4fa9d \
-    --hash=sha256:d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19
+urllib3==2.2.2 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472 \
+    --hash=sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168
 uvicorn==0.30.1 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:cd17daa7f3b9d7a24de3617820e634d0933b69eed8e33a516071174427238c81 \
     --hash=sha256:d46cd8e0fd80240baffbcd9ec1012a712938754afcf81bce56c024c1656aece8
@@ -469,6 +469,6 @@ wcwidth==0.2.13 ; python_version >= "3.12" and python_version < "4.0" \
 websocket-client==1.8.0 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:17b44cc997f5c498e809b22cdf2d9c7a9e71c02c8cc2b6c56e7c2d1239bfa526 \
     --hash=sha256:3239df9f44da632f96012472805d40a23281a991027ce11d2f45a6f24ac4c3da
-whitenoise==6.6.0 ; python_version >= "3.12" and python_version < "4.0" \
-    --hash=sha256:8998f7370973447fac1e8ef6e8ded2c5209a7b1f67c1012866dbcd09681c3251 \
-    --hash=sha256:b1f9db9bf67dc183484d760b99f4080185633136a273a03f6436034a41064146
+whitenoise==6.7.0 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:58c7a6cd811e275a6c91af22e96e87da0b1109e9a53bb7464116ef4c963bf636 \
+    --hash=sha256:a1ae85e01fdc9815d12fa33f17765bc132ed2c54fa76daf9e39e879dd93566f6
