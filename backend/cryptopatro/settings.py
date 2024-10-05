@@ -26,6 +26,7 @@ DEBUG = CRYPTOPATRO["stage"] == "development"
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [CRYPTOPATRO["backend_url"], CRYPTOPATRO["frontend_url"]]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
 # Application definition
 
