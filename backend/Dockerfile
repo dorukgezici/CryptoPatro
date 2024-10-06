@@ -1,11 +1,11 @@
-FROM python:3.12
-
-ENV PYTHONUNBUFFERED 1
-
+FROM python:3.12 AS base
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 WORKDIR /app
+COPY pyproject.toml uv.lock README.md ./
+RUN uv sync --frozen
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+FROM base AS runtime
+ENV PYTHONUNBUFFERED=1
 
 COPY cryptopatro cryptopatro
 COPY fixtures fixtures
@@ -13,7 +13,7 @@ COPY locale locale
 COPY scripts scripts
 COPY manage.py manage.py
 
-RUN python3 manage.py collectstatic --no-input
+RUN ["uv", "run", "manage.py", "collectstatic", "--no-input"]
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
