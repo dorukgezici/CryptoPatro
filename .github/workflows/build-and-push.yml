@@ -29,5 +29,5 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{ github.repository_owner }}/${{ env.PROJECT_NAME }}:${{ github.sha }}
+          tags: ${{ github.repository_owner }}/${{ env.PROJECT_NAME }}:${{ github.sha }},${{ github.repository_owner }}/${{ env.PROJECT_NAME }}:latest
           platforms: linux/arm64,linux/amd64
