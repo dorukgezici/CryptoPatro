@@ -21,7 +21,8 @@ CRYPTOPATRO = {
 SECRET_KEY = CRYPTOPATRO["secret_key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = CRYPTOPATRO["stage"] == "development"
+# DEBUG = CRYPTOPATRO["stage"] == "development"
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [CRYPTOPATRO["backend_url"], CRYPTOPATRO["frontend_url"]]
