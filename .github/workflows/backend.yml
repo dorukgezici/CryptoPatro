@@ -52,6 +52,6 @@ jobs:
         with:
           kubeconfig-base64: ${{ secrets.KUBE_CONFIG }}
           installation-name: ${{ env.PROJECT_NAME }}
-          chart-path: backend/k8s-helm
+          chart-path: backend/helm
           extra-args: "--set image.tag=${{ github.sha }}"
           token: ${{ github.token }}
