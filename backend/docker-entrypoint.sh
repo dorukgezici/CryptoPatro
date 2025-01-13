@@ -11,19 +11,19 @@ api)
   uv run manage.py migrate
 
   if [[ "$CRYPTOPATRO_STAGE" == "development" ]]; then
-    exec uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000 --reload
+    uv run uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000 --reload
   else
-    exec uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000
+    uv run uvicorn cryptopatro.asgi:application --host 0.0.0.0 --port 8000
   fi
   ;;
 scheduler)
-  exec celery --app cryptopatro beat -l INFO
+  uv run celery --app cryptopatro beat -l INFO
   ;;
 worker)
-  exec celery --app cryptopatro worker --concurrency 10 -l INFO
+  uv run celery --app cryptopatro worker --concurrency 10 -l INFO
   ;;
 bot)
-  exec uv run manage.py bot
+  uv run manage.py bot
   ;;
 *)
   echo >&2 "Invalid CRYPTOPATRO_CONTAINER_KIND: $CRYPTOPATRO_CONTAINER_KIND."
