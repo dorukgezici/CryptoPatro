@@ -21,7 +21,7 @@ The NetworkPolicy accepts TCP `4321` only from pods with both Traefik labels in 
 
 ## Image and proxy preparation
 
-The default image tags `v2-backend` and `v2-frontend` are placeholders. Before syncing, publish both platform-compatible images and replace both tags with immutable release tags in `values.yaml` or reviewed Argo Helm values. The repository defaults to `dorukgezici/cryptopatro` for both images. Do not reuse the legacy `latest` image for either new container.
+The default image tags `v2-backend` and `v2-frontend` are placeholders. Before syncing, publish both platform-compatible images and pin `backend.image.digest` and `frontend.image.digest` to their verified registry `sha256:` digests. A nonempty digest renders `repository@sha256:...` and takes precedence over the tag. With an empty digest, the chart uses `repository:tag`; use an immutable release tag in that case. The repository defaults to `dorukgezici/cryptopatro` for both images. Do not reuse the legacy `latest` image for either new container.
 
 Set `frontend.publicSiteUrl` to the exact public HTTPS origin. The frontend image must also be built with the matching Astro `security.allowedDomains` configuration. That setting is part of the built server; changing only the runtime public URL does not update proxy trust. Traefik must remove caller-supplied forwarding headers unless they came from an explicitly trusted upstream. Astro uses the first forwarded address once the host is allowed, so a hostname allowlist alone does not authenticate the proxy.
 

@@ -36,7 +36,7 @@ spec:
       {{- end }}
       containers:
         - name: frontend
-          image: "{{ .Values.frontend.image.repository }}:{{ required "frontend.image.tag is required" .Values.frontend.image.tag }}"
+          image: {{ include "cryptopatro.image" .Values.frontend.image | quote }}
           imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
           securityContext:
             runAsUser: 1000
@@ -80,7 +80,7 @@ spec:
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
         - name: backend
-          image: "{{ .Values.backend.image.repository }}:{{ required "backend.image.tag is required" .Values.backend.image.tag }}"
+          image: {{ include "cryptopatro.image" .Values.backend.image | quote }}
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           command: [uvicorn]
           args: ["cryptopatro.main:app", "--host", "127.0.0.1", "--port", "8000", "--workers", "1", "--no-proxy-headers"]

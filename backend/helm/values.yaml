@@ -1,9 +1,10 @@
 # Argo CD renders this chart from backend/helm into namespace default.
-# Replace both placeholder tags with published immutable release tags before syncing.
+# Release images are pinned by registry digest; tags record the source commit.
 backend:
   image:
     repository: dorukgezici/cryptopatro
-    tag: v2-backend
+    tag: 77048531fbdd96400ecf519b6ac3d7f5104dafcb-backend
+    digest: sha256:51683b5bd5b264cbb53ac3b9718ebb7cd48e94270cacd121d5e07fe816a6b50a
     pullPolicy: IfNotPresent
   marketEnabled: true
   ai:
@@ -21,7 +22,8 @@ backend:
 frontend:
   image:
     repository: dorukgezici/cryptopatro
-    tag: v2-frontend
+    tag: 77048531fbdd96400ecf519b6ac3d7f5104dafcb-frontend
+    digest: sha256:a79a92456ee4fa8d3efff8c7d015e11963e3d615cf90bb088a553714dd249f32
     pullPolicy: IfNotPresent
   publicSiteUrl: https://cryptopatro.pub.gezici.me
   resources:
