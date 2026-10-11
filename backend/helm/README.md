@@ -21,12 +21,12 @@ The NetworkPolicy accepts TCP `4321` only from pods with both Traefik labels in 
 
 ## Image and proxy preparation
 
-Both release images are published and pinned in `values.yaml`. The tags identify application source commit `77048531fbdd96400ecf519b6ac3d7f5104dafcb`; chart commit `05f4a20` records the verified pins. Both images target `linux/arm64`, matching the cluster nodes.
+Both release images are published and pinned in `values.yaml`. The tags identify application source commit `f53df099927bc3368cc524d2484a7431ff80ea27`. Both images target `linux/arm64`, matching the cluster nodes. [Release publishing](https://github.com/dorukgezici/CryptoPatro/actions/runs/38141973864) and [verification](https://github.com/dorukgezici/CryptoPatro/actions/runs/38141973862) passed for that source revision.
 
 | Container | Repository | Pinned digest |
 | --- | --- | --- |
-| Backend | `dorukgezici/cryptopatro` | `sha256:51683b5bd5b264cbb53ac3b9718ebb7cd48e94270cacd121d5e07fe816a6b50a` |
-| Frontend | `dorukgezici/cryptopatro` | `sha256:a79a92456ee4fa8d3efff8c7d015e11963e3d615cf90bb088a553714dd249f32` |
+| Backend | `dorukgezici/cryptopatro` | `sha256:f7f320d184e65147d599e79df29528f175788a362001d65d772afe6fac7cbb86` |
+| Frontend | `dorukgezici/cryptopatro` | `sha256:88c9e632f0eff6df9db78ee686c959858be2f5a790dc03cdbcab1380a20cef10` |
 
 A nonempty digest renders `repository@sha256:...` and takes precedence over the tag. With an empty digest, the chart uses `repository:tag`; use an immutable release tag in that case. For a later release, publish platform-compatible images and update both digest pins after verification. Do not reuse the legacy `latest` image for either new container.
 
