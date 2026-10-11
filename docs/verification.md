@@ -1,6 +1,6 @@
 # Rebuild verification
 
-Verified locally and in an isolated cluster preview on 11 October 2026. The public production route still serves the legacy application; the rebuild has not been promoted.
+Verified locally, in an isolated cluster preview, and in public production on 11 October 2026. The rebuilt app is live at [cryptopatro.pub.gezici.me](https://cryptopatro.pub.gezici.me).
 
 ## Automated checks
 
@@ -36,9 +36,21 @@ An isolated `cryptopatro-preview` workload used the existing HTTPS host through 
 
 The cluster smoke check passed API health, private holding creation and editing, owner isolation, local copilot answers, alert creation, and public sharing. It verified that public JSON and HTML omit private fields and the access token, server-rendered canonical URLs use the configured HTTPS origin, share pages carry `noindex`, and the exported PNG is 1200 by 630 pixels.
 
-The preview pod was then deleted. Its k3s replacement became ready on `lab-agent-1`, using the same Longhorn PVC. A second smoke check confirmed that the holding and owner share history survived replacement. It then revoked the postcard, confirmed public API and page 404 responses, and removed the test alert and holding. Two empty test portfolio identities remain on the disposable preview PVC; this verification traffic is not product adoption. Preview resources are still running pending the cutover decision and have not yet been cleaned up.
+The preview pod was then deleted. Its k3s replacement became ready on `lab-agent-1`, using the same Longhorn PVC. A second smoke check confirmed that the holding and owner share history survived replacement. It then revoked the postcard, confirmed public API and page 404 responses, and removed the test alert and holding. This verification traffic is not product adoption.
 
-Forwarding checks confirmed the correct HTTPS scheme and host and rejected a caller-forged forwarded IP. They also showed that the actual public client address is lost upstream. The revised release handles that topology within CryptoPatro using explicit `shared_proxy` mode, verified portfolio quotas, service-wide capacity windows, and persistent AI budgets. Shared Traefik and OCI settings remain unchanged. The revised image release and its migration smoke must be verified before promotion.
+Forwarding checks confirmed the correct HTTPS scheme and host and rejected a caller-forged forwarded IP. They also showed that the actual public client address is lost upstream. The revised release handles that topology within CryptoPatro using explicit `shared_proxy` mode, verified portfolio quotas, service-wide capacity windows, and persistent AI budgets. Shared Traefik and OCI settings remain unchanged.
+
+Before upgrading the preview, a private online SQLite backup passed integrity checks and confirmed schema version 2. Images from source commit `f53df099927bc3368cc524d2484a7431ff80ea27` then upgraded the existing preview database to schema 3. Saved holdings and owner share history survived. Cached postcard images returned 404 after revocation. A separate public HTTPS test created 40 portfolios and completed 64 chats behind the same ingress address; exhausting one owner's quota did not block another owner. These are correctness checks, not a load benchmark.
+
+After production verification, the temporary preview route, Deployment, Service, ServiceAccount, NetworkPolicy, and disposable PVC were removed. Their absence was confirmed while the production pod remained ready and its separate PVC stayed bound.
+
+## Public production
+
+Argo CD was pinned to deployment revision `4988d0635829e907fe7567bd06f0bf3e638f1efc`. It reported `Synced` and `Healthy`, with two ready containers, zero restarts, verified image digests, `shared_proxy` enabled, and the production `cryptopatro-data` Longhorn claim bound. Both the [application verification](https://github.com/dorukgezici/CryptoPatro/actions/runs/38141973862) and [image publishing](https://github.com/dorukgezici/CryptoPatro/actions/runs/38141973864) workflows passed; the final chart revision also passed [verification](https://github.com/dorukgezici/CryptoPatro/actions/runs/38142263142).
+
+The public HTTPS smoke passed private holding creation and editing, portfolio isolation, local copilot answers, alert creation, private-field exclusion from shares, canonical URLs, noindex metadata, and 1200 by 630 PNG output. A second pass confirmed saved data and share history, revoked the postcard, checked API/page/cached-image 404 responses, and deleted only the synthetic holding and alert. Two empty synthetic portfolio identities and their aggregate QA events remain in production; those counts are not adoption.
+
+Browser inspection confirmed that the public dashboard loads with live CoinGecko quotes and that the portfolio copilot opens and returns a clearly labeled local summary. The existing certificate, OCI load balancer, shared Traefik configuration, legacy PostgreSQL database, RabbitMQ, and legacy Secret were unchanged. Source remains on `codex/cryptopatro-rebuild` with [draft PR #1](https://github.com/dorukgezici/CryptoPatro/pull/1); production uses its immutable revision rather than the legacy default branch.
 
 ## Visual review
 
@@ -47,11 +59,14 @@ Desktop and mobile layouts were inspected, including postcard output, without ho
 - [Desktop dashboard](screenshots/desktop-dashboard.png)
 - [Mobile dashboard](screenshots/mobile-dashboard.png)
 - [Public postcard page](screenshots/public-postcard.png)
+- [Live dashboard](screenshots/live-dashboard.jpg)
 
-These screenshots use labeled sample data.
+The first three screenshots use labeled sample prices. The live dashboard screenshot uses labeled sample holdings with CoinGecko quotes. None depicts a real person's portfolio.
 
-## Remaining launch configuration
+## Operations and optional configuration
 
-The existing HTTPS host and Argo CD application are available, and the initial pinned release images passed the isolated preview. Before production promotion, verify the revised app-only capacity controls and schema migration in that preview, retain the single-instance persistent-storage configuration, and confirm an independent backup procedure. Record the actual production rollout and smoke result separately; none is claimed here.
+Keep the single-instance persistent-storage configuration and take an online SQLite backup before application or schema changes. The [chart guide](../backend/helm/README.md) provides the backup and rollback procedure. Recurring independent backups are not configured by this application release.
+
+A production online backup was saved outside Git with owner-only permissions and independently verified with SQLite integrity checks and schema version 3. The read-only growth report showed only the expected QA baseline: two sessions, one activation, one created and subsequently revoked share, and no referrals.
 
 Optional provider-backed AI needs `CRYPTOPATRO_AI_MODEL` and `OPENAI_API_KEY`; no paid model request was used in this verification. Without those values, the tested local summary mode remains available. Price alerts are evaluated in the app, not delivered in the background.

@@ -1,6 +1,6 @@
 # Production chart
 
-The existing Argo CD application `cryptopatro` in namespace `argocd` reads this directory from `https://github.com/dorukgezici/CryptoPatro`, target revision `HEAD`, and renders resources into namespace `default`. Argo CD owns the deployment; there is no Helm release to upgrade. The application has automatic sync, pruning, and self-healing enabled. A change to its tracked revision can deploy immediately.
+The existing Argo CD application `cryptopatro` in namespace `argocd` reads this directory from `https://github.com/dorukgezici/CryptoPatro` and renders resources into namespace `default`. Production is pinned to revision `4988d0635829e907fe7567bd06f0bf3e638f1efc`. Argo CD owns the deployment; there is no Helm release to upgrade. The application has automatic sync, pruning, and self-healing enabled. A change to its tracked revision can deploy immediately. Publish and verify a new release, then update the immutable source revision deliberately. The rebuild branch is separate from the legacy `main` branch; resetting the source to `HEAD` would currently restore the old chart.
 
 The chart keeps the existing Deployment, Service, Ingress and ServiceAccount names, plus the Deployment's immutable selector labels. The existing Service port `8000` now targets the frontend's named `http` port `4321`. The ingress remains `cryptopatro.pub.gezici.me`, class `traefik`, certificate secret `cryptopatro-tls`, and certificate issuer `cloudflare`.
 
@@ -101,7 +101,7 @@ Take a snapshot before every application or schema change, and arrange a regular
 
 ## Rollback and restore
 
-Use a reviewed Git revert or image-tag change in the Argo source as the normal rollback. `kubectl rollout undo` is temporary while Argo self-healing remains enabled. Schema version 3 is checked at startup; an older image may refuse a newer database. Version 3 adds the persistent AI budget ledger. Keep each pre-upgrade snapshot with its corresponding Git revision and image tags.
+Use a reviewed Git revert or image change as the normal rollback, publish it, and select that immutable revision in the Argo source. `kubectl rollout undo` is temporary while Argo self-healing remains enabled. Schema version 3 is checked at startup; an older image may refuse a newer database. Version 3 adds the persistent AI budget ledger. Keep each pre-upgrade snapshot with its corresponding Git revision and image tags.
 
 For an emergency application rollback that needs inspection first, disable automated reconciliation, then select and sync the reviewed previous Git revision:
 
@@ -109,11 +109,12 @@ For an emergency application rollback that needs inspection first, disable autom
 argocd app set cryptopatro --sync-policy none
 argocd app history cryptopatro
 argocd app diff cryptopatro --revision PREVIOUS_GIT_REVISION
-argocd app sync cryptopatro --revision PREVIOUS_GIT_REVISION
+argocd app set cryptopatro --revision PREVIOUS_GIT_REVISION
+argocd app sync cryptopatro
 kubectl -n default rollout status deployment/cryptopatro --timeout=300s
 ```
 
-Make the same rollback in Git before re-enabling automatic sync, or the original `HEAD` revision will be reapplied. Restore the prior policy only after Git contains the desired state:
+Confirm the source revision and its image pins contain the intended rollback before re-enabling automatic sync. Otherwise the configured source will be reapplied. Restore the prior policy only after the source pin selects the desired state:
 
 ```sh
 argocd app set cryptopatro --sync-policy automated --auto-prune --self-heal

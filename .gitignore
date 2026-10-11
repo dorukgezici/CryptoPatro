@@ -4,6 +4,7 @@
 .fleet/
 
 # Local secrets and generated state
+.backups/
 .env
 .env.*
 !.env.example
