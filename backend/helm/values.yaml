@@ -7,6 +7,19 @@ backend:
     digest: sha256:51683b5bd5b264cbb53ac3b9718ebb7cd48e94270cacd121d5e07fe816a6b50a
     pullPolicy: IfNotPresent
   marketEnabled: true
+  # The OCI TCP proxy does not preserve visitor addresses. Quotas use verified
+  # portfolio identities plus aggregate capacity, without changing shared ingress.
+  rateLimitMode: shared_proxy
+  capacity:
+    SERVICE_SESSIONS_PER_MINUTE: 120
+    SERVICE_SESSIONS_PER_HOUR: 2000
+    SERVICE_SHARES_PER_MINUTE: 120
+    SERVICE_SHARES_PER_HOUR: 1000
+    SERVICE_EVENTS_PER_MINUTE: 600
+    SERVICE_CHAT_PER_MINUTE: 240
+    AI_RUNS_PER_HOUR: 120
+    AI_RUNS_PER_DAY: 1000
+    AI_MAX_CONCURRENT: 4
   ai:
     model: ""
     existingSecret: ""

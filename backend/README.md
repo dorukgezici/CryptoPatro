@@ -21,7 +21,7 @@ uv run ruff format --check cryptopatro tests
 
 The browser key is the only access mechanism. Clearing browser storage loses access unless the key has been saved. This is a private anonymous workspace, not an account system. Keep backups of the SQLite database and use HTTPS in any internet deployment.
 
-SQLite uses WAL mode and foreign keys. The default file is `data/cryptopatro.sqlite3`; override with `CRYPTOPATRO_DATABASE_PATH`. Schema version 2 initializes automatically and upgrades the previous schema in place. Existing portfolios with holdings are marked activated without fabricating historical events. Legacy Django databases are not migrated or interpreted. The old Django, Celery, exchange connection and Telegram runtimes were removed. Existing secret environment files are untouched and not loaded implicitly.
+SQLite uses WAL mode and foreign keys. The default file is `data/cryptopatro.sqlite3`; override with `CRYPTOPATRO_DATABASE_PATH`. Schema version 3 initializes automatically and upgrades previous schemas in place, adding a timestamp-only AI usage ledger. Existing portfolios with holdings are marked activated without fabricating historical events. Legacy Django databases are not migrated or interpreted. The old Django, Celery, exchange connection and Telegram runtimes were removed. Existing secret environment files are untouched and not loaded implicitly.
 
 ## Quotes and calculations
 
@@ -60,3 +60,5 @@ The repository's root Docker Compose stack proxies `/api` from Astro to this ser
 Use one backend worker for this baseline: SQLite persists across restarts, while market caches and abuse-control windows are process-local. Put HTTPS at the frontend edge and back up the persistent volume. Horizontal scaling needs shared rate limiting and a client/server database.
 
 `CRYPTOPATRO_CORS_ORIGINS` accepts a JSON array of exact origins. `CRYPTOPATRO_TRUST_PROXY_HEADERS` is false by default. Enable it only for an isolated backend behind a trusted proxy that overwrites `X-Forwarded-For` with the actual remote address. Never expose that backend directly to the internet. Request bodies are capped at 16 KiB. Creation, events and copilot calls are rate limited. Health is available at `/api/health`.
+
+When ingress exposes only a shared source address, set `CRYPTOPATRO_RATE_LIMIT_MODE=shared_proxy`. Portfolio quotas remain isolated by the verified owner; anonymous actions use explicit service capacity windows. The default `client_ip` mode additionally uses verified public network addresses when available. A durable, identity-independent AI budget returns useful local explanations when capacity is unavailable. See [RATE_LIMITS.md](RATE_LIMITS.md) for settings, defaults, trust boundaries, and limitations.

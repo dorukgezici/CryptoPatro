@@ -1,11 +1,8 @@
-import ipaddress
 import secrets
 import sqlite3
-import time
-from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
-from threading import Lock
+from threading import BoundedSemaphore
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
@@ -15,6 +12,7 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 
 from .copilot import answer
+from .limits import RateLimiter, Rule, public_client_ip
 from .market import CATALOG, MarketService
 from .portfolio import build_portfolio
 from .schemas import (
@@ -39,41 +37,12 @@ from .settings import Settings
 from .storage import DEMO_HOLDINGS, Store, token_hash
 
 
-class RateLimiter:
-    """Bounded, per-process protection for the single-worker self-host deployment."""
-
-    def __init__(self):
-        self.windows: dict[str, deque] = defaultdict(deque)
-        self._lock = Lock()
-
-    def check(self, key: str, limit: int, seconds: int = 60):
-        with self._lock:
-            self._check(key, limit, seconds)
-
-    def _check(self, key: str, limit: int, seconds: int):
-        current = time.monotonic()
-        if len(self.windows) > 10000:
-            # Drop inactive keys, not active windows, to prevent resetting an active quota.
-            self.windows = defaultdict(
-                deque, {k: v for k, v in self.windows.items() if v and current - v[-1] < 3600}
-            )
-            if len(self.windows) > 10000 and key not in self.windows:
-                raise HTTPException(429, "Service is busy. Please try again shortly.")
-        window = self.windows[key]
-        while window and current - window[0] >= seconds:
-            window.popleft()
-        if len(window) >= limit:
-            raise HTTPException(
-                429, "Too many requests. Please try again shortly.", headers={"Retry-After": str(seconds)}
-            )
-        window.append(current)
-
-
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
     store = Store(settings.database_path)
     market_service = MarketService(settings)
     limiter = RateLimiter()
+    provider_slots = BoundedSemaphore(settings.ai_max_concurrent)
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
@@ -125,19 +94,32 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise HTTPException(401, "Start a private portfolio before making changes.")
         return owner
 
-    def rate(request: Request, action: str, limit: int, seconds: int = 60):
-        # Enable only behind our isolated frontend, which overwrites this header.
-        peer = request.client.host if request.client else "unknown"
-        if settings.trust_proxy_headers:
-            forwarded = request.headers.get("X-Forwarded-For", "")
-            try:
-                peer = str(ipaddress.ip_address(forwarded))
-            except ValueError:
-                pass
-        identity = (request.headers.get("X-Portfolio-Token") or peer) if action in {"chat", "share"} else peer
-        if action == "chat":
-            limiter.check(f"chat-ip:{token_hash(peer)}", 60, 3600)
-        limiter.check(f"{action}:{token_hash(identity)}", limit, seconds)
+    def rate(request: Request, action: str, owner: str | None = None):
+        rules = []
+        if owner and action in {"chat", "share"}:
+            limit, seconds = (12, 60) if action == "chat" else (15, 3600)
+            rules.append(Rule(f"{action}:owner:{owner}", limit, seconds))
+        peer = public_client_ip(request, settings)
+        if peer:
+            ip_limits = {"session": (30, 3600), "share": (15, 3600), "chat": (60, 3600), "event": (60, 60)}
+            limit, seconds = ip_limits[action]
+            rules.append(Rule(f"{action}:ip:{token_hash(peer)}", limit, seconds))
+            if action == "chat" and not owner:
+                rules.append(Rule(f"chat:ip-burst:{token_hash(peer)}", 12))
+        capacities = {
+            "session": [
+                (settings.service_sessions_per_minute, 60),
+                (settings.service_sessions_per_hour, 3600),
+            ],
+            "share": [(settings.service_shares_per_minute, 60), (settings.service_shares_per_hour, 3600)],
+            "chat": [(settings.service_chat_per_minute, 60)],
+            "event": [(settings.service_events_per_minute, 60)],
+        }
+        rules.extend(
+            Rule(f"capacity:{action}:{seconds}", limit, seconds, capacity=True)
+            for limit, seconds in capacities[action]
+        )
+        limiter.check(rules)
 
     async def portfolio_for(owner: str | None) -> Portfolio:
         return build_portfolio(
@@ -152,7 +134,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.post("/api/session", response_model=Session, status_code=201)
     def session(data: SessionInput, request: Request):
-        rate(request, "session", 30, 3600)
+        rate(request, "session")
         portfolio_id, token = store.create_session(data.seed_demo, data.referral)
         return Session(portfolio_id=portfolio_id, token=token)
 
@@ -228,14 +210,31 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.post("/api/chat", response_model=ChatResponse)
     async def chat(data: ChatInput, request: Request, owner: Annotated[str | None, Depends(optional_owner)]):
-        rate(request, "chat", 12)
-        return await answer(data.message, await portfolio_for(owner), settings.ai_model)
+        rate(request, "chat", owner)
+        portfolio = await portfolio_for(owner)
+        if not settings.ai_model:
+            return await answer(data.message, portfolio, None)
+        if not provider_slots.acquire(blocking=False):
+            return await answer(data.message, portfolio, None, capacity_fallback=True)
+        try:
+            try:
+                allowed = await run_in_threadpool(
+                    store.reserve_ai_run, settings.ai_runs_per_hour, settings.ai_runs_per_day
+                )
+            except sqlite3.Error:
+                # Fail closed on paid usage if the budget ledger cannot be checked.
+                allowed = False
+            if not allowed:
+                return await answer(data.message, portfolio, None, capacity_fallback=True)
+            return await answer(data.message, portfolio, settings.ai_model)
+        finally:
+            provider_slots.release()
 
     @app.post("/api/shares", response_model=Share, status_code=201)
     async def add_share(
         data: ShareInput, request: Request, owner: Annotated[str | None, Depends(optional_owner)]
     ):
-        rate(request, "share", 15, 3600)
+        rate(request, "share", owner)
         p = await portfolio_for(owner)
         if not p.holdings:
             raise HTTPException(409, "Add at least one holding before creating a share card.")
@@ -272,7 +271,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.post("/api/events", status_code=204)
     def record_event(data: EventInput, request: Request):
-        rate(request, "event", 60)
+        rate(request, "event")
         store.event(data.name, data.referral)
         return Response(status_code=204)
 

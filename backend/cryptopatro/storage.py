@@ -4,6 +4,7 @@ import hashlib
 import json
 import secrets
 import sqlite3
+import time
 from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -45,7 +46,7 @@ class Store:
     def initialize(self):
         Path(self.path).parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
-            if db.execute("PRAGMA user_version").fetchone()[0] > 2:
+            if db.execute("PRAGMA user_version").fetchone()[0] > 3:
                 raise RuntimeError("Database schema is newer than this application supports.")
             db.execute("PRAGMA journal_mode=WAL")
             db.executescript("""
@@ -74,6 +75,10 @@ class Store:
                 CREATE INDEX IF NOT EXISTS idx_alerts_owner ON alerts(portfolio_id);
                 CREATE INDEX IF NOT EXISTS idx_shares_owner ON shares(portfolio_id);
                 CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
+                CREATE TABLE IF NOT EXISTS ai_runs (
+                    id INTEGER PRIMARY KEY, created_at REAL NOT NULL
+                );
+                CREATE INDEX IF NOT EXISTS idx_ai_runs_created_at ON ai_runs(created_at);
             """)
             db.execute("BEGIN IMMEDIATE")
             columns = {row[1] for row in db.execute("PRAGMA table_info(portfolios)")}
@@ -84,7 +89,22 @@ class Store:
                     "UPDATE portfolios SET activated_at=created_at WHERE "
                     "EXISTS (SELECT 1 FROM holdings WHERE holdings.portfolio_id=portfolios.id)"
                 )
-            db.execute("PRAGMA user_version=2")
+            db.execute("PRAGMA user_version=3")
+
+    def reserve_ai_run(self, hourly_limit: int, daily_limit: int) -> bool:
+        """Durable, identity-independent budget. Failed runs still consume a reservation."""
+        current = time.time()
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            db.execute("DELETE FROM ai_runs WHERE created_at <= ?", (current - 86400,))
+            counts = db.execute(
+                "SELECT count(*), COALESCE(sum(created_at > ?), 0) FROM ai_runs",
+                (current - 3600,),
+            ).fetchone()
+            if counts[0] >= daily_limit or counts[1] >= hourly_limit:
+                return False
+            db.execute("INSERT INTO ai_runs(created_at) VALUES (?)", (current,))
+        return True
 
     def create_session(self, seed_demo: bool, referral: str | None) -> tuple[str, str]:
         portfolio_id, token = str(uuid4()), secrets.token_urlsafe(32)

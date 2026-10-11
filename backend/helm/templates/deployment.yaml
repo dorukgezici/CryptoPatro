@@ -1,3 +1,6 @@
+{{- if not (has .Values.backend.rateLimitMode (list "client_ip" "shared_proxy")) -}}
+{{- fail "backend.rateLimitMode must be client_ip or shared_proxy" -}}
+{{- end -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -95,6 +98,12 @@ spec:
               value: /app/data/cryptopatro.sqlite3
             - name: CRYPTOPATRO_TRUST_PROXY_HEADERS
               value: "true"
+            - name: CRYPTOPATRO_RATE_LIMIT_MODE
+              value: {{ .Values.backend.rateLimitMode | quote }}
+            {{- range $name, $value := .Values.backend.capacity }}
+            - name: {{ printf "CRYPTOPATRO_%s" $name | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
             - name: CRYPTOPATRO_CORS_ORIGINS
               value: {{ list .Values.frontend.publicSiteUrl | toJson | quote }}
             - name: CRYPTOPATRO_MARKET_ENABLED

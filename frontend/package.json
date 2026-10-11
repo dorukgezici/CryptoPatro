@@ -17,6 +17,7 @@
     "preview": "astro preview",
     "test:e2e": "playwright test",
     "test:proxy": "node --test tests/proxy-origin.test.mjs",
+    "test:postcards": "node --test tests/postcard-png.test.mjs",
     "astro": "astro"
   },
   "dependencies": {

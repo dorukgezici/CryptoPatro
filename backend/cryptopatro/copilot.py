@@ -135,15 +135,28 @@ def render_answer(portfolio: Portfolio, focus: Focus, mode: Literal["ai", "local
     )
 
 
-async def answer(message: str, portfolio: Portfolio, model: str | None) -> ChatResponse:
+async def answer(
+    message: str, portfolio: Portfolio, model: str | None, *, capacity_fallback: bool = False
+) -> ChatResponse:
     if model:
         try:
             async with asyncio.timeout(15):
                 result = await copilot.run(
-                    message, deps=portfolio, model=model, usage_limits=UsageLimits(request_limit=2)
+                    message,
+                    deps=portfolio,
+                    model=model,
+                    model_settings={"max_tokens": 256},
+                    usage_limits=UsageLimits(
+                        request_limit=2, input_tokens_limit=8000, output_tokens_limit=512
+                    ),
                 )
             return render_answer(portfolio, result.output.focus, "ai")
         except Exception as exc:
             # Never log prompts, tokens, holdings, or provider exception payloads.
             logger.warning("Copilot unavailable (%s); using local explanation", type(exc).__name__)
-    return render_answer(portfolio, local_focus(message), "local")
+    result = render_answer(portfolio, local_focus(message), "local")
+    if capacity_fallback:
+        result.disclaimer = (
+            "Local portfolio summary. AI capacity is temporarily unavailable. Educational only."
+        )
+    return result

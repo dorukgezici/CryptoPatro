@@ -4,14 +4,16 @@ Verified locally and in an isolated cluster preview on 11 October 2026. The publ
 
 ## Automated checks
 
-- Backend: 34 tests passed, plus Ruff lint and formatting checks.
-- Frontend: 10 Playwright browser tests passed, plus formatting, native TypeScript checking, Astro checking, and the production build.
+- Backend: 60 tests passed, plus Ruff lint and formatting checks.
+- Frontend: 10 Playwright browser tests, 3 proxy-origin tests, and 9 postcard-rendering tests passed, plus formatting, native TypeScript checking, Astro checking, and the production build.
 - Dependency audit: npm reported zero known vulnerabilities at verification time.
 - Repository: `git diff --check` and Docker Compose configuration validation passed.
 
 The browser suite covers holding creation, editing, deletion, reload persistence, portfolio isolation, alerts, local copilot answers, public postcard privacy and revocation, image export, keyboard focus restoration, hidden balances, responsive layouts, and missing pages. It uses deterministic sample quotes and an isolated database.
 
 The backend suite additionally covers financial calculations, unknown cost basis, malformed market responses, non-finite input, sample-price alert suppression, concurrent alert limits, rate limits, Pydantic AI structured output with its test model, provider fallback, share ownership, growth-event validation, exactly-once activation, and database migration rollback.
+
+The revised capacity tests cover separate owners behind one shared proxy, anonymous service ceilings, atomic admission without charging rejected requests, bounded in-memory keys, durable AI budget reservations across restarts and concurrent attempts, and local fallback when the budget ledger or provider concurrency is unavailable. Postcard tests cover bounded caching and rendering, coalesced requests, overflow responses, and revalidation before cached pixels are returned. The browser suite confirms a previously cached PNG becomes unavailable after revocation.
 
 ## Production containers
 
@@ -36,7 +38,7 @@ The cluster smoke check passed API health, private holding creation and editing,
 
 The preview pod was then deleted. Its k3s replacement became ready on `lab-agent-1`, using the same Longhorn PVC. A second smoke check confirmed that the holding and owner share history survived replacement. It then revoked the postcard, confirmed public API and page 404 responses, and removed the test alert and holding. Two empty test portfolio identities remain on the disposable preview PVC; this verification traffic is not product adoption. Preview resources are still running pending the cutover decision and have not yet been cleaned up.
 
-Forwarding checks confirmed the correct HTTPS scheme and host and rejected a caller-forged forwarded IP. They also showed that the actual public client address is lost upstream. That unresolved ingress issue can combine unrelated visitors into one IP rate-limit bucket. This preview establishes application and persistent-storage behavior, not readiness to promote the public production route.
+Forwarding checks confirmed the correct HTTPS scheme and host and rejected a caller-forged forwarded IP. They also showed that the actual public client address is lost upstream. The revised release handles that topology within CryptoPatro using explicit `shared_proxy` mode, verified portfolio quotas, service-wide capacity windows, and persistent AI budgets. Shared Traefik and OCI settings remain unchanged. The revised image release and its migration smoke must be verified before promotion.
 
 ## Visual review
 
@@ -50,6 +52,6 @@ These screenshots use labeled sample data.
 
 ## Remaining launch configuration
 
-The existing HTTPS host and Argo CD application are available, and pinned release images passed the isolated preview. Before production promotion, resolve and verify client-address preservation through the shared ingress, retain the single-instance persistent-storage configuration, and confirm an independent backup procedure. Record the actual production rollout and smoke result separately; none is claimed here.
+The existing HTTPS host and Argo CD application are available, and the initial pinned release images passed the isolated preview. Before production promotion, verify the revised app-only capacity controls and schema migration in that preview, retain the single-instance persistent-storage configuration, and confirm an independent backup procedure. Record the actual production rollout and smoke result separately; none is claimed here.
 
 Optional provider-backed AI needs `CRYPTOPATRO_AI_MODEL` and `OPENAI_API_KEY`; no paid model request was used in this verification. Without those values, the tested local summary mode remains available. Price alerts are evaluated in the app, not delivered in the background.

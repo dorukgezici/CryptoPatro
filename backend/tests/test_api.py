@@ -230,9 +230,10 @@ def test_persistence_survives_app_restart(tmp_path):
 
 def test_large_body_and_chat_rate_limit(client):
     assert client.post("/api/chat", content=b"x" * 20000).status_code == 413
+    auth = session(client)
     for _ in range(12):
-        assert client.post("/api/chat", json={"message": "Overview"}).status_code == 200
-    result = client.post("/api/chat", json={"message": "Overview"})
+        assert client.post("/api/chat", headers=auth, json={"message": "Overview"}).status_code == 200
+    result = client.post("/api/chat", headers=auth, json={"message": "Overview"})
     assert result.status_code == 429
     assert result.headers["retry-after"] == "60"
 
@@ -338,16 +339,6 @@ def test_nonfinite_json_is_a_validation_error_not_server_error(client):
         )
         assert response.status_code == 422
         assert response.json()["detail"][0]["loc"] == ["body", "quantity"]
-
-
-def test_chat_ip_budget_cannot_be_reset_by_new_portfolio_tokens(client):
-    # A new anonymous portfolio must not reset a public caller's paid-provider budget.
-    for _ in range(5):
-        auth = session(client)
-        for _ in range(12):
-            assert client.post("/api/chat", headers=auth, json={"message": "Overview"}).status_code == 200
-    fresh = session(client)
-    assert client.post("/api/chat", headers=fresh, json={"message": "Overview"}).status_code == 429
 
 
 def test_maker_event_is_bounded_and_activation_cannot_be_spoofed(client):

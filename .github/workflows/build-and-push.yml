@@ -60,6 +60,7 @@ jobs:
           npm ci
           npm run typecheck
           npm run test:proxy
+          npm run test:postcards
           npm run build
 
   publish:

@@ -208,6 +208,7 @@ test('a shared postcard exposes only opted-in data and can be revoked', async ({
     expect(imageUrl).toBe(`http://127.0.0.1:4322/share/${share.slug}.png`);
     const image = await publicPage.request.get(imageUrl!);
     expect(image.headers()['content-type']).toContain('image/png');
+    expect(image.headers()['cache-control']).toBe('no-store');
     expect((await image.body()).subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a');
     await publicPage.evaluate(() => document.fonts.ready);
     await publicPage.screenshot({
@@ -228,6 +229,9 @@ test('a shared postcard exposes only opted-in data and can be revoked', async ({
     );
     const removed = await publicPage.reload();
     expect(removed?.status()).toBe(404);
+    const removedImage = await publicPage.request.get(imageUrl!);
+    expect(removedImage.status()).toBe(404);
+    expect(removedImage.headers()['cache-control']).toBe('no-store');
   } finally {
     await visitor.close();
   }

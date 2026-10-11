@@ -106,7 +106,7 @@ def test_v1_migration_preserves_existing_holdings_without_fabricating_events(tmp
     store.create_holding("old", HoldingInput(asset_id="bitcoin", quantity=2, avg_cost=1))
     assert event_counts(store) == {}
     with store.connect() as db:
-        assert db.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert db.execute("PRAGMA user_version").fetchone()[0] == 3
 
 
 def test_report_is_read_only_aggregate_with_distinct_windows_and_valid_share_counts(store):
