@@ -21,11 +21,18 @@ The NetworkPolicy accepts TCP `4321` only from pods with both Traefik labels in 
 
 ## Image and proxy preparation
 
-The default image tags `v2-backend` and `v2-frontend` are placeholders. Before syncing, publish both platform-compatible images and pin `backend.image.digest` and `frontend.image.digest` to their verified registry `sha256:` digests. A nonempty digest renders `repository@sha256:...` and takes precedence over the tag. With an empty digest, the chart uses `repository:tag`; use an immutable release tag in that case. The repository defaults to `dorukgezici/cryptopatro` for both images. Do not reuse the legacy `latest` image for either new container.
+Both release images are published and pinned in `values.yaml`. The tags identify application source commit `77048531fbdd96400ecf519b6ac3d7f5104dafcb`; chart commit `05f4a20` records the verified pins. Both images target `linux/arm64`, matching the cluster nodes.
 
-Set `frontend.publicSiteUrl` to the exact public HTTPS origin. The frontend image must also be built with the matching Astro `security.allowedDomains` configuration. That setting is part of the built server; changing only the runtime public URL does not update proxy trust. Traefik must remove caller-supplied forwarding headers unless they came from an explicitly trusted upstream. Astro uses the first forwarded address once the host is allowed, so a hostname allowlist alone does not authenticate the proxy.
+| Container | Repository | Pinned digest |
+| --- | --- | --- |
+| Backend | `dorukgezici/cryptopatro` | `sha256:51683b5bd5b264cbb53ac3b9718ebb7cd48e94270cacd121d5e07fe816a6b50a` |
+| Frontend | `dorukgezici/cryptopatro` | `sha256:a79a92456ee4fa8d3efff8c7d015e11963e3d615cf90bb088a553714dd249f32` |
 
-The current public DNS points directly at the ingress, with no Cloudflare proxy in front. Check the live ingress configuration again before deployment. Verify real visitor IP preservation after rollout because a Service with `externalTrafficPolicy: Cluster` can source-NAT traffic. Do not enable unrestricted forwarded-header trust to compensate for lost client addresses.
+A nonempty digest renders `repository@sha256:...` and takes precedence over the tag. With an empty digest, the chart uses `repository:tag`; use an immutable release tag in that case. For a later release, publish platform-compatible images and update both digest pins after verification. Do not reuse the legacy `latest` image for either new container.
+
+`frontend.publicSiteUrl` is already set to `https://cryptopatro.pub.gezici.me`, and the published frontend was built for that origin. A different deployment origin requires a frontend build with matching Astro `security.allowedDomains` configuration. That setting is part of the built server; changing only the runtime public URL does not update proxy trust. Traefik must remove caller-supplied forwarding headers unless they came from an explicitly trusted upstream. Astro uses the first forwarded address once the host is allowed, so a hostname allowlist alone does not authenticate the proxy.
+
+The current public DNS points directly at the ingress, with no Cloudflare proxy in front. The isolated cluster preview confirmed that caller-forged forwarded addresses are ignored and the HTTPS scheme and host are correct, but the real public client address is not preserved. This is a remaining cutover condition: otherwise separate visitors can share an IP rate-limit bucket. Production still serves the legacy application. Resolve and recheck the actual ingress path before promotion; a Service with `externalTrafficPolicy: Cluster` can source-NAT traffic. Do not enable unrestricted forwarded-header trust to compensate for lost client addresses. [The verification report](../../docs/verification.md) separates preview evidence from production status.
 
 Optional AI is disabled by default. To enable it, set `backend.ai.model` to a valid `openai:MODEL_ID`, `backend.ai.existingSecret` to a separately managed Secret in namespace `default`, and `backend.ai.apiKeyKey` to its OpenAI key entry. The chart requires the Secret name when a model is configured and only then emits a `secretKeyRef`. It does not create or print credentials. Local portfolio summaries work without those settings.
 

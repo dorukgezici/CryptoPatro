@@ -68,7 +68,9 @@ docker compose up --build
 
 Open [localhost:4321](http://localhost:4321). Both services have healthchecks. A named volume stores SQLite across container restarts. API documentation is exposed only on the host's loopback interface at port 8000. Copy `.env.example` to `.env` to change the frontend port, public URL, or optional AI settings.
 
-For a public deployment, put the frontend behind HTTPS, set `PUBLIC_SITE_URL` to the real origin, and retain a persistent backend volume with backups. The current SQLite deployment is designed for one backend instance. Do not scale it to separate ephemeral disks. The repository includes build and verification configuration; no domain or public deployment is provisioned by these files.
+For a public deployment, put the frontend behind HTTPS, set `PUBLIC_SITE_URL` to the real origin, and retain a persistent backend volume with backups. The current SQLite deployment is designed for one backend instance. Do not scale it to separate ephemeral disks.
+
+The [production chart](backend/helm/README.md) targets the existing Argo CD application and HTTPS host `cryptopatro.pub.gezici.me`. Its ARM64 release images are published and pinned by digest. The replacement passed an isolated preview in the existing k3s cluster, including restart persistence on Longhorn. Production still serves the legacy application while ingress client-address preservation is being resolved; the rebuild has not been promoted. See the [verification report](docs/verification.md) for the exact evidence and remaining launch condition.
 
 The Python 3.15 runtime is installed by uv on Debian Trixie because the official `python:3.15.0-slim` Docker tag was not yet published at verification time.
 

@@ -1,6 +1,6 @@
 # Rebuild verification
 
-Verified locally on 11 October 2026.
+Verified locally and in an isolated cluster preview on 11 October 2026. The public production route still serves the legacy application; the rebuild has not been promoted.
 
 ## Automated checks
 
@@ -24,7 +24,19 @@ Both images built and ran successfully on **Linux arm64** in an isolated Compose
 5. Owner revocation returning a public 404.
 6. The read-only growth report inside the running backend container.
 
-The temporary test containers and their disposable volume were removed after verification. This is local Linux arm64 evidence, not a test of a remote Linux amd64 deployment.
+The temporary local test containers and their disposable volume were removed after verification. These container checks cover Linux arm64. Linux amd64 has not been verified.
+
+## Isolated k3s preview
+
+Published application images from commit `77048531fbdd96400ecf519b6ac3d7f5104dafcb` were pinned by digest in chart commit `05f4a20`. The backend and frontend pins in `backend/helm/values.yaml` were verified against the ARM64 cluster nodes. Release verification and publishing checks passed.
+
+An isolated `cryptopatro-preview` workload used the existing HTTPS host through a temporary ingress route selected by a random preview header. Normal public requests continued to reach the legacy production application. Both preview containers became ready.
+
+The cluster smoke check passed API health, private holding creation and editing, owner isolation, local copilot answers, alert creation, and public sharing. It verified that public JSON and HTML omit private fields and the access token, server-rendered canonical URLs use the configured HTTPS origin, share pages carry `noindex`, and the exported PNG is 1200 by 630 pixels.
+
+The preview pod was then deleted. Its k3s replacement became ready on `lab-agent-1`, using the same Longhorn PVC. A second smoke check confirmed that the holding and owner share history survived replacement. It then revoked the postcard, confirmed public API and page 404 responses, and removed the test alert and holding. Two empty test portfolio identities remain on the disposable preview PVC; this verification traffic is not product adoption. Preview resources are still running pending the cutover decision and have not yet been cleaned up.
+
+Forwarding checks confirmed the correct HTTPS scheme and host and rejected a caller-forged forwarded IP. They also showed that the actual public client address is lost upstream. That unresolved ingress issue can combine unrelated visitors into one IP rate-limit bucket. This preview establishes application and persistent-storage behavior, not readiness to promote the public production route.
 
 ## Visual review
 
@@ -38,4 +50,6 @@ These screenshots use labeled sample data.
 
 ## Remaining launch configuration
 
-No public deployment or domain has been provisioned. Production needs an HTTPS origin, a persistent backend volume, and backups. Optional provider-backed AI needs `CRYPTOPATRO_AI_MODEL` and `OPENAI_API_KEY`; no paid model request was used in this verification. Without those values, the tested local summary mode remains available. Price alerts are evaluated in the app, not delivered in the background.
+The existing HTTPS host and Argo CD application are available, and pinned release images passed the isolated preview. Before production promotion, resolve and verify client-address preservation through the shared ingress, retain the single-instance persistent-storage configuration, and confirm an independent backup procedure. Record the actual production rollout and smoke result separately; none is claimed here.
+
+Optional provider-backed AI needs `CRYPTOPATRO_AI_MODEL` and `OPENAI_API_KEY`; no paid model request was used in this verification. Without those values, the tested local summary mode remains available. Price alerts are evaluated in the app, not delivered in the background.
