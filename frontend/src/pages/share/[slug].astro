@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Postcard } from '../../components/Postcard';
+import ShareActions from '../../components/ShareActions';
+import { getPublicShare } from '../../lib/shares';
+const { share, status } = await getPublicShare(Astro.params.slug || '');
+Astro.response.status = status;
+Astro.response.headers.set('Cache-Control', 'no-store');
+const title = share
+  ? `${share.title} | CryptoPatro postcard`
+  : status === 404
+    ? 'Postcard not found | CryptoPatro'
+    : 'Postcard unavailable | CryptoPatro';
+---
+
+<Layout
+  title={title}
+  description="A little crypto perspective. See this portfolio allocation, then build and share your own. No balances, no wallet connection. By Doruk Gezici."
+  image={share ? `/share/${share.slug}.png` : '/og.png'}
+  noindex={true}
+>
+  <div class="public-shell">
+    <header class="public-nav">
+      <a class="brand" href="/">
+        <img src="/favicon.svg" width="34" height="34" alt="" />
+        <span>
+          cryptopatro<span class="brand-dot">.</span>
+        </span>
+      </a>
+      <nav class="public-nav-actions" aria-label="Main navigation">
+        <a href="/about">How it works</a>
+        <a class="button primary" href={`/?start=1${share ? `&ref=${share.slug}` : ''}`}>
+          Make it yours ↗
+        </a>
+      </nav>
+    </header>
+    {share ? (
+      <main id="main" class="public-share-main">
+        <div class="eyebrow">
+          <span class="status-dot"></span> A PORTFOLIO POSTCARD
+        </div>
+        <h1>A mix. A mindset. A little perspective.</h1>
+        <p class="public-share-subtitle">
+          {share.is_demo
+            ? 'An example of what your own portfolio postcard could look like.'
+            : 'Someone shared their perspective. Now you can find yours.'}
+        </p>
+        <Postcard
+          title={share.title}
+          allocation={share.allocation}
+          performance={share.profit_loss_pct}
+          isDemo={share.is_demo}
+          source={share.data_source}
+          asOf={share.as_of}
+        />
+        <p class="snapshot-note">
+          Snapshot from{' '}
+          {new Date(share.created_at).toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })}
+          .{' '}
+          {share.data_source === 'sample'
+            ? 'Illustrative sample prices.'
+            : share.data_source === 'cached'
+              ? 'Cached CoinGecko prices.'
+              : 'Indicative CoinGecko prices.'}
+          <br />
+          Self-reported allocation, not a verified track record or investment advice.
+        </p>
+        <ShareActions share={share} client:load />
+        <section class="share-conversion">
+          <h2>What’s your crypto perspective?</h2>
+          <p>
+            Start with one holding. See the bigger picture.
+            <br />
+            Make a postcard that’s yours.
+          </p>
+          <a class="button primary" href={`/?start=1&ref=${share.slug}`}>
+            Build my portfolio <span aria-hidden="true">↗</span>
+          </a>
+          <small>Free. No wallet connection. No signup to get started.</small>
+        </section>
+      </main>
+    ) : (
+      <main id="main" class="missing-page">
+        <h1>
+          {status === 404 ? 'This postcard has moved on.' : 'A little pause in the connection.'}
+        </h1>
+        <p>
+          {status === 404
+            ? 'The link may have been removed or isn’t quite right. There’s still a whole portfolio waiting to become yours.'
+            : 'The portfolio service is temporarily unavailable. Please come back in a moment.'}
+        </p>
+        <a class="button primary" href="/">
+          Explore CryptoPatro ↗
+        </a>
+      </main>
+    )}
+    <footer class="public-footer">
+      <span>A calmer corner of crypto. Free and open source.</span>
+      <a href="https://github.com/dorukgezici" target="_blank" rel="noreferrer">
+        Built by Doruk Gezici ↗
+      </a>
+    </footer>
+  </div>
+</Layout>

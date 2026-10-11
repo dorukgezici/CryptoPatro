@@ -5,125 +5,132 @@ metadata:
   labels:
     {{- include "cryptopatro.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  # SQLite storage and process-local rate limits require one backend process.
+  replicas: 1
+  strategy:
+    type: Recreate
+    # Clear the API-defaulted rollingUpdate block on the existing Deployment.
+    rollingUpdate: null
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 300
   selector:
     matchLabels:
       {{- include "cryptopatro.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
         {{- include "cryptopatro.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
     spec:
+      serviceAccountName: {{ include "cryptopatro.fullname" . }}
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 10001
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "cryptopatro.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: api
+        - name: frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ required "frontend.image.tag is required" .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
           env:
-            - name: CRYPTOPATRO_CONTAINER_KIND
-              value: "api"
-          envFrom:
-            - secretRef:
-                name: cryptopatro
+            - name: HOST
+              value: "0.0.0.0"
+            - name: PORT
+              value: "4321"
+            - name: BACKEND_URL
+              value: "http://127.0.0.1:8000"
+            - name: PUBLIC_SITE_URL
+              value: {{ .Values.frontend.publicSiteUrl | quote }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 4321
               protocol: TCP
-          livenessProbe:
+          startupProbe:
             httpGet:
-              path: /health
+              path: /api/health
               port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
           readinessProbe:
             httpGet:
-              path: /health
+              path: /api/health
               port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-        - name: scheduler
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ required "backend.image.tag is required" .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          command: [uvicorn]
+          args: ["cryptopatro.main:app", "--host", "127.0.0.1", "--port", "8000", "--workers", "1", "--no-proxy-headers"]
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            runAsUser: 10001
+            runAsGroup: 10001
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
           env:
-            - name: CRYPTOPATRO_CONTAINER_KIND
-              value: "scheduler"
-          envFrom:
-            - secretRef:
-                name: cryptopatro
+            - name: CRYPTOPATRO_DATABASE_PATH
+              value: /app/data/cryptopatro.sqlite3
+            - name: CRYPTOPATRO_TRUST_PROXY_HEADERS
+              value: "true"
+            - name: CRYPTOPATRO_CORS_ORIGINS
+              value: {{ list .Values.frontend.publicSiteUrl | toJson | quote }}
+            - name: CRYPTOPATRO_MARKET_ENABLED
+              value: {{ .Values.backend.marketEnabled | quote }}
+            {{- if .Values.backend.ai.model }}
+            - name: CRYPTOPATRO_AI_MODEL
+              value: {{ .Values.backend.ai.model | quote }}
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "backend.ai.existingSecret is required when an AI model is set" .Values.backend.ai.existingSecret | quote }}
+                  key: {{ required "backend.ai.apiKeyKey is required when an AI model is set" .Values.backend.ai.apiKeyKey | quote }}
+            {{- end }}
+          startupProbe:
+            exec:
+              command: [python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2)"]
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          readinessProbe:
+            exec:
+              command: [python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2)"]
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            exec:
+              command: [python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2)"]
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            {{- toYaml .Values.backend.resources | nindent 12 }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-        - name: worker
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: CRYPTOPATRO_CONTAINER_KIND
-              value: "worker"
-          envFrom:
-            - secretRef:
-                name: cryptopatro
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-        - name: bot
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: CRYPTOPATRO_CONTAINER_KIND
-              value: "bot"
-          envFrom:
-            - secretRef:
-                name: cryptopatro
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: data
+              mountPath: /app/data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.claimName | quote }}
