@@ -1,63 +1,30 @@
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "cryptopatro.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
 {{- define "cryptopatro.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "cryptopatro.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{/* A registry digest takes precedence over the human-readable release tag. */}}
+{{- define "cryptopatro.image" -}}
+{{- $repository := required "image.repository is required" .repository -}}
+{{- if .digest -}}
+{{- if not (regexMatch "^sha256:[a-f0-9]{64}$" .digest) -}}
+{{- fail "image.digest must be sha256 followed by 64 lowercase hexadecimal characters" -}}
+{{- end -}}
+{{- printf "%s@%s" $repository .digest -}}
+{{- else -}}
+{{- printf "%s:%s" $repository (required "image.tag is required when image.digest is empty" .tag) -}}
+{{- end -}}
+{{- end -}}
 
-{{/*
-Common labels
-*/}}
+{{/* These two labels are the existing Deployment's immutable selector. */}}
+{{- define "cryptopatro.selectorLabels" -}}
+app.kubernetes.io/name: cryptopatro
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
 {{- define "cryptopatro.labels" -}}
 app: cryptopatro
-helm.sh/chart: {{ include "cryptopatro.chart" . }}
+helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | quote }}
 {{ include "cryptopatro.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Selector labels
-*/}}
-{{- define "cryptopatro.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "cryptopatro.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "cryptopatro.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "cryptopatro.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
+{{- end -}}

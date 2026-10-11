@@ -1,8 +1,18 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { Portfolio } from "@/components/portfolio";
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App';
 ---
 
-<Layout title="CryptoPatro">
-    <Portfolio client:only="react" />
+<Layout>
+  <App client:load />
+  <noscript>
+    <main class="no-script">
+      <h1>Your crypto, a little clearer.</h1>
+      <p>
+        CryptoPatro is a free, open-source portfolio tracker by Doruk Gezici. Enable JavaScript to
+        explore the sample portfolio and track your own holdings.
+      </p>
+      <a href="/about">Read how it works</a>
+    </main>
+  </noscript>
 </Layout>

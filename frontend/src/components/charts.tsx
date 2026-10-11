@@ -1,182 +1,202 @@
-import { calculatePercentage } from "@/lib/utils";
-import { ResponsiveBar } from "@nivo/bar";
-import { ResponsiveLine } from "@nivo/line";
-import { ResponsivePie } from "@nivo/pie";
+import { useId, useState } from 'react';
+import type { Allocation, Portfolio } from '../lib/api';
+import { money } from '../lib/api';
 
-export function BarChart(props: any) {
+export function Sparkline({ values, positive = true }: { values: number[]; positive?: boolean }) {
+  if (values.length < 2) return <span className="muted">No history</span>;
+  const min = Math.min(...values),
+    span = Math.max(...values) - min || 1;
+  const points = values
+    .map((v, i) => `${(i / (values.length - 1)) * 90},${27 - ((v - min) / span) * 22}`)
+    .join(' ');
   return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: "Jan", count: 111 },
-          { name: "Feb", count: 157 },
-          { name: "Mar", count: 129 },
-          { name: "Apr", count: 150 },
-          { name: "May", count: 119 },
-          { name: "Jun", count: 72 },
-        ]}
-        keys={["count"]}
-        indexBy="name"
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={["#2563eb"]}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-          grid: {
-            line: {
-              stroke: "#f3f4f6",
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `${id}`}
-        enableLabel={false}
-        role="application"
-        ariaLabel="A bar chart showing data"
+    <svg
+      className={`sparkline ${positive ? 'positive' : 'negative'}`}
+      viewBox="0 0 90 32"
+      role="img"
+      aria-label="Seven day price trend"
+    >
+      <polyline
+        points={points}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+export function PortfolioChart({ portfolio }: { portfolio: Portfolio }) {
+  const id = useId().replace(/:/g, '');
+  const [hover, setHover] = useState<number | null>(null);
+  const [range, setRange] = useState<'24H' | '7D'>('7D');
+  const withHistory = portfolio.holdings.filter((h) => h.sparkline.length > 1);
+  const complete = withHistory.length === portfolio.holdings.length && withHistory.length > 0;
+  if (!complete)
+    return (
+      <div className="chart-empty">
+        <span className="mini-sun">✳</span>
+        <p>
+          {portfolio.holdings.length
+            ? 'A pause in the price history.'
+            : 'Your next chapter starts here.'}
+        </p>
+        <span>
+          {portfolio.holdings.length
+            ? 'Current values are available. Try refreshing the history later.'
+            : 'Add a holding to see its price perspective.'}
+        </span>
+      </div>
+    );
+  const length = Math.min(...withHistory.map((h) => h.sparkline.length));
+  const all = Array.from({ length }, (_, i) =>
+    withHistory.reduce(
+      (sum, h) => sum + h.sparkline[h.sparkline.length - length + i] * h.quantity,
+      0,
+    ),
+  );
+  const values = range === '24H' ? all.slice(-Math.max(2, Math.round(length / 7))) : all;
+  const min = Math.min(...values) * 0.985,
+    max = Math.max(...values) * 1.015,
+    span = max - min || 1;
+  const width = 730,
+    height = 190;
+  const point = (v: number, i: number) => [
+    (i / (values.length - 1)) * width,
+    height - ((v - min) / span) * height,
+  ];
+  const line = values
+    .map(
+      (v, i) =>
+        `${i === 0 ? 'M' : 'L'}${point(v, i)
+          .map((p) => p.toFixed(2))
+          .join(',')}`,
+    )
+    .join(' ');
+  const active = hover === null ? values.length - 1 : Math.min(hover, values.length - 1);
+  const [x, y] = point(values[active], active);
+  return (
+    <div className="chart-wrap">
+      <div className="chart-controls">
+        <span>{hover !== null ? money(values[active]) : 'Your holdings, in perspective'}</span>
+        <div className="segmented" aria-label="Chart time range">
+          {(['24H', '7D'] as const).map((r) => (
+            <button
+              key={r}
+              aria-pressed={range === r}
+              onClick={() => {
+                setRange(r);
+                setHover(null);
+              }}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div
+        className="chart-canvas"
+        onPointerLeave={() => setHover(null)}
+        onPointerMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          setHover(
+            Math.max(
+              0,
+              Math.min(
+                values.length - 1,
+                Math.round(((e.clientX - r.left) / r.width) * (values.length - 1)),
+              ),
+            ),
+          );
+        }}
+      >
+        <svg
+          viewBox={`0 0 ${width} ${height + 12}`}
+          preserveAspectRatio="none"
+          role="img"
+          aria-label={`${range} hypothetical value of current holdings at past prices. Starts at ${money(values[0])}, ends at ${money(values[values.length - 1])}. Not account performance.`}
+        >
+          <defs>
+            <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ed724e" stopOpacity=".2" />
+              <stop offset="100%" stopColor="#ed724e" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {[25, 80, 135, 190].map((y) => (
+            <line key={y} x1="0" x2={width} y1={y} y2={y} stroke="#efeee7" strokeDasharray="3 5" />
+          ))}
+          <path d={`${line} L${width},${height + 12} L0,${height + 12} Z`} fill={`url(#${id})`} />
+          <path
+            d={line}
+            fill="none"
+            stroke="#ed724e"
+            strokeWidth="2.8"
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {hover !== null && (
+            <line x1={x} x2={x} y1="0" y2={height} stroke="#e2a28b" strokeDasharray="4 4" />
+          )}
+          <circle cx={x} cy={y} r="4.5" fill="#ed724e" stroke="#fff" strokeWidth="3" />
+        </svg>
+      </div>
+      <div className="chart-dates">
+        <span>{range === '7D' ? '7 days ago' : '24 hours ago'}</span>
+        <span>{range === '7D' ? '5 days ago' : '18 hours ago'}</span>
+        <span>{range === '7D' ? '3 days ago' : '12 hours ago'}</span>
+        <span>Latest</span>
+      </div>
+      <p className="chart-caption">
+        {portfolio.market.source === 'sample' ? 'Illustrative sample. ' : ''}Current holdings at
+        past prices, not account performance.
+      </p>
     </div>
   );
 }
 
-export function PieChart(props: any) {
-  return !props.assets ? null : (
-    <div {...props}>
-      <ResponsivePie
-        data={props.assets.map((item: any) => ({
-          id: item.asset.symbol,
-          value: calculatePercentage(item.value, item.portfolio.total_value),
-        }))}
-        sortByValue
-        margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-        cornerRadius={0}
-        padAngle={0}
-        borderWidth={1}
-        borderColor={"#ffffff"}
-        enableArcLinkLabels={false}
-        arcLabel={(d) => `${d.id}`}
-        arcLabelsTextColor={"#ffffff"}
-        arcLabelsRadiusOffset={0.65}
-        colors={["#2563eb"]}
-        theme={{
-          labels: {
-            text: {
-              fontSize: "18px",
-            },
-          },
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-        }}
-        role="application"
-      />
-    </div>
-  );
-}
-
-export function TimeseriesChart(props: any) {
+export function AllocationRing({
+  allocation,
+  size = 166,
+}: {
+  allocation: Allocation[];
+  size?: number;
+}) {
+  let offset = 0;
   return (
-    <div {...props}>
-      <ResponsiveLine
-        data={[
-          {
-            id: "Desktop",
-            data: [
-              { x: "2018-01-01", y: 7 },
-              { x: "2018-01-02", y: 5 },
-              { x: "2018-01-03", y: 11 },
-              { x: "2018-01-04", y: 9 },
-              { x: "2018-01-05", y: 12 },
-              { x: "2018-01-06", y: 16 },
-              { x: "2018-01-07", y: 13 },
-            ],
-          },
-          {
-            id: "Mobile",
-            data: [
-              { x: "2018-01-01", y: 9 },
-              { x: "2018-01-02", y: 8 },
-              { x: "2018-01-03", y: 13 },
-              { x: "2018-01-04", y: 6 },
-              { x: "2018-01-05", y: 8 },
-              { x: "2018-01-06", y: 14 },
-              { x: "2018-01-07", y: 11 },
-            ],
-          },
-        ]}
-        margin={{ top: 10, right: 20, bottom: 40, left: 40 }}
-        xScale={{
-          type: "time",
-          format: "%Y-%m-%d",
-          useUTC: false,
-          precision: "day",
-        }}
-        xFormat="time:%Y-%m-%d"
-        yScale={{
-          type: "linear",
-          min: 0,
-          max: "auto",
-        }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-          format: "%d",
-          tickValues: "every 1 day",
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 5,
-          tickPadding: 16,
-        }}
-        colors={["#2563eb", "#e11d48"]}
-        pointSize={6}
-        useMesh={true}
-        gridYValues={6}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-          grid: {
-            line: {
-              stroke: "#f3f4f6",
-            },
-          },
-        }}
-        role="application"
-      />
+    <div className="allocation-ring" style={{ width: size, height: size }}>
+      <svg
+        viewBox="0 0 180 180"
+        role="img"
+        aria-label={`Allocation: ${allocation.map((a) => `${a.name} ${a.pct.toFixed(1)}%`).join(', ') || 'No holdings yet'}`}
+      >
+        <circle cx="90" cy="90" r="70" fill="none" stroke="#eeeee7" strokeWidth="23" />
+        {allocation.map((a) => {
+          const start = offset;
+          offset += a.pct;
+          return (
+            <circle
+              key={a.asset_id}
+              cx="90"
+              cy="90"
+              r="70"
+              fill="none"
+              stroke={a.color}
+              strokeWidth="23"
+              pathLength="100"
+              strokeDasharray={`${Math.max(0, a.pct - 1.5)} ${100 - Math.max(0, a.pct - 1.5)}`}
+              strokeDashoffset={-start}
+              transform="rotate(-90 90 90)"
+            />
+          );
+        })}
+      </svg>
+      <div className="ring-label">
+        <strong>{allocation.length}</strong>
+        <span>assets</span>
+      </div>
     </div>
   );
 }

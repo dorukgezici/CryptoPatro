@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Postcard } from '../components/Postcard';
+import { demoPortfolio } from '../lib/demo';
+---
+
+<Layout
+  title="Crypto portfolio tracker, with perspective | CryptoPatro"
+  description="Track your crypto without connecting a wallet. See your mix, understand your numbers, and share a portfolio postcard. Free, open source, by Doruk Gezici."
+>
+  <div class="public-shell">
+    <header class="public-nav">
+      <a class="brand" href="/">
+        <img src="/favicon.svg" width="34" height="34" alt="" />
+        <span>
+          cryptopatro<span class="brand-dot">.</span>
+        </span>
+      </a>
+      <nav class="public-nav-actions" aria-label="Main navigation">
+        <a class="about-nav-github" href="https://github.com/dorukgezici/CryptoPatro">
+          Open source ↗
+        </a>
+        <a class="button primary" href="/?start=1">
+          Make it yours <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="public-hero">
+        <div class="eyebrow">
+          <span class="status-dot"></span> A CALMER CORNER OF CRYPTO
+        </div>
+        <h1>
+          Your crypto.
+          <br />A little <span>clearer.</span>
+        </h1>
+        <p>
+          A personal portfolio tracker for people who want perspective, not another screen to stare
+          at. See what you own. Understand your mix. Get on with your day.
+        </p>
+        <a class="button primary" href="/?start=1">
+          Start with one holding <span aria-hidden="true">↗</span>
+        </a>
+        <div class="about-proof">
+          <span>✓ Free and open source</span>
+          <span>✓ No exchange keys</span>
+          <span>✓ No signup to get started</span>
+        </div>
+      </section>
+      <section class="about-visual">
+        <div>
+          <div class="eyebrow">YOUR PERSPECTIVE, BEAUTIFULLY PACKED</div>
+          <h2>
+            A portfolio is personal.
+            <br />
+            Your balance can stay that way.
+          </h2>
+          <p>
+            Turn your allocation into a little postcard. Share your perspective with a friend, or
+            the internet. Your quantities, balance, and cost basis stay behind.
+          </p>
+          <a class="text-link" href="/?share=1">
+            Try a sample postcard <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <Postcard allocation={demoPortfolio.allocation} isDemo={true} source="sample" />
+      </section>
+      <section class="about-columns" aria-label="How it works">
+        <article>
+          <div class="about-step">01 / A CLEARER PICTURE</div>
+          <h2>Start with what you own.</h2>
+          <p>
+            Add an asset, its quantity, and your average buy price. Your private workspace shows its
+            value, cost basis, and estimated price movement in one place.
+          </p>
+        </article>
+        <article>
+          <div class="about-step">02 / A LITTLE CONTEXT</div>
+          <h2>Understand the bigger picture.</h2>
+          <p>
+            See where your portfolio is concentrated. Ask Patro to explain the numbers in plain
+            language. Set a target price and check it when you come back.
+          </p>
+        </article>
+        <article>
+          <div class="about-step">03 / A SHARED PERSPECTIVE</div>
+          <h2>Pass something useful on.</h2>
+          <p>
+            Make a postcard of your mix. Share a public link or save an image. Every postcard gives
+            the next person a simple way to build their own.
+          </p>
+        </article>
+      </section>
+      <section class="methodology" id="methodology">
+        <div>
+          <div class="eyebrow">NO BLACK BOXES</div>
+          <h2>Good perspective starts with honest numbers.</h2>
+          <p>Here’s exactly what you’re looking at, and what this first release does.</p>
+        </div>
+        <div>
+          <details open>
+            <summary>Where do the prices come from?</summary>
+            <p>
+              CoinGecko provides indicative USD quotes and seven-day price history for Bitcoin,
+              Ethereum, Solana, USDC, Avalanche, and Chainlink. Quotes are cached briefly. If the
+              provider is unavailable, the app labels cached or illustrative sample prices and shows
+              their timestamp. Sample data is never described as live.
+            </p>
+          </details>
+          <details>
+            <summary>How are returns and charts calculated?</summary>
+            <p>
+              Value is quantity multiplied by the latest quote. Unrealized profit compares that
+              value with your entered average buy price. Returns are hidden when cost basis is
+              unknown. The chart revalues your current quantities at past prices. It is a
+              hypothetical view, not your actual account history. Fees, sells, taxes, and realized
+              returns are not tracked.
+            </p>
+          </details>
+          <details>
+            <summary>Where is my portfolio saved?</summary>
+            <p>
+              Your holdings are saved on the server. A private bearer key in this browser provides
+              access. No wallet access or exchange credentials are needed. Clearing browser storage
+              loses that key. This release does not include account recovery, cross-device sync, or
+              exchange imports.
+            </p>
+          </details>
+          <details>
+            <summary>Is Patro really AI?</summary>
+            <p>
+              When an AI provider is configured by the host, Pydantic AI interprets your question
+              and the server answers with verified portfolio calculations. Otherwise Patro provides
+              a clearly labeled local portfolio summary. It does not predict prices or place trades.
+              Each question is independent, and portfolio context is educational.
+            </p>
+          </details>
+          <details>
+            <summary>What happens when I create a postcard?</summary>
+            <p>
+              You choose a title and whether to include a return percentage. The public snapshot
+              contains asset names and allocation percentages, never balances, quantities, cost
+              basis, or your access key. Anyone with its link can view it. Personal postcards can be
+              revoked from the share dialog. Demo postcards are public samples. Basic share and
+              referral events help understand how the product is discovered, without recording
+              portfolio values or browser identifiers.
+            </p>
+          </details>
+          <details>
+            <summary>How do price alerts work?</summary>
+            <p>
+              Alerts are checked when you open the price alerts screen or select “Check prices.”
+              Only fresh provider quotes can trigger an alert. They are in-app checks, not
+              background notifications. Email, push, and Telegram delivery are not part of this
+              release.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="about-maker">
+        <div>
+          <div class="eyebrow">A SMALL, INDEPENDENT PROJECT</div>
+          <h2>Built by Doruk Gezici.</h2>
+          <p>
+            CryptoPatro began as a personal crypto tracking project. This is its next chapter: an
+            open-source tool that makes the numbers easier to live with. Follow the build, read the
+            code, or help shape what comes next.
+          </p>
+        </div>
+        <a
+          class="button secondary"
+          href="https://github.com/dorukgezici"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Meet the maker <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+    </main>
+    <footer class="public-footer">
+      <span>© {new Date().getFullYear()} CryptoPatro. A perspective, not investment advice.</span>
+      <a href="/">
+        Explore the sample portfolio <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </div>
+</Layout>

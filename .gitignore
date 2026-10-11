@@ -2,3 +2,27 @@
 .DS_Store
 .idea/
 .fleet/
+
+# Local secrets and generated state
+.backups/
+.env
+.env.*
+!.env.example
+!.env.template
+node_modules/
+dist/
+.astro/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+data/
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+playwright-report/
+test-results/
+*.log
